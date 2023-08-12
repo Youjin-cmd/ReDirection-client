@@ -8,6 +8,7 @@ export default {
       pureRed: "#FF0000",
       lightRed: "#F4ECEC",
       black: "#000000",
+      white: "#FFFFFF",
     },
   },
   plugins: [],
