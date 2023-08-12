@@ -1,7 +1,17 @@
+import { Routes, Route } from "react-router-dom";
+
+import Header from "../components/Header";
+import Main from "../components/Main";
+
 function App() {
   return (
-    <div className="flex justify-center items-center w-screen h-screen bg-blue-300">
-      ReDirection FE boilerplate
+    <div className="flex flex-col h-screen">
+      <Header />
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Main />} />
+        </Routes>
+      </div>
     </div>
   );
 }
