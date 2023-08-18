@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import SelectArea from "../components/SelectArea";
+import Result from "../components/Result";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/selectArea" element={<SelectArea />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </div>
     </div>
