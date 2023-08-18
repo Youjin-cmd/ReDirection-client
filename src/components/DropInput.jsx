@@ -8,12 +8,8 @@ import useProgressStore from "../store/progress";
 
 function DropInput() {
   const navigate = useNavigate();
-  const {
-    uploadProgress,
-    setUploadProgress,
-    analysisProgress,
-    setAnalysisProgress,
-  } = useProgressStore();
+  const { showLoading, setShowLoading, setUploadStatus, setAnalysisStatus } =
+    useProgressStore();
 
   const onDrop = async acceptedFiles => {
     const formData = new FormData();
@@ -23,9 +19,12 @@ function DropInput() {
       },
       onUploadProgress: progressEvent => {
         const progress = (progressEvent.loaded / progressEvent.total) * 100;
-        setUploadProgress(progress);
+        setUploadStatus(progress);
       },
     };
+
+    setShowLoading(true);
+    setAnalysisStatus("in progress");
 
     formData.append("video", acceptedFiles[0]);
 
@@ -36,7 +35,8 @@ function DropInput() {
     );
 
     if (response.data.success) {
-      setAnalysisProgress(true);
+      setAnalysisStatus("done");
+
       setTimeout(() => {
         navigate("/selectArea", {
           state: {
@@ -44,6 +44,9 @@ function DropInput() {
             startPixelArray: response.data.startPixelArray,
           },
         });
+
+        setShowLoading(false);
+        setAnalysisStatus(false);
       }, "1000");
     }
   };
@@ -52,12 +55,7 @@ function DropInput() {
 
   return (
     <div>
-      {uploadProgress !== 0 && (
-        <Loading
-          uploadProgress={uploadProgress}
-          analysisProgress={analysisProgress}
-        />
-      )}
+      {showLoading && <Loading />}
       <div
         className="flex flex-col justify-center items-center w-[500px] h-[200px] p-5 m-20 rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
         {...getRootProps()}
