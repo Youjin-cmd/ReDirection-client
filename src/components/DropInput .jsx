@@ -1,15 +1,19 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 import Loading from "./Loading";
+import useProgressStore from "../store/progress";
 
 function DropInput() {
   const navigate = useNavigate();
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [analysisProgress, setAnalysisProgress] = useState(false);
+  const {
+    uploadProgress,
+    setUploadProgress,
+    analysisProgress,
+    setAnalysisProgress,
+  } = useProgressStore();
 
   const onDrop = async acceptedFiles => {
     const formData = new FormData();
