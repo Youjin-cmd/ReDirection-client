@@ -1,4 +1,4 @@
-import DropInput from "./DropInput ";
+import DropInput from "./DropInput";
 
 function Main() {
   return (

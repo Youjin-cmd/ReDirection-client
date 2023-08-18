@@ -11,6 +11,7 @@ export default {
       white: "#FFFFFF",
       green: "#0ec435",
       blue: "#4287f5",
+      blueHover: "#5693f5",
       gray: "#dbdbdb",
     },
   },
