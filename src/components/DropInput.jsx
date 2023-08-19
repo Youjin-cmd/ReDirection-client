@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-import Loading from "./Loading";
+import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
 
 function DropInput() {
@@ -38,15 +38,16 @@ function DropInput() {
       setAnalysisStatus("done");
 
       setTimeout(() => {
+        setShowLoading(false);
+        setAnalysisStatus(false);
+        setUploadStatus(null);
+
         navigate("/selectArea", {
           state: {
             url: response.data.url,
             startPixelArray: response.data.startPixelArray,
           },
         });
-
-        setShowLoading(false);
-        setAnalysisStatus(false);
       }, "1000");
     }
   };
@@ -55,7 +56,13 @@ function DropInput() {
 
   return (
     <div>
-      {showLoading && <Loading />}
+      {showLoading && (
+        <LoadingArea
+          className={
+            "absolute flex flex-col justify-center items-center w-[500px] h-[200px] p-5 m-20 rounded-md bg-white opacity-90"
+          }
+        />
+      )}
       <div
         className="flex flex-col justify-center items-center w-[500px] h-[200px] p-5 m-20 rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
         {...getRootProps()}
@@ -73,7 +80,7 @@ function DropInput() {
             <p className="text-3xl">Upload your video</p>
           )}
         </div>
-        <p className="text-xs">in .mp4 and .mov format</p>
+        <p className="text-s">in .mp4 and .mov format</p>
       </div>
     </div>
   );
