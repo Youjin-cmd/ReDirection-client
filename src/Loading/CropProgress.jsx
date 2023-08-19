@@ -8,16 +8,16 @@ function CropProgress() {
   return (
     <>
       {cropStatus && (
-        <li className="flex mb-3 opacity-100">
+        <li className="flex m-3 opacity-100">
           {cropStatus === "in progress" ? (
             <>
               <LoadingSpinner />
-              Analyzing video
+              Cropping video
             </>
           ) : (
             <>
               <CompleteIcon />
-              Analyzing video complete
+              Cropping video complete
             </>
           )}
         </li>

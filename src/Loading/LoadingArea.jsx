@@ -1,10 +1,12 @@
+import PropTypes from "prop-types";
+
 import UploadProgress from "./UploadProgress";
 import CropProgress from "./CropProgress";
 import AnalysisProgress from "./AnalysisProgress";
 
-function Loading() {
+function LoadingArea({ className }) {
   return (
-    <ul className="absolute flex flex-col justify-center items-center w-[500px] h-[200px] p-5 m-20 rounded-xl bg-white opacity-90">
+    <ul className={className}>
       <UploadProgress />
       <AnalysisProgress />
       <CropProgress />
@@ -12,4 +14,8 @@ function Loading() {
   );
 }
 
-export default Loading;
+LoadingArea.propTypes = {
+  className: PropTypes.string,
+};
+
+export default LoadingArea;

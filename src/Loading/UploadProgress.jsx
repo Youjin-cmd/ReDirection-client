@@ -8,7 +8,7 @@ function UploadProgress() {
   return (
     <>
       {uploadStatus && (
-        <li className="flex mb-3 opacity-100">
+        <li className="flex m-3 opacity-100">
           {uploadStatus !== 100 ? (
             <>
               <LoadingSpinner />
