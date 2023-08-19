@@ -4,7 +4,7 @@ export default {
   theme: {
     colors: {
       red: "#C32F2F",
-      hoverRed: "#D94646",
+      hoverRed: "#db4d4d",
       pureRed: "#FF0000",
       lightRed: "#F4ECEC",
       black: "#000000",

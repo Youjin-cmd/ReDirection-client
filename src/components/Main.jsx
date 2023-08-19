@@ -10,7 +10,7 @@ function Main() {
           alt="dog image"
         />
         <img
-          className="absolute top-[-25px] left-[530px] w-[300px]"
+          className="absolute top-[-25px] left-[530px] w-[300px] animate-pulse"
           src="/assets/image_rectangle.svg"
         />
       </div>
