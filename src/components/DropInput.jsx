@@ -5,6 +5,8 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL;
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
+import CONSTANT from "../constants/constant";
+const { ONE_SECOND } = CONSTANT;
 
 function DropInput() {
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ function DropInput() {
             startPixelArray: response.data.startPixelArray,
           },
         });
-      }, "1000");
+      }, ONE_SECOND);
     }
   };
 
