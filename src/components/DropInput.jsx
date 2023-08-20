@@ -3,10 +3,11 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-import LoadingArea from "../Loading/LoadingArea";
-import useProgressStore from "../store/progress";
 import CONSTANT from "../constants/constant";
 const { ONE_SECOND } = CONSTANT;
+
+import LoadingArea from "../Loading/LoadingArea";
+import useProgressStore from "../store/progress";
 
 function DropInput() {
   const navigate = useNavigate();

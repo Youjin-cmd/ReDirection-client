@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../shared/Button";
 
+import calculateAreaSelection from "../util/calculateAreaSelection";
+import optimizeStartPixelArray from "../util/optimizeStartPixelArray";
+import CONSTANT from "../constants/constant";
+const { ONE_SECOND, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 const baseURL = import.meta.env.VITE_BASE_URL;
+
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
 import useDragDropStore from "../store/dragDrop";
-import calculateAreaSelection from "../util/calculateAreaSelection";
-import CONSTANT from "../constants/constant";
-const { ONE_SECOND, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
+import Button from "../shared/Button";
 
 function SelectArea() {
   const videoRef = useRef(null);
@@ -61,7 +63,16 @@ function SelectArea() {
     setShowLoading(true);
     setCropStatus("in progress");
 
-    const response = await axios.post(`${baseURL}/video/crop`, startPixelArray);
+    const optimizedVersion = optimizeStartPixelArray(
+      startPixelArray,
+      defaultX,
+      defaultW,
+    );
+
+    const response = await axios.post(
+      `${baseURL}/video/crop`,
+      optimizedVersion,
+    );
 
     if (response.data.success) {
       setCropStatus("done");
