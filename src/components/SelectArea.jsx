@@ -1,16 +1,61 @@
 import axios from "axios";
+import { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/Button";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
+import useDragDropStore from "../store/dragDrop";
+import calculateAreaSelection from "../util/calculateAreaSelection";
+import CONSTANT from "../constants/constant";
+const { ONE_SECOND, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
 function SelectArea() {
+  const videoRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { url, startPixelArray } = location.state;
   const { showLoading, setShowLoading, setCropStatus } = useProgressStore();
+  const {
+    isDragging,
+    setIsDragging,
+    defaultX,
+    defaultW,
+    setDefaultX,
+    setDefaultW,
+  } = useDragDropStore();
+
+  function handleMouseDown() {
+    setIsDragging(true);
+  }
+
+  function handleMouseUp() {
+    setIsDragging(false);
+  }
+
+  function handleMouseMove(event) {
+    if (!isDragging) {
+      return;
+    }
+
+    const videoElement = videoRef.current;
+
+    if (videoElement) {
+      const videoRect = videoElement.getBoundingClientRect();
+      const videoX = videoRect.left;
+      const cursorX = event.clientX;
+
+      calculateAreaSelection(
+        cursorX,
+        videoX,
+        defaultX,
+        defaultW,
+        setDefaultX,
+        setDefaultW,
+      );
+    }
+  }
 
   async function handleClickConvert() {
     setShowLoading(true);
@@ -30,15 +75,36 @@ function SelectArea() {
             url: response.data.url,
           },
         });
-      }, "1000");
+      }, ONE_SECOND);
     }
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
+    <div
+      className="flex flex-col justify-center items-center h-full"
+      onMouseUp={handleMouseUp}
+      onMouseMove={e => handleMouseMove(e)}
+      draggable={false}
+    >
       <h1 className="mb-10 text-3xl">Select moving area</h1>
-      <div className="flex justify-center items-center mb-10">
-        <video controls width="1000">
+      <div className="relative flex justify-center items-center mb-10">
+        <div
+          className="absolute ring-8 ring-red bg-red opacity-30"
+          style={{
+            left: `${defaultX}px`,
+            width: `${defaultW}px`,
+            height: `560px`,
+          }}
+        ></div>
+        <video
+          className="hover:cursor-ew-resize"
+          ref={videoRef}
+          autoPlay={true}
+          loop={true}
+          width={ANALYSIS_VIDEO_WIDTH}
+          draggable={false}
+          onMouseDown={handleMouseDown}
+        >
           <source src={url} type="video/webm" />
           Download the
           <a href={url}>MP4</a>
