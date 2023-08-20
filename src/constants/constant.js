@@ -1,0 +1,7 @@
+const CONSTANT = {
+  RESULT_WIDTH: 320,
+  ONE_SECOND: 1000,
+  ANALYSIS_VIDEO_WIDTH: 1000,
+};
+
+export default CONSTANT;
