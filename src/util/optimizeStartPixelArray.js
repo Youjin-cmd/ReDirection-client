@@ -1,5 +1,5 @@
 import CONSTANT from "../constants/constant";
-const { RESULT_WIDTH } = CONSTANT;
+const { RESULT_WIDTH, FRAMES_TO_SKIP } = CONSTANT;
 
 export default function optimizeStartPixelArray(
   array,
@@ -77,22 +77,22 @@ export default function optimizeStartPixelArray(
     }
   }
 
-  for (let i = 0; i < arrayAfterScalingUp.length; i += 10) {
-    let prevNumber = arrayAfterScalingUp[i];
-    let nextNumber = 0;
+  for (let i = 0; i < arrayAfterScalingUp.length; i += FRAMES_TO_SKIP) {
+    let prevValue = arrayAfterScalingUp[i];
+    let nextValue = 0;
     let count = 1;
 
-    if (i + 10 < arrayAfterScalingUp.length) {
-      nextNumber = arrayAfterScalingUp[i + 10];
+    if (i + FRAMES_TO_SKIP < arrayAfterScalingUp.length) {
+      nextValue = arrayAfterScalingUp[i + FRAMES_TO_SKIP];
     } else {
-      nextNumber = arrayAfterScalingUp[arrayAfterScalingUp.length - 1];
+      nextValue = arrayAfterScalingUp[arrayAfterScalingUp.length - 1];
     }
 
-    let incrementNum = Math.round((nextNumber - prevNumber) / 10);
-    arrayAfterOptimization.push(prevNumber);
+    let incrementNum = Math.round((nextValue - prevValue) / FRAMES_TO_SKIP);
+    arrayAfterOptimization.push(prevValue);
 
-    for (let j = i + 1; j < i + 10; j++) {
-      arrayAfterOptimization.push(prevNumber + incrementNum * count);
+    for (let j = i + 1; j < i + FRAMES_TO_SKIP; j++) {
+      arrayAfterOptimization.push(prevValue + incrementNum * count);
       count++;
     }
   }
