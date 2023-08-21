@@ -17,7 +17,7 @@ function SelectArea() {
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { url, startPixelArray } = location.state;
+  const { url, startPixelArray, videoWidth } = location.state;
   const { showLoading, setShowLoading, setCropStatus } = useProgressStore();
   const {
     isDragging,
@@ -67,6 +67,7 @@ function SelectArea() {
       startPixelArray,
       defaultX,
       defaultW,
+      videoWidth,
     );
 
     const response = await axios.post(
