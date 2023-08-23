@@ -10,11 +10,12 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
-import useDragDropStore from "../store/dragDrop";
+import useSelectAreaStore from "../store/selectArea";
 import Button from "../shared/Button";
 
 function SelectArea() {
   const videoRef = useRef(null);
+  const videoElement = videoRef.current;
   const navigate = useNavigate();
   const location = useLocation();
   const { url, startPixelArray, videoWidth } = location.state;
@@ -26,7 +27,7 @@ function SelectArea() {
     defaultW,
     setDefaultX,
     setDefaultW,
-  } = useDragDropStore();
+  } = useSelectAreaStore();
 
   function handleMouseDown() {
     setIsDragging(true);
@@ -40,8 +41,6 @@ function SelectArea() {
     if (!isDragging) {
       return;
     }
-
-    const videoElement = videoRef.current;
 
     if (videoElement) {
       const videoRect = videoElement.getBoundingClientRect();
@@ -82,7 +81,7 @@ function SelectArea() {
         setShowLoading(false);
         setCropStatus(false);
 
-        navigate("/result", {
+        navigate("/edit", {
           state: {
             url: response.data.url,
           },

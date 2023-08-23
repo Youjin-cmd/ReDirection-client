@@ -2,7 +2,7 @@ import { create } from "zustand";
 import CONSTANT from "../constants/constant";
 const { ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
-const useDragDropStore = create(set => ({
+const useSelectAreaStore = create(set => ({
   isDragging: false,
   defaultX: 0,
   defaultW: ANALYSIS_VIDEO_WIDTH,
@@ -11,4 +11,4 @@ const useDragDropStore = create(set => ({
   setDefaultW: newWidth => set({ defaultW: newWidth }),
 }));
 
-export default useDragDropStore;
+export default useSelectAreaStore;
