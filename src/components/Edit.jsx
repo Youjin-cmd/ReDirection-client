@@ -12,7 +12,7 @@ const { ONE_SECOND } = CONSTANT;
 import Button from "../shared/Button";
 import Carousel from "../Carousel/Carousel";
 import LoadingArea from "../Loading/LoadingArea";
-import Decorations from "./Decorations";
+import Decorations from "../Decorations/Decorations";
 
 function Edit() {
   const videoRef = useRef(null);
@@ -32,10 +32,6 @@ function Edit() {
     setIsFontDragging,
     isStickerDragging,
     setIsStickerDragging,
-    // fontX,
-    // fontY,
-    // stickerX,
-    // stickerY,
     setFontX,
     setFontY,
     setStickerX,
@@ -49,11 +45,6 @@ function Edit() {
         return;
       }
 
-      // if (currentXBasedOnVideoArea > 250 || currentYBasedOnVideoArea > 586) {
-      //   setIsDragging(false);
-      //   return;
-      // }
-
       const videoRect = videoElement.getBoundingClientRect();
       const videoLeftEdge = videoRect.left;
       const videoTopEdge = videoRect.top;
@@ -62,10 +53,6 @@ function Edit() {
       const cursorY = event.clientY;
 
       if (isStickerDragging) {
-        // if (stickerY > 586) {
-        //   setStickerY(585);
-        //   return;
-        // }
         calculateElementsCoord(
           videoLeftEdge,
           videoTopEdge,
@@ -132,7 +119,13 @@ function Edit() {
     setShowLoading(true);
     setEditStatus("in progress");
 
-    const response = await axios.post(`${baseURL}/video/edit`);
+    const response = await axios.post(`${baseURL}/video/edit`, {
+      typeface: selectedSquares.font,
+      fontColor: null,
+      fontBg: null,
+      text: null,
+      image: null,
+    });
 
     if (response.data.success) {
       setEditStatus("done");
@@ -156,7 +149,7 @@ function Edit() {
       <div className="flex justify-center items-center w-[1300px] mb-5">
         <Carousel array={fontArray} type="font" setArray={setFontArray} />
         <div className="relative flex justify-center items-center w-[406px] h-[720px]">
-          <Decorations />
+          <Decorations handleMouseUp={handleMouseUp} />
           <Button
             className="absolute top-5 right-4 z-10"
             onClick={handleToggleMute}

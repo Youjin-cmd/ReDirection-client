@@ -106,7 +106,7 @@ function SelectArea() {
             width: `${defaultW}px`,
             height: `560px`,
           }}
-        ></div>
+        />
         <video
           className="hover:cursor-ew-resize"
           ref={videoRef}
