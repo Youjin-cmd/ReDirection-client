@@ -3,15 +3,15 @@ import { create } from "zustand";
 const useEditStore = create(set => ({
   fontArray: [
     null,
-    "/assets/text_notoSerifKor.svg",
-    "/assets/text_bebasNeue.svg",
-    "/assets/text_hanuman.svg",
-    "/assets/text_beauRivage.svg",
-    "/assets/text_basic.svg",
-    "/assets/text_justMeAgainDownHere.svg",
-    "/assets/text_pasifico.svg",
-    "/assets/text_gochiHand.svg",
-    "/assets/text_handJet.svg",
+    "/assets/notoSerifKor.svg",
+    "/assets/bebasNeue.svg",
+    "/assets/hanuman.svg",
+    "/assets/beauRivage.svg",
+    "/assets/basic.svg",
+    "/assets/justMeAgainDownHere.svg",
+    "/assets/pacifico.svg",
+    "/assets/gochiHand.svg",
+    "/assets/handjet.svg",
   ],
   stickerArray: [
     null,
@@ -27,6 +27,7 @@ const useEditStore = create(set => ({
   ],
   selectedSquares: {
     font: null,
+    typeface: null,
     sticker: null,
   },
   isFontDragging: false,
@@ -37,11 +38,12 @@ const useEditStore = create(set => ({
   stickerY: 0,
   setFontArray: newArray => set({ fontArray: newArray }),
   setStickerArray: newArray => set({ stickerArray: newArray }),
-  setSelectedSquares: (newSelectedSquare, type) => {
+  setSelectedSquares: (newSelectedSquare, type, typeface) => {
     set(state => ({
       selectedSquares: {
         ...state.selectedSquares,
         [type]: newSelectedSquare,
+        typeface: typeface,
       },
     }));
   },

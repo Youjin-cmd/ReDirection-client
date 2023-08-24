@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Button from "./Button";
+import Button from "../shared/Button";
 
 function Square({ children, onClick, active }) {
   return (
@@ -10,7 +10,7 @@ function Square({ children, onClick, active }) {
     >
       <Button
         className="relative flex justify-center items-center h-[120px] w-full hover:cursor-pointer"
-        onClick={() => onClick(children.props.src)}
+        onClick={() => onClick()}
       >
         {children}
       </Button>

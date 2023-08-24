@@ -5,15 +5,9 @@ export default function calculateElementsCoord(
   cursorY,
   setElementX,
   setElementY,
-  setIsDragging,
 ) {
   const currentXBasedOnVideoArea = cursorX - videoX;
   const currentYBasedOnVideoArea = cursorY - videoY;
-
-  if (currentXBasedOnVideoArea > 250 || currentYBasedOnVideoArea > 586) {
-    setIsDragging(false);
-    return;
-  }
 
   setElementX(currentXBasedOnVideoArea);
   setElementY(currentYBasedOnVideoArea);

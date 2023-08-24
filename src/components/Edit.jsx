@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -10,12 +10,14 @@ import CONSTANT from "../constants/constant";
 const { ONE_SECOND } = CONSTANT;
 
 import Button from "../shared/Button";
-import Carousel from "../shared/Carousel";
+import Carousel from "../Carousel/Carousel";
 import LoadingArea from "../Loading/LoadingArea";
+import Decorations from "./Decorations";
 
 function Edit() {
   const videoRef = useRef(null);
   const videoElement = videoRef.current;
+
   const location = useLocation();
   const navigate = useNavigate();
   const { url } = location.state;
@@ -30,114 +32,75 @@ function Edit() {
     setIsFontDragging,
     isStickerDragging,
     setIsStickerDragging,
-    fontX,
-    fontY,
+    // fontX,
+    // fontY,
+    // stickerX,
+    // stickerY,
     setFontX,
     setFontY,
-    stickerX,
-    stickerY,
     setStickerX,
     setStickerY,
   } = useEditStore();
   const [isMuted, setIsMuted] = useState(false);
 
-  function handleMouseMove(event) {
-    if (!isFontDragging && !isStickerDragging) {
-      return;
-    }
+  const handleMouseMove = useCallback(
+    event => {
+      if (!isFontDragging && !isStickerDragging) {
+        return;
+      }
 
-    const videoRect = videoElement.getBoundingClientRect();
-    const videoLeftEdge = videoRect.left;
-    const videoTopEdge = videoRect.top;
-    const cursorX = event.clientX;
-    const cursorY = event.clientY;
+      // if (currentXBasedOnVideoArea > 250 || currentYBasedOnVideoArea > 586) {
+      //   setIsDragging(false);
+      //   return;
+      // }
 
-    if (isFontDragging) {
-      calculateElementsCoord(
-        videoLeftEdge,
-        videoTopEdge,
-        cursorX,
-        cursorY,
-        setFontX,
-        setFontY,
-        setIsFontDragging,
-      );
-    }
+      const videoRect = videoElement.getBoundingClientRect();
+      const videoLeftEdge = videoRect.left;
+      const videoTopEdge = videoRect.top;
 
-    if (isStickerDragging) {
-      calculateElementsCoord(
-        videoLeftEdge,
-        videoTopEdge,
-        cursorX,
-        cursorY,
-        setStickerX,
-        setStickerY,
-        setIsStickerDragging,
-      );
-    }
-  }
+      const cursorX = event.clientX;
+      const cursorY = event.clientY;
 
-  function handleMouseDown(event) {
-    if (event.target.id === "sticker") {
-      setIsStickerDragging(true);
-    }
+      if (isStickerDragging) {
+        // if (stickerY > 586) {
+        //   setStickerY(585);
+        //   return;
+        // }
+        calculateElementsCoord(
+          videoLeftEdge,
+          videoTopEdge,
+          cursorX,
+          cursorY,
+          setStickerX,
+          setStickerY,
+        );
+      }
 
-    if (event.target.id === "font") {
-      setIsFontDragging(true);
-    }
-  }
+      if (isFontDragging) {
+        calculateElementsCoord(
+          videoLeftEdge,
+          videoTopEdge,
+          cursorX,
+          cursorY,
+          setFontX,
+          setFontY,
+        );
+      }
+    },
+    [
+      videoElement,
+      isFontDragging,
+      isStickerDragging,
+      setStickerX,
+      setStickerY,
+      setFontX,
+      setFontY,
+    ],
+  );
 
   function handleMouseUp() {
     setIsStickerDragging(false);
     setIsFontDragging(false);
-  }
-
-  function adjustTextareaHeight(event) {
-    event.target.style.height = `${event.target.scrollHeight}px`;
-  }
-
-  function renderSelectedElements() {
-    const renderedElements = [];
-
-    if (selectedSquares.font) {
-      renderedElements.push(
-        <textarea
-          key="font"
-          id="font"
-          className={`absolute w-[150px] z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none hover:ring-hoverRed hover:ring-2 hover:cursor-move`}
-          style={{
-            left: `${fontX}px`,
-            top: `${fontY}px`,
-            background: "transparent",
-          }}
-          onMouseDown={e => handleMouseDown(e)}
-          onMouseUp={handleMouseUp}
-          draggable={false}
-          defaultValue="TEXT"
-          onChange={e => adjustTextareaHeight(e)}
-        />,
-      );
-    }
-
-    if (selectedSquares.sticker) {
-      renderedElements.push(
-        <img
-          key="sticker"
-          id="sticker"
-          className={`absolute w-[150px] z-10 select-none hover:ring-hoverRed hover:ring-2 hover:cursor-move`}
-          style={{
-            left: `${stickerX}px`,
-            top: `${stickerY}px`,
-          }}
-          src={selectedSquares.sticker}
-          onMouseDown={e => handleMouseDown(e)}
-          onMouseUp={handleMouseUp}
-          draggable={false}
-        />,
-      );
-    }
-
-    return renderedElements;
   }
 
   function handleToggleMute() {
@@ -193,7 +156,7 @@ function Edit() {
       <div className="flex justify-center items-center w-[1300px] mb-5">
         <Carousel array={fontArray} type="font" setArray={setFontArray} />
         <div className="relative flex justify-center items-center w-[406px] h-[720px]">
-          {renderSelectedElements()}
+          <Decorations />
           <Button
             className="absolute top-5 right-4 z-10"
             onClick={handleToggleMute}
@@ -210,7 +173,11 @@ function Edit() {
             loop={true}
             draggable={false}
             onMouseUp={handleMouseUp}
-            onMouseMove={e => handleMouseMove(e)}
+            onMouseMove={e => {
+              if (isFontDragging || isStickerDragging) {
+                handleMouseMove(e);
+              }
+            }}
           >
             <source src={url} type="video/webm" />
           </video>
