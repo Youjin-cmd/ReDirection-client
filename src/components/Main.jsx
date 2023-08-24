@@ -1,6 +1,13 @@
+import { useEffect } from "react";
+import axios from "axios";
 import DropInput from "./DropInput";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 function Main() {
+  useEffect(() => {
+    axios.put(`${baseURL}/video/clean`);
+  }, []);
+
   return (
     <div className="flex items-center h-full">
       <div className="relative flex-none w-[1000px]">
