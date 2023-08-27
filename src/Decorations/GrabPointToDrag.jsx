@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function DraggableArea({ coordX, coordY, setIsDragging }) {
+function GrabPointToDrag({ coordX, coordY, setIsDragging }) {
   return (
     <div
       className="absolute justify-center items-center w-6 h-6 z-10 rounded-full bg-white hidden select-none hover:flex peer-hover:flex hover:cursor-move"
@@ -21,10 +21,10 @@ function DraggableArea({ coordX, coordY, setIsDragging }) {
   );
 }
 
-DraggableArea.propTypes = {
+GrabPointToDrag.propTypes = {
   coordX: PropTypes.number.isRequired,
   coordY: PropTypes.number.isRequired,
   setIsDragging: PropTypes.func.isRequired,
 };
 
-export default DraggableArea;
+export default GrabPointToDrag;

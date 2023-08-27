@@ -1,5 +1,5 @@
 import useEditStore from "../store/edit";
-import DraggableArea from "./DraggableArea";
+import GrabPointToDrag from "./GrabPointToDrag";
 import FontBgColorSelector from "./FontBgColorSelector";
 import FontColorSelector from "./FontColorSelector";
 
@@ -7,7 +7,7 @@ function FontHandler() {
   const { fontX, fontY, setIsFontDragging } = useEditStore();
   return (
     <>
-      <DraggableArea
+      <GrabPointToDrag
         coordX={fontX}
         coordY={fontY}
         setIsDragging={setIsFontDragging}

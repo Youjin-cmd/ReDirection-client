@@ -1,5 +1,5 @@
 import useEditStore from "../store/edit";
-import DraggableArea from "./DraggableArea";
+import GrabPointToDrag from "./GrabPointToDrag";
 
 function Sticker() {
   const { selectedSquares, stickerX, stickerY, setIsStickerDragging } =
@@ -18,7 +18,7 @@ function Sticker() {
         src={selectedSquares.sticker}
         draggable={false}
       />
-      <DraggableArea
+      <GrabPointToDrag
         coordX={stickerX}
         coordY={stickerY}
         setIsDragging={setIsStickerDragging}

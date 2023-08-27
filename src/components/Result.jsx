@@ -23,7 +23,7 @@ function Result() {
       <div className="flex flex-col justify-end items-end min-w-[406px] w-1/3">
         <div className="flex flex-col justify-center items-center">
           <h1 className="mb-10 text-3xl">Result</h1>
-          <video controls width="406" autoPlay={true} loop={true}>
+          <video controls width="406" autoPlay={true} loop={true} muted>
             <source src={url} type="video/webm" />
             <a ref={downloadLinkRef} href={url} download />
           </video>

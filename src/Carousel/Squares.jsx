@@ -7,12 +7,17 @@ function Squares({ array, type }) {
 
   function clickHandleSquare(path, type) {
     let typeface = selectedSquares.typeface;
+    let stickerName = selectedSquares.stickerName;
 
-    if (type === "font" && path) {
-      typeface = path.split("/").pop().replace(".svg", "");
+    if (type === "font") {
+      typeface = path ? path.split("/").pop().replace(".svg", "") : null;
     }
 
-    setSelectedSquares(path, type, typeface);
+    if (type === "sticker") {
+      stickerName = path ? path.split("/").pop().replace(".svg", "") : null;
+    }
+
+    setSelectedSquares(path, type, typeface, stickerName);
   }
 
   return array.map(element => {
