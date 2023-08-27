@@ -22,7 +22,6 @@ export default {
       handjet: ["handjet"],
       hanuman: ["hanuman"],
       justMeAgainDownHere: ["justMeAgainDownHere"],
-      notoSerifKor: ["notoSerifKor"],
       pacifico: ["pacifico"],
     },
   },

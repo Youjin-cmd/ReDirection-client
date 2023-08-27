@@ -3,7 +3,6 @@ import { create } from "zustand";
 const useEditStore = create(set => ({
   fontArray: [
     null,
-    "/assets/notoSerifKor.svg",
     "/assets/bebasNeue.svg",
     "/assets/hanuman.svg",
     "/assets/beauRivage.svg",
@@ -15,20 +14,21 @@ const useEditStore = create(set => ({
   ],
   stickerArray: [
     null,
-    "/assets/heart.svg",
-    "/assets/yay.svg",
-    "/assets/game_over.svg",
-    "/assets/fabulous.svg",
-    "/assets/star.svg",
-    "/assets/rainbow.svg",
-    "/assets/pizza.svg",
-    "/assets/sunglass.svg",
-    "/assets/monitor.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
+    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
   ],
   selectedSquares: {
     font: null,
     typeface: null,
     sticker: null,
+    stickerName: null,
   },
   isFontDragging: false,
   isStickerDragging: false,
@@ -42,12 +42,13 @@ const useEditStore = create(set => ({
   stickerY: 0,
   setFontArray: newArray => set({ fontArray: newArray }),
   setStickerArray: newArray => set({ stickerArray: newArray }),
-  setSelectedSquares: (newSelectedSquare, type, typeface) => {
+  setSelectedSquares: (newSelectedSquare, type, typeface, stickerName) => {
     set(state => ({
       selectedSquares: {
         ...state.selectedSquares,
         [type]: newSelectedSquare,
         typeface: typeface,
+        stickerName: stickerName,
       },
     }));
   },
