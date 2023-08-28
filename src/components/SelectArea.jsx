@@ -97,7 +97,10 @@ function SelectArea() {
       onMouseMove={e => handleMouseMove(e)}
       draggable={false}
     >
-      <h1 className="mb-10 text-3xl">Select moving area</h1>
+      <h1 className="mb-5 text-3xl">Motion Heatmap</h1>
+      <h2 className="mb-10 text-xl">
+        Simply click and drag over the desired segment on the video.
+      </h2>
       <div className="relative flex justify-center items-center mb-10">
         <div
           className="absolute ring-8 ring-red bg-red opacity-30"
@@ -122,6 +125,10 @@ function SelectArea() {
           video.
         </video>
       </div>
+      <h2 className="mb-10 text-xl">
+        This selected segment will be the area where motion detection is
+        applied, and automatic cropping will take place.
+      </h2>
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea
