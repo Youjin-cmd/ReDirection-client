@@ -1,17 +1,21 @@
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/Button";
+import useEditStore from "../store/edit";
 
 function Result() {
   const location = useLocation();
   const navigate = useNavigate();
   const { url } = location.state;
   const downloadLinkRef = useRef();
+  const { resetEditData } = useEditStore();
 
   useEffect(() => {
     if (downloadLinkRef.current) {
       downloadLinkRef.current.click();
     }
+
+    resetEditData();
   }, []);
 
   function handleClickHome() {
