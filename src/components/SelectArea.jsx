@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -131,7 +132,8 @@ function SelectArea() {
         </video>
       </div>
       <h2 className="mb-10">
-        This selected segment will be the area where automatic cropping will take place.
+        This selected segment will be the area where automatic cropping will
+        take place.
       </h2>
       <div className="relative h-16 w-80">
         {showLoading && (

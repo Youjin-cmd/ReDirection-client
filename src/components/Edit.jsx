@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useRef, useCallback, useMemo, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -118,7 +119,7 @@ function Edit() {
       navigate("/error", {
         state: {
           errorCode: error.response.status,
-          errorText: error.response.statusText,
+          errorText: error.response.data.customMessage,
         },
       });
     }
