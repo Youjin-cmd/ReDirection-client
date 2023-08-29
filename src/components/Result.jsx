@@ -1,32 +1,54 @@
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/Button";
+import useEditStore from "../store/edit";
+import usePageStore from "../store/page";
 
 function Result() {
   const location = useLocation();
   const navigate = useNavigate();
   const { url } = location.state;
+  const downloadLinkRef = useRef();
+  const { resetEditData } = useEditStore();
+  const { setCurrentPage } = usePageStore();
+
+  useEffect(() => {
+    if (downloadLinkRef.current) {
+      downloadLinkRef.current.click();
+    }
+
+    resetEditData();
+    setCurrentPage("Result");
+  }, []);
 
   function handleClickHome() {
     navigate("/");
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
-      <h1 className="mb-10 text-3xl">Covert done!</h1>
-      <div className="flex justify-center items-center mb-10">
-        <video controls width="500">
+    <div className="flex justify-center p-10">
+      <div className="flex flex-col items-end">
+        <video
+          className="min-w-[406px]"
+          controls
+          width="406"
+          autoPlay={true}
+          loop={true}
+          muted
+        >
           <source src={url} type="video/webm" />
-          Download the
-          <a href={url}>MP4</a>
-          video.
+          <a ref={downloadLinkRef} href={url} download />
         </video>
       </div>
-      <Button
-        className="h-16 w-80 rounded-xl bg-red text-white hover:bg-hoverRed"
-        onClick={handleClickHome}
-      >
-        try with another video?
-      </Button>
+      <div className="flex flex-col justify-center items-center w-[700px] min-w-[500px]">
+        <div className="flex flex-col items-center w-[400px]">
+          <img className="w-20 mb-10" src="/assets/download_icon.png" />
+          <h2 className="mb-10 text-3xl">Your Download will start now</h2>
+          <Button className="rounded-xl text-red" onClick={handleClickHome}>
+            try with another video?
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

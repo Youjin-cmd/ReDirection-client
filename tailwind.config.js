@@ -14,6 +14,16 @@ export default {
       blueHover: "#5693f5",
       gray: "#dbdbdb",
     },
+    fontFamily: {
+      basic: ["basic"],
+      beauRivage: ["beauRivage"],
+      bebasNeue: ["bebasNeue"],
+      gochiHand: ["gochiHand"],
+      handjet: ["handjet"],
+      hanuman: ["hanuman"],
+      justMeAgainDownHere: ["justMeAgainDownHere"],
+      pacifico: ["pacifico"],
+    },
   },
   plugins: [],
 };

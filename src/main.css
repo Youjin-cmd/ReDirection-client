@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "basic";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/basic.ttf");
+}
+@font-face {
+  font-family: "beauRivage";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/beauRivage.ttf");
+}
+@font-face {
+  font-family: "bebasNeue";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/bebasNeue.ttf");
+}
+@font-face {
+  font-family: "gochiHand";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/gochiHand.ttf");
+}
+@font-face {
+  font-family: "handjet";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/handjet.ttf");
+}
+@font-face {
+  font-family: "hanuman";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/hanuman.ttf");
+}
+@font-face {
+  font-family: "justMeAgainDownHere";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/justMeAgainDownHere.ttf");
+}
+@font-face {
+  font-family: "pacifico";
+  src: url("https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/fonts/pacifico.ttf");
+}

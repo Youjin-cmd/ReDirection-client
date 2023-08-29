@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import calculateAreaSelection from "../util/calculateAreaSelection";
@@ -10,15 +10,18 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
-import useDragDropStore from "../store/dragDrop";
+import useSelectAreaStore from "../store/selectArea";
+import usePageStore from "../store/page";
 import Button from "../shared/Button";
 
 function SelectArea() {
   const videoRef = useRef(null);
+  const videoElement = videoRef.current;
   const navigate = useNavigate();
   const location = useLocation();
   const { url, startPixelArray, videoWidth } = location.state;
-  const { showLoading, setShowLoading, setCropStatus } = useProgressStore();
+  const { showLoading, setShowLoading, setCropStatus, resetAllStatus } =
+    useProgressStore();
   const {
     isDragging,
     setIsDragging,
@@ -26,7 +29,12 @@ function SelectArea() {
     defaultW,
     setDefaultX,
     setDefaultW,
-  } = useDragDropStore();
+  } = useSelectAreaStore();
+  const { setCurrentPage } = usePageStore();
+
+  useEffect(() => {
+    setCurrentPage("Select Area");
+  }, []);
 
   function handleMouseDown() {
     setIsDragging(true);
@@ -40,8 +48,6 @@ function SelectArea() {
     if (!isDragging) {
       return;
     }
-
-    const videoElement = videoRef.current;
 
     if (videoElement) {
       const videoRect = videoElement.getBoundingClientRect();
@@ -79,10 +85,9 @@ function SelectArea() {
       setCropStatus("done");
 
       setTimeout(() => {
-        setShowLoading(false);
-        setCropStatus(false);
+        resetAllStatus();
 
-        navigate("/result", {
+        navigate("/edit", {
           state: {
             url: response.data.url,
           },
@@ -93,12 +98,14 @@ function SelectArea() {
 
   return (
     <div
-      className="flex flex-col justify-center items-center h-full"
+      className="flex flex-col justify-center items-center p-5 h-full"
       onMouseUp={handleMouseUp}
       onMouseMove={e => handleMouseMove(e)}
       draggable={false}
     >
-      <h1 className="mb-10 text-3xl">Select moving area</h1>
+      <h2 className="mb-10 text-xl">
+        Click and drag over the desired segment on the motion heatmap
+      </h2>
       <div className="relative flex justify-center items-center mb-10">
         <div
           className="absolute ring-8 ring-red bg-red opacity-30"
@@ -107,7 +114,7 @@ function SelectArea() {
             width: `${defaultW}px`,
             height: `560px`,
           }}
-        ></div>
+        />
         <video
           className="hover:cursor-ew-resize"
           ref={videoRef}
@@ -123,6 +130,9 @@ function SelectArea() {
           video.
         </video>
       </div>
+      <h2 className="mb-10">
+        This selected segment will be the area where automatic cropping will take place.
+      </h2>
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea
