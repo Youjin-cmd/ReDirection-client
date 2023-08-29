@@ -5,6 +5,8 @@ import Main from "../components/Main";
 import SelectArea from "../components/SelectArea";
 import Result from "../components/Result";
 import Edit from "../components/Edit";
+import Error from "../components/Error";
+import PageNotFound from "../components/PageNotFound";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/selectArea" element={<SelectArea />} />
           <Route path="/edit" element={<Edit />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/error" element={<Error />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </div>

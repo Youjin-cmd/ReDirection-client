@@ -5,6 +5,7 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_BASE_URL;
 import useProgressStore from "../store/progress";
 import useEditStore from "../store/edit";
+import usePageStore from "../store/page";
 import CONSTANT from "../constants/constant";
 const { ONE_SECOND } = CONSTANT;
 
@@ -17,7 +18,9 @@ function Edit() {
   const location = useLocation();
   const navigate = useNavigate();
   const { url } = location.state;
-  const { showLoading, setShowLoading, setEditStatus } = useProgressStore();
+  const { setCurrentPage } = usePageStore();
+  const { showLoading, setShowLoading, setEditStatus, resetAllStatus } =
+    useProgressStore();
   const {
     selectedSquares,
     fontArray,
@@ -39,6 +42,11 @@ function Edit() {
   const videoRef = useRef(null);
   const videoElement = videoRef.current;
   let videoRect = null;
+
+  useEffect(() => {
+    setCurrentPage("Edit your video");
+  }, []);
+
   if (videoElement) {
     videoRect = videoElement.getBoundingClientRect();
   }
@@ -61,8 +69,7 @@ function Edit() {
       setEditStatus("done");
 
       setTimeout(() => {
-        setShowLoading(false);
-        setEditStatus(false);
+        resetAllStatus();
 
         navigate("/result", {
           state: {
@@ -74,41 +81,51 @@ function Edit() {
       return;
     }
 
-    setShowLoading(true);
-    setEditStatus("in progress");
+    try {
+      setShowLoading(true);
+      setEditStatus("in progress");
 
-    const response = await axios.post(`${baseURL}/video/edit`, {
-      typeface: selectedSquares.typeface,
-      fontContent,
-      fontX: Math.round(fontX),
-      fontY: Math.round(fontY),
-      fontWidth,
-      fontColor,
-      fontBg,
-      stickerName: selectedSquares.stickerName,
-      stickerX: Math.round(stickerX),
-      stickerY: Math.round(stickerY),
-    });
+      const response = await axios.post(`${baseURL}/video/edit`, {
+        typeface: selectedSquares.typeface,
+        fontContent,
+        fontX: Math.round(fontX),
+        fontY: Math.round(fontY),
+        fontWidth,
+        fontColor,
+        fontBg,
+        stickerName: selectedSquares.stickerName,
+        stickerX: Math.round(stickerX),
+        stickerY: Math.round(stickerY),
+      });
 
-    if (response.data.success) {
-      setEditStatus("done");
+      if (response.data.success) {
+        setEditStatus("done");
 
-      setTimeout(() => {
-        setShowLoading(false);
-        setEditStatus(false);
+        setTimeout(() => {
+          resetAllStatus();
+          setCurrentPage("Result");
 
-        navigate("/result", {
-          state: {
-            url: response.data.url,
-          },
-        });
-      }, ONE_SECOND);
+          navigate("/result", {
+            state: {
+              url: response.data.url,
+            },
+          });
+        }, ONE_SECOND);
+      }
+    } catch (error) {
+      resetAllStatus();
+
+      navigate("/error", {
+        state: {
+          errorCode: error.response.status,
+          errorText: error.response.statusText,
+        },
+      });
     }
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
-      <h1 className="m-10 text-3xl">Edit video</h1>
+    <div className="flex flex-col items-center h-full p-5">
       <div className="flex justify-center items-center w-[1300px] mb-5">
         <Carousel array={fontArray} type="font" setArray={setFontArray} />
         <div className="relative flex justify-center w-[406px] h-[720px]">

@@ -12,6 +12,14 @@ const useProgressStore = create(set => ({
     set({ analysisStatus: newAnalysisStatus }),
   setCropStatus: newCropStatus => set({ cropStatus: newCropStatus }),
   setEditStatus: newEditStatus => set({ editStatus: newEditStatus }),
+  resetAllStatus: () =>
+    set({
+      showLoading: false,
+      uploadStatus: null,
+      analysisStatus: false,
+      cropStatus: false,
+      editStatus: false,
+    }),
 }));
 
 export default useProgressStore;

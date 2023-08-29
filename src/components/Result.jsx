@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/Button";
 import useEditStore from "../store/edit";
+import usePageStore from "../store/page";
 
 function Result() {
   const location = useLocation();
@@ -9,6 +10,7 @@ function Result() {
   const { url } = location.state;
   const downloadLinkRef = useRef();
   const { resetEditData } = useEditStore();
+  const { setCurrentPage } = usePageStore();
 
   useEffect(() => {
     if (downloadLinkRef.current) {
@@ -16,6 +18,7 @@ function Result() {
     }
 
     resetEditData();
+    setCurrentPage("Result");
   }, []);
 
   function handleClickHome() {
@@ -23,18 +26,22 @@ function Result() {
   }
 
   return (
-    <div className="flex justify-center items-center h-full">
-      <div className="flex flex-col justify-end items-end min-w-[406px] w-1/3">
-        <div className="flex flex-col justify-center items-center">
-          <h1 className="mb-10 text-3xl">Result</h1>
-          <video controls width="406" autoPlay={true} loop={true} muted>
-            <source src={url} type="video/webm" />
-            <a ref={downloadLinkRef} href={url} download />
-          </video>
-        </div>
+    <div className="flex justify-center p-10">
+      <div className="flex flex-col items-end">
+        <video
+          className="min-w-[406px]"
+          controls
+          width="406"
+          autoPlay={true}
+          loop={true}
+          muted
+        >
+          <source src={url} type="video/webm" />
+          <a ref={downloadLinkRef} href={url} download />
+        </video>
       </div>
-      <div className="flex flex-col">
-        <div className="flex flex-col items-center w-[400px] ml-40">
+      <div className="flex flex-col justify-center items-center w-[700px] min-w-[500px]">
+        <div className="flex flex-col items-center w-[400px]">
           <img className="w-20 mb-10" src="/assets/download_icon.png" />
           <h2 className="mb-10 text-3xl">Your Download will start now</h2>
           <Button className="rounded-xl text-red" onClick={handleClickHome}>

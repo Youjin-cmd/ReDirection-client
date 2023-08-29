@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import calculateAreaSelection from "../util/calculateAreaSelection";
@@ -11,6 +11,7 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
 import useSelectAreaStore from "../store/selectArea";
+import usePageStore from "../store/page";
 import Button from "../shared/Button";
 
 function SelectArea() {
@@ -19,7 +20,8 @@ function SelectArea() {
   const navigate = useNavigate();
   const location = useLocation();
   const { url, startPixelArray, videoWidth } = location.state;
-  const { showLoading, setShowLoading, setCropStatus } = useProgressStore();
+  const { showLoading, setShowLoading, setCropStatus, resetAllStatus } =
+    useProgressStore();
   const {
     isDragging,
     setIsDragging,
@@ -28,6 +30,11 @@ function SelectArea() {
     setDefaultX,
     setDefaultW,
   } = useSelectAreaStore();
+  const { setCurrentPage } = usePageStore();
+
+  useEffect(() => {
+    setCurrentPage("Select Area");
+  }, []);
 
   function handleMouseDown() {
     setIsDragging(true);
@@ -78,8 +85,7 @@ function SelectArea() {
       setCropStatus("done");
 
       setTimeout(() => {
-        setShowLoading(false);
-        setCropStatus(false);
+        resetAllStatus();
 
         navigate("/edit", {
           state: {
@@ -92,14 +98,13 @@ function SelectArea() {
 
   return (
     <div
-      className="flex flex-col justify-center items-center h-full"
+      className="flex flex-col justify-center items-center p-5 h-full"
       onMouseUp={handleMouseUp}
       onMouseMove={e => handleMouseMove(e)}
       draggable={false}
     >
-      <h1 className="mb-5 text-3xl">Motion Heatmap</h1>
       <h2 className="mb-10 text-xl">
-        Simply click and drag over the desired segment on the video.
+        Click and drag over the desired segment on the motion heatmap
       </h2>
       <div className="relative flex justify-center items-center mb-10">
         <div
@@ -125,9 +130,8 @@ function SelectArea() {
           video.
         </video>
       </div>
-      <h2 className="mb-10 text-xl">
-        This selected segment will be the area where motion detection is
-        applied, and automatic cropping will take place.
+      <h2 className="mb-10">
+        This selected segment will be the area where automatic cropping will take place.
       </h2>
       <div className="relative h-16 w-80">
         {showLoading && (

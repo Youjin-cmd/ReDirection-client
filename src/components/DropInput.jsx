@@ -8,51 +8,75 @@ const { ONE_SECOND } = CONSTANT;
 
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
+import usePageStore from "../store/page";
+import { useEffect } from "react";
 
 function DropInput() {
   const navigate = useNavigate();
-  const { showLoading, setShowLoading, setUploadStatus, setAnalysisStatus } =
-    useProgressStore();
+  const {
+    showLoading,
+    setShowLoading,
+    setUploadStatus,
+    setAnalysisStatus,
+    resetAllStatus,
+  } = useProgressStore();
+  const { setCurrentPage } = usePageStore();
+
+  useEffect(() => {
+    setCurrentPage(
+      "Convert your horizontal video to vertical video with motion analysis, for free!",
+    );
+  }, []);
 
   const onDrop = async acceptedFiles => {
-    const formData = new FormData();
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      onUploadProgress: progressEvent => {
-        const progress = (progressEvent.loaded / progressEvent.total) * 100;
-        setUploadStatus(progress);
-      },
-    };
+    try {
+      const formData = new FormData();
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: progressEvent => {
+          const progress = (progressEvent.loaded / progressEvent.total) * 100;
 
-    setShowLoading(true);
-    setAnalysisStatus("in progress");
+          setUploadStatus(progress);
+        },
+      };
 
-    formData.append("video", acceptedFiles[0]);
+      setShowLoading(true);
+      setAnalysisStatus("in progress");
 
-    const response = await axios.post(
-      `${baseURL}/video/analysis`,
-      formData,
-      config,
-    );
+      formData.append("video", acceptedFiles[0]);
 
-    if (response.data.success) {
-      setAnalysisStatus("done");
+      const response = await axios.post(
+        `${baseURL}/video/analysis`,
+        formData,
+        config,
+      );
 
-      setTimeout(() => {
-        setShowLoading(false);
-        setAnalysisStatus(false);
-        setUploadStatus(null);
+      if (response.data.success) {
+        setAnalysisStatus("done");
 
-        navigate("/selectArea", {
-          state: {
-            url: response.data.url,
-            startPixelArray: response.data.startPixelArray,
-            videoWidth: response.data.videoWidth,
-          },
-        });
-      }, ONE_SECOND);
+        setTimeout(() => {
+          resetAllStatus();
+
+          navigate("/selectArea", {
+            state: {
+              url: response.data.url,
+              startPixelArray: response.data.startPixelArray,
+              videoWidth: response.data.videoWidth,
+            },
+          });
+        }, ONE_SECOND);
+      }
+    } catch (error) {
+      resetAllStatus();
+
+      navigate("/error", {
+        state: {
+          errorCode: error.response.status,
+          errorText: error.response.data.customMessage,
+        },
+      });
     }
   };
 
