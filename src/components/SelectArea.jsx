@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import calculateAreaSelection from "../util/calculateAreaSelection";
@@ -32,6 +32,7 @@ function SelectArea() {
     setDefaultW,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
+  const [isFixed, setIsFixed] = useState(false);
 
   useEffect(() => {
     setCurrentPage("Select Area");
@@ -48,6 +49,15 @@ function SelectArea() {
   function handleMouseMove(event) {
     if (!isDragging) {
       return;
+    }
+
+    const leftEdge = Math.round(defaultX / 10);
+    const rightEdge = Math.round((defaultX + defaultW) / 10);
+
+    if (rightEdge - leftEdge <= 35) {
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
     }
 
     if (videoElement) {
@@ -75,6 +85,7 @@ function SelectArea() {
       defaultX,
       defaultW,
       videoWidth,
+      isFixed,
     );
 
     const response = await axios.post(
@@ -115,7 +126,13 @@ function SelectArea() {
             width: `${defaultW}px`,
             height: `560px`,
           }}
-        />
+        >
+          {isFixed && (
+            <span className="flex justify-center items-center h-full text-4xl text-white">
+              fixed
+            </span>
+          )}
+        </div>
         <video
           className="hover:cursor-ew-resize"
           ref={videoRef}
