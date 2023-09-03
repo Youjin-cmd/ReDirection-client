@@ -52,7 +52,7 @@ function DropInput() {
       formData.append("video", acceptedFiles[0]);
 
       const response = await axios.post(
-        `${baseURL}/video/analysis`,
+        `${baseURL}/video/preview`,
         formData,
         config,
       );
