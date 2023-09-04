@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import calculateAreaSelection from "../util/calculateAreaSelection";
-import optimizeStartPixelArray from "../util/optimizeStartPixelArray";
 import CONSTANT from "../constants/constant";
 const { ONE_SECOND, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -20,7 +19,7 @@ function SelectArea() {
   const videoElement = videoRef.current;
   const navigate = useNavigate();
   const location = useLocation();
-  const { url, startPixelArray, videoWidth } = location.state;
+  const { url } = location.state;
   const { showLoading, setShowLoading, setCropStatus, resetAllStatus } =
     useProgressStore();
   const {
@@ -33,6 +32,7 @@ function SelectArea() {
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
   const [isFixed, setIsFixed] = useState(false);
+  const [sensitivity, setSensitivity] = useState(15);
 
   useEffect(() => {
     setCurrentPage("Select Area");
@@ -80,18 +80,12 @@ function SelectArea() {
     setShowLoading(true);
     setCropStatus("in progress");
 
-    const optimizedVersion = optimizeStartPixelArray(
-      startPixelArray,
+    const response = await axios.post(`${baseURL}/video/crop`, {
       defaultX,
       defaultW,
-      videoWidth,
       isFixed,
-    );
-
-    const response = await axios.post(
-      `${baseURL}/video/crop`,
-      optimizedVersion,
-    );
+      sensitivity,
+    });
 
     if (response.data.success) {
       setCropStatus("done");
@@ -152,6 +146,22 @@ function SelectArea() {
         This selected segment will be the area where automatic cropping will
         take place.
       </h2>
+      {!isFixed && (
+        <>
+          <label htmlFor="sensitivity">sensitivity</label>
+          <input
+            id="sensitivity"
+            className="w-[200px] h-[20px] bg-gray rounded-lg mb-10 hover:cursor-pointer appearance-none"
+            type="range"
+            min={10}
+            max={20}
+            step={5}
+            defaultValue={15}
+            onChange={e => setSensitivity(e.target.value)}
+          />
+        </>
+      )}
+
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea
