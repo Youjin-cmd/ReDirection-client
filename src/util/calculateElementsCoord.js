@@ -6,7 +6,6 @@ export default function calculateElementsCoord(
   cursorY,
   setElementX,
   setElementY,
-  setIsDragging,
   fontWidth,
 ) {
   const currentXBasedOnVideoArea = cursorX - videoX;

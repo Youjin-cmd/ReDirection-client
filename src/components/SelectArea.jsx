@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import calculateAreaSelection from "../util/calculateAreaSelection";
-import optimizeStartPixelArray from "../util/optimizeStartPixelArray";
 import CONSTANT from "../constants/constant";
 const { ONE_SECOND, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -14,13 +13,14 @@ import useProgressStore from "../store/progress";
 import useSelectAreaStore from "../store/selectArea";
 import usePageStore from "../store/page";
 import Button from "../shared/Button";
+import OptionSlider from "./OptionSlider";
 
 function SelectArea() {
   const videoRef = useRef(null);
   const videoElement = videoRef.current;
   const navigate = useNavigate();
   const location = useLocation();
-  const { url, startPixelArray, videoWidth } = location.state;
+  const { url } = location.state;
   const { showLoading, setShowLoading, setCropStatus, resetAllStatus } =
     useProgressStore();
   const {
@@ -32,6 +32,8 @@ function SelectArea() {
     setDefaultW,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
+  const [isFixed, setIsFixed] = useState(false);
+  const [sensitivity, setSensitivity] = useState(15);
 
   useEffect(() => {
     setCurrentPage("Select Area");
@@ -48,6 +50,15 @@ function SelectArea() {
   function handleMouseMove(event) {
     if (!isDragging) {
       return;
+    }
+
+    const leftEdge = Math.round(defaultX / 10);
+    const rightEdge = Math.round((defaultX + defaultW) / 10);
+
+    if (rightEdge - leftEdge <= 35) {
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
     }
 
     if (videoElement) {
@@ -70,17 +81,12 @@ function SelectArea() {
     setShowLoading(true);
     setCropStatus("in progress");
 
-    const optimizedVersion = optimizeStartPixelArray(
-      startPixelArray,
+    const response = await axios.post(`${baseURL}/video/crop`, {
       defaultX,
       defaultW,
-      videoWidth,
-    );
-
-    const response = await axios.post(
-      `${baseURL}/video/crop`,
-      optimizedVersion,
-    );
+      isFixed,
+      sensitivity,
+    });
 
     if (response.data.success) {
       setCropStatus("done");
@@ -115,7 +121,13 @@ function SelectArea() {
             width: `${defaultW}px`,
             height: `560px`,
           }}
-        />
+        >
+          {isFixed && (
+            <span className="flex justify-center items-center h-full text-4xl text-white">
+              fixed
+            </span>
+          )}
+        </div>
         <video
           className="hover:cursor-ew-resize"
           ref={videoRef}
@@ -135,6 +147,7 @@ function SelectArea() {
         This selected segment will be the area where automatic cropping will
         take place.
       </h2>
+      {!isFixed && <OptionSlider setSensitivity={setSensitivity} />}
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea

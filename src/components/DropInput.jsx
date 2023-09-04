@@ -11,9 +11,11 @@ import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
 import usePageStore from "../store/page";
 import { useEffect } from "react";
+import useEditStore from "../store/edit";
 
 function DropInput() {
   const navigate = useNavigate();
+  const { resetEditData } = useEditStore();
   const {
     showLoading,
     setShowLoading,
@@ -24,6 +26,7 @@ function DropInput() {
   const { setCurrentPage } = usePageStore();
 
   useEffect(() => {
+    resetEditData();
     setCurrentPage(
       "Convert your horizontal video to vertical video with motion analysis, for free!",
     );
@@ -49,7 +52,7 @@ function DropInput() {
       formData.append("video", acceptedFiles[0]);
 
       const response = await axios.post(
-        `${baseURL}/video/analysis`,
+        `${baseURL}/video/preview`,
         formData,
         config,
       );
@@ -109,7 +112,7 @@ function DropInput() {
             <p className="text-3xl">Upload your video</p>
           )}
         </div>
-        <p className="text-s">in .mp4 and .mov format</p>
+        <p className="text-s">Max file size 100MB</p>
       </div>
     </div>
   );

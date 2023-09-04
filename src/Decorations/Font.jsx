@@ -68,6 +68,7 @@ function Font() {
         value={fontContent}
         onChange={handleChangeText}
         onKeyUp={e => handleKeyUp(e)}
+        autoComplete="off"
       />
       <FontHandler />
     </div>
