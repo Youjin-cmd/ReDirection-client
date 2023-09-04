@@ -13,6 +13,7 @@ import useProgressStore from "../store/progress";
 import useSelectAreaStore from "../store/selectArea";
 import usePageStore from "../store/page";
 import Button from "../shared/Button";
+import OptionSlider from "./OptionSlider";
 
 function SelectArea() {
   const videoRef = useRef(null);
@@ -146,22 +147,7 @@ function SelectArea() {
         This selected segment will be the area where automatic cropping will
         take place.
       </h2>
-      {!isFixed && (
-        <>
-          <label htmlFor="sensitivity">sensitivity</label>
-          <input
-            id="sensitivity"
-            className="w-[200px] h-[20px] bg-gray rounded-lg mb-10 hover:cursor-pointer appearance-none"
-            type="range"
-            min={10}
-            max={20}
-            step={5}
-            defaultValue={15}
-            onChange={e => setSensitivity(e.target.value)}
-          />
-        </>
-      )}
-
+      {!isFixed && <OptionSlider setSensitivity={setSensitivity} />}
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea
