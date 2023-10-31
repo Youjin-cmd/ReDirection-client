@@ -30,6 +30,7 @@ function SelectArea() {
     defaultW,
     setDefaultX,
     setDefaultW,
+    resetArea,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
   const [isFixed, setIsFixed] = useState(false);
@@ -37,6 +38,11 @@ function SelectArea() {
 
   useEffect(() => {
     setCurrentPage("Select Area");
+    resetArea();
+
+    if (!url) {
+      navigate("/");
+    }
   }, []);
 
   function handleMouseDown() {
@@ -157,6 +163,7 @@ function SelectArea() {
           />
         )}
         <Button
+          id="convert-button"
           className="h-16 w-80 rounded-xl bg-blue text-xl text-white hover:bg-blueHover"
           onClick={handleClickConvert}
         >

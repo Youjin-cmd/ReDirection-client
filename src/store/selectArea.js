@@ -9,6 +9,11 @@ const useSelectAreaStore = create(set => ({
   setIsDragging: bool => set({ isDragging: bool }),
   setDefaultX: newLeftCorner => set({ defaultX: newLeftCorner }),
   setDefaultW: newWidth => set({ defaultW: newWidth }),
+  resetArea: () =>
+    set({
+      defaultX: 0,
+      defaultW: ANALYSIS_VIDEO_WIDTH,
+    }),
 }));
 
 export default useSelectAreaStore;
