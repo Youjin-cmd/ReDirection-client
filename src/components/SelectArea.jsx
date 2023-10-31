@@ -153,7 +153,7 @@ function SelectArea() {
         This selected segment will be the area where automatic cropping will
         take place.
       </h2>
-      {!isFixed && <OptionSlider setSensitivity={setSensitivity} />}
+      <OptionSlider isFixed={isFixed} setSensitivity={setSensitivity} />
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea
