@@ -116,10 +116,7 @@ function SelectArea() {
       onMouseMove={e => handleMouseMove(e)}
       draggable={false}
     >
-      <h2 className="mb-10 text-xl">
-        Click and drag over the desired segment on the motion heatmap
-      </h2>
-      <div className="relative flex justify-center items-center mb-10">
+      <div className="relative flex justify-center items-center min-w-[1000px] mb-10">
         <div
           className="absolute ring-8 ring-red bg-red opacity-30"
           style={{
@@ -149,6 +146,9 @@ function SelectArea() {
           video.
         </video>
       </div>
+      <h2 className="mb-1">
+        Click and drag over the desired segment on the motion heatmap
+      </h2>
       <h2 className="mb-10">
         This selected segment will be the area where automatic cropping will
         take place.
