@@ -9,7 +9,6 @@ const { ONE_SECOND } = CONSTANT;
 
 import LoadingArea from "../Loading/LoadingArea";
 import useProgressStore from "../store/progress";
-import usePageStore from "../store/page";
 import { useEffect } from "react";
 import useEditStore from "../store/edit";
 
@@ -23,13 +22,9 @@ function DropInput() {
     setAnalysisStatus,
     resetAllStatus,
   } = useProgressStore();
-  const { setCurrentPage } = usePageStore();
 
   useEffect(() => {
     resetEditData();
-    setCurrentPage(
-      "Convert your horizontal video to vertical video with motion analysis, for free!",
-    );
   }, []);
 
   const onDrop = async acceptedFiles => {
@@ -91,12 +86,12 @@ function DropInput() {
       {showLoading && (
         <LoadingArea
           className={
-            "absolute flex flex-col justify-center items-center w-[500px] h-[200px] p-5 m-20 rounded-md bg-white opacity-90"
+            "absolute flex flex-col justify-center items-center w-[500px] h-[200px] rounded-md bg-white opacity-90"
           }
         />
       )}
       <div
-        className="flex flex-col justify-center items-center w-[500px] h-[200px] p-5 m-20 rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
+        className="flex flex-col justify-center items-center w-[500px] h-[200px] rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
         {...getRootProps()}
       >
         <div className="flex mb-3">
