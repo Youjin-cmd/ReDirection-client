@@ -82,7 +82,7 @@ function DropInput() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center py-10">
       {showLoading && (
         <LoadingArea
           className={
