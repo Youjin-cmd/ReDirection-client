@@ -29,6 +29,7 @@ export default {
         appearImage: "appearImage 2s ease-in-out forwards",
         appearFrame: "appearFrame 2s ease-in-out forwards",
         appearBlocker: "appearBlocker 2s ease-in-out forwards",
+        appearText: "appearText 2.3s ease-in-out forwards",
       },
     },
     keyframes: {
@@ -82,6 +83,19 @@ export default {
         },
         "100%": {
           opacity: "100%",
+        },
+      },
+      appearText: {
+        "0%": {
+          opacity: "0%",
+        },
+        "90%": {
+          opacity: "0%",
+          transform: "translateX(0%)",
+        },
+        "100%": {
+          opacity: "100%",
+          transform: "translateX(-10%)",
         },
       },
     },
