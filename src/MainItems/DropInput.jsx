@@ -83,18 +83,18 @@ function DropInput() {
 
   return (
     <div className="flex flex-col justify-center items-center py-10">
-      {showLoading && (
-        <LoadingArea
-          className={
-            "absolute flex flex-col justify-center items-center w-[500px] h-[200px] rounded-md bg-white opacity-90"
-          }
-        />
-      )}
       <div
-        className="flex flex-col justify-center items-center w-[500px] h-[200px] rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
+        className="flex flex-col justify-center items-center w-[600px] h-[180px] mb-5 rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
         {...getRootProps()}
       >
-        <div className="flex mb-3">
+        {showLoading && (
+          <LoadingArea
+            className={
+              "absolute flex flex-col justify-center items-center w-[600px] h-[180px] rounded-md bg-white opacity-90"
+            }
+          />
+        )}
+        <div className="flex">
           <img
             className="w-12 mr-3"
             src="/assets/cloud_icon.png"
@@ -102,12 +102,19 @@ function DropInput() {
           />
           <input {...getInputProps()} />
           {isDragActive ? (
-            <p className="text-3xl">Drop your video here</p>
+            <h2 className="text-3xl">Drop your video here</h2>
           ) : (
-            <p className="text-3xl">Upload your video</p>
+            <h2 className="text-2xl">Click here to upload your video</h2>
           )}
         </div>
-        <p className="text-s">Max file size 100MB</p>
+      </div>
+      <div className="text-center">
+        <li className="text-s">
+          The app supports .mp4, .mov, .avi, .wmv formatted videos up to 100MB.
+        </li>
+        <li className="text-s">
+          Your files are automatically deleted from the server after 24 hours.
+        </li>
       </div>
     </div>
   );
