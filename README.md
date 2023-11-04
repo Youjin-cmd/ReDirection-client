@@ -31,7 +31,11 @@ Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 �
 <br>
 
 # **🔍 Preview**
-((시연영상))
+<p align="center">
+  <img src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/0f326a2e-e53e-45c7-ad8a-bf56d9d75538">
+  <img src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/c379f80e-2581-45a7-8181-592f17afb5ba">
+</p>
+
 # **🛠 Tech Stacks**
 ### Client
  `JavaScript, React, React Query, Tailwind CSS`
