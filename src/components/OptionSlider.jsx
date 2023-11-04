@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
+import useProgressStore from "../store/progress";
 
 function OptionSlider({ isFixed, setSensitivity }) {
+  const { showLoading } = useProgressStore();
+
   return (
     <>
       <label className="font-bold" htmlFor="sensitivity">
@@ -8,9 +11,10 @@ function OptionSlider({ isFixed, setSensitivity }) {
       </label>
       <div className="flex items-center mb-10">
         <span className="mr-5">sensitive</span>
-        {isFixed && (
-          <div className="absolute w-[440px] h-20 -m-10 bg-white opacity-70" />
-        )}
+        {isFixed ||
+          (showLoading && (
+            <div className="absolute w-[440px] h-20 -m-10 bg-white opacity-70" />
+          ))}
         <input
           id="sensitivity"
           className={`w-[200px] h-[12px] bg-gray rounded-lg hover:cursor-pointer appearance-none"

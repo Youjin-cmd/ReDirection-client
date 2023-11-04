@@ -138,7 +138,7 @@ function SelectArea() {
           loop={true}
           width={ANALYSIS_VIDEO_WIDTH}
           draggable={false}
-          onMouseDown={handleMouseDown}
+          onMouseDown={!showLoading && handleMouseDown}
         >
           <source src={url} type="video/webm" />
           Download the
