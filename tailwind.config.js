@@ -26,13 +26,25 @@ export default {
     },
     extend: {
       animation: {
+        spin: "spin 1s linear infinite",
         appearImage: "appearImage 2s ease-in-out forwards",
         appearFrame: "appearFrame 2s ease-in-out forwards",
         appearBlocker: "appearBlocker 2s ease-in-out forwards",
         appearText: "appearText 2.3s ease-in-out forwards",
+        moveLeftRight: "moveLeftRight 2s ease-in-out infinite",
+        moveLeftRight2: "moveLeftRight2 2s ease-in-out infinite",
+        dancing: "dancing 1s infinite",
       },
     },
     keyframes: {
+      spin: {
+        from: {
+          transform: "rotate(0deg)",
+        },
+        to: {
+          transform: "rotate(360deg)",
+        },
+      },
       appearImage: {
         "0%": {
           opacity: "0%",
@@ -96,6 +108,39 @@ export default {
         "100%": {
           opacity: "100%",
           transform: "translateX(-10%)",
+        },
+      },
+      moveLeftRight: {
+        "0%": {
+          transform: "translateX(0%)",
+        },
+        "50%": {
+          transform: "translateX(-100%)",
+        },
+        "100%": {
+          transform: "translateX(0%)",
+        },
+      },
+      moveLeftRight2: {
+        "0%": {
+          transform: "translateX(0%)",
+        },
+        "50%": {
+          transform: "translateX(50%)",
+        },
+        "100%": {
+          transform: "translateX(0%)",
+        },
+      },
+      dancing: {
+        "0%": {
+          transform: "rotate(5deg)",
+        },
+        "50%": {
+          transform: "rotate(-5deg)",
+        },
+        "100%": {
+          transform: "rotate(5deg)",
         },
       },
     },
