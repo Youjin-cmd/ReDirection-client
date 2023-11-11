@@ -3,6 +3,7 @@ function LoadingSpinner() {
     <div role="status">
       <svg
         aria-hidden="true"
+        data-icon="spinner"
         className="w-6 h-6 mr-2 text-gray animate-spin dark:grey fill-blue"
         viewBox="0 0 100 101"
         fill="none"
