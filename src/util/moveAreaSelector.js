@@ -1,7 +1,7 @@
 import CONSTANT from "../constants/constant";
 const { MINIMUM_WIDTH, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
-export default function calculateAreaSelection(
+function moveAreaSelector(
   cursorX,
   videoX,
   defaultX,
@@ -42,3 +42,5 @@ export default function calculateAreaSelection(
     }
   }
 }
+
+export default moveAreaSelector;

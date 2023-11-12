@@ -1,7 +1,7 @@
 import CONSTANT from "../constants/constant";
 const { EDIT_VID_WIDTH, EDIT_VID_HEIGHT } = CONSTANT;
 
-function calculateElementsCoord(
+function moveDecoElement(
   videoRect,
   event,
   setElementX,
@@ -73,4 +73,4 @@ function calculateElementsCoord(
   setCoordinates(currentXBasedOnVideoArea, currentYBasedOnVideoArea);
 }
 
-export default calculateElementsCoord;
+export default moveDecoElement;

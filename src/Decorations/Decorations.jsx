@@ -3,7 +3,7 @@ import useEditStore from "../store/edit";
 
 import Font from "./Font";
 import Sticker from "./Sticker";
-import calculateElementsCoord from "../util/calculateElementsCoord";
+import moveDecoElement from "../util/moveDecoElement";
 
 function Decorations({ handleMouseUp, videoRect }) {
   const {
@@ -11,7 +11,6 @@ function Decorations({ handleMouseUp, videoRect }) {
     setFontX,
     setFontY,
     isDragging,
-    setIsDragging,
     setStickerX,
     setStickerY,
     targetElementWidth,
@@ -24,7 +23,7 @@ function Decorations({ handleMouseUp, videoRect }) {
 
   function handleMouseMove(event) {
     if (isDragging === "sticker") {
-      calculateElementsCoord(
+      moveDecoElement(
         videoRect,
         event,
         setStickerX,
@@ -35,7 +34,7 @@ function Decorations({ handleMouseUp, videoRect }) {
     }
 
     if (isDragging === "font") {
-      calculateElementsCoord(
+      moveDecoElement(
         videoRect,
         event,
         setFontX,

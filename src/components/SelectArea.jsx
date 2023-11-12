@@ -5,7 +5,7 @@ import usePostCropRequest from "../apis/usePostCropRequest";
 
 import CONSTANT from "../constants/constant";
 const { ANALYSIS_VIDEO_WIDTH } = CONSTANT;
-import calculateAreaSelection from "../util/calculateAreaSelection";
+import moveAreaSelector from "../util/moveAreaSelector";
 import useProgressStore from "../store/progress";
 import useSelectAreaStore from "../store/selectArea";
 import usePageStore from "../store/page";
@@ -53,10 +53,6 @@ function SelectArea() {
   }
 
   function handleMouseMove(event) {
-    if (!isDragging) {
-      return;
-    }
-
     const leftEdge = Math.round(defaultX / 10);
     const rightEdge = Math.round((defaultX + defaultW) / 10);
 
@@ -71,7 +67,7 @@ function SelectArea() {
       const videoX = videoRect.left;
       const cursorX = event.clientX;
 
-      calculateAreaSelection(
+      moveAreaSelector(
         cursorX,
         videoX,
         defaultX,
@@ -90,7 +86,7 @@ function SelectArea() {
     <div
       className="flex flex-col justify-center items-center p-5 h-full"
       onMouseUp={handleMouseUp}
-      onMouseMove={e => handleMouseMove(e)}
+      onMouseMove={isDragging ? e => handleMouseMove(e) : undefined}
       draggable={false}
     >
       <div className="relative flex justify-center items-center min-w-[1000px] mb-10">
