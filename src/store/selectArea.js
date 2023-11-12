@@ -4,15 +4,15 @@ const { ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
 const initialState = {
   isDragging: false,
-  defaultX: 0,
-  defaultW: ANALYSIS_VIDEO_WIDTH,
+  selectorLeft: 0,
+  selectorWidth: ANALYSIS_VIDEO_WIDTH,
 };
 
 const useSelectAreaStore = create(set => ({
   ...initialState,
   setIsDragging: bool => set({ isDragging: bool }),
-  setDefaultX: newLeftCorner => set({ defaultX: newLeftCorner }),
-  setDefaultW: newWidth => set({ defaultW: newWidth }),
+  setSelectorLeft: newLeftCorner => set({ selectorLeft: newLeftCorner }),
+  setSelectorWidth: newRightCorner => set({ selectorWidth: newRightCorner }),
   resetArea: () => set(initialState),
 }));
 

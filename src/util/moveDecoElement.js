@@ -16,11 +16,11 @@ function moveDecoElement(
   const currentXBasedOnVideoArea = cursorX - videoLeftEdge;
   const currentYBasedOnVideoArea = cursorY - videoTopEdge;
 
-  const isAboveCanvas = currentYBasedOnVideoArea < 0;
-  const isLeftOfCanvas = currentXBasedOnVideoArea < 0;
-  const isRightOfCanvas =
+  const isAboveVideo = currentYBasedOnVideoArea < 0;
+  const isLeftOfVideo = currentXBasedOnVideoArea < 0;
+  const isRightOfVideo =
     currentXBasedOnVideoArea > EDIT_VID_WIDTH - targetElementWidth;
-  const isBelowCanvas =
+  const isBelowVideo =
     currentYBasedOnVideoArea > EDIT_VID_HEIGHT - targetElementHeight;
 
   function setCoordinates(x, y) {
@@ -28,22 +28,22 @@ function moveDecoElement(
     setElementY(y);
   }
 
-  if (isAboveCanvas && isLeftOfCanvas) {
+  if (isAboveVideo && isLeftOfVideo) {
     setCoordinates(0, 0);
     return;
   }
 
-  if (isAboveCanvas && isRightOfCanvas) {
+  if (isAboveVideo && isRightOfVideo) {
     setCoordinates(EDIT_VID_WIDTH - targetElementWidth, 0);
     return;
   }
 
-  if (isBelowCanvas && isLeftOfCanvas) {
+  if (isBelowVideo && isLeftOfVideo) {
     setCoordinates(0, EDIT_VID_HEIGHT - targetElementHeight);
     return;
   }
 
-  if (isBelowCanvas && isRightOfCanvas) {
+  if (isBelowVideo && isRightOfVideo) {
     setCoordinates(
       EDIT_VID_WIDTH - targetElementWidth,
       EDIT_VID_HEIGHT - targetElementHeight,
@@ -52,7 +52,7 @@ function moveDecoElement(
     return;
   }
 
-  if (isAboveCanvas || isLeftOfCanvas || isRightOfCanvas || isBelowCanvas) {
+  if (isAboveVideo || isLeftOfVideo || isRightOfVideo || isBelowVideo) {
     setCoordinates(
       Math.max(
         0,

@@ -2,44 +2,67 @@ import CONSTANT from "../constants/constant";
 const { MINIMUM_WIDTH, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
 function moveAreaSelector(
-  cursorX,
-  videoX,
-  defaultX,
-  defaultW,
-  setDefaultX,
-  setDefaultW,
+  videoRect,
+  event,
+  selectorLeft,
+  selectorWidth,
+  setSelectorLeft,
+  setSelectorWidth,
 ) {
-  const clickedCoordOnVideo = cursorX - videoX;
+  const videoLeftEdge = videoRect.left;
+  const cursorX = event.clientX;
+  const clickedCoordOnVideo = cursorX - videoLeftEdge;
 
-  if (cursorX < videoX || cursorX > videoX + ANALYSIS_VIDEO_WIDTH) {
+  const isLeftOfVideo = cursorX < videoLeftEdge;
+  const isRightOfVideo = cursorX > videoLeftEdge + ANALYSIS_VIDEO_WIDTH;
+  const isSelectorMinimumSize = selectorWidth < MINIMUM_WIDTH;
+  const pushedToLeftEdge = cursorX < videoLeftEdge + MINIMUM_WIDTH;
+  const pushedToRightEdge =
+    cursorX > videoLeftEdge + ANALYSIS_VIDEO_WIDTH - MINIMUM_WIDTH;
+  const leftSideOfSelector =
+    clickedCoordOnVideo < selectorLeft + selectorWidth / 2;
+  const rightSideOfSelector =
+    clickedCoordOnVideo > selectorLeft + selectorWidth / 2;
+
+  if (isLeftOfVideo) {
+    setSelectorLeft(0);
+    setSelectorWidth(selectorWidth);
     return;
   }
 
-  if (
-    defaultW < MINIMUM_WIDTH &&
-    cursorX > videoX + ANALYSIS_VIDEO_WIDTH - MINIMUM_WIDTH
-  ) {
+  if (isRightOfVideo) {
+    setSelectorWidth(ANALYSIS_VIDEO_WIDTH - selectorLeft);
     return;
   }
 
-  if (defaultW < MINIMUM_WIDTH && cursorX < videoX + MINIMUM_WIDTH) {
-    return;
-  }
-
-  if (clickedCoordOnVideo < defaultX + defaultW / 2) {
-    setDefaultX(clickedCoordOnVideo);
-    setDefaultW(defaultW + defaultX - clickedCoordOnVideo);
-
-    if (defaultW < MINIMUM_WIDTH) {
-      setDefaultW(MINIMUM_WIDTH);
+  if (isSelectorMinimumSize) {
+    if (pushedToLeftEdge) {
+      return;
     }
-  } else {
-    setDefaultW(defaultW - defaultX - defaultW + clickedCoordOnVideo);
 
-    if (defaultW < MINIMUM_WIDTH) {
-      setDefaultX(clickedCoordOnVideo - MINIMUM_WIDTH);
-      setDefaultW(MINIMUM_WIDTH);
+    if (pushedToRightEdge) {
+      return;
     }
+  }
+
+  if (leftSideOfSelector) {
+    setSelectorLeft(clickedCoordOnVideo);
+    setSelectorWidth(selectorWidth + selectorLeft - clickedCoordOnVideo);
+
+    if (isSelectorMinimumSize) {
+      setSelectorWidth(MINIMUM_WIDTH);
+    }
+    return;
+  }
+
+  if (rightSideOfSelector) {
+    setSelectorWidth(clickedCoordOnVideo - selectorLeft);
+
+    if (isSelectorMinimumSize) {
+      setSelectorLeft(clickedCoordOnVideo - MINIMUM_WIDTH);
+      setSelectorWidth(MINIMUM_WIDTH);
+    }
+    return;
   }
 }
 

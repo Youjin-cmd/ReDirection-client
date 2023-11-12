@@ -11,7 +11,7 @@ import useSelectAreaStore from "../store/selectArea";
 function usePostCropRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setCropStatus, resetAllStatus } = useProgressStore();
-  const { defaultX, defaultW } = useSelectAreaStore();
+  const { selectorLeft, selectorWidth } = useSelectAreaStore();
 
   async function postCropRequest(isFixed, sensitivity) {
     try {
@@ -19,8 +19,8 @@ function usePostCropRequest() {
       setCropStatus("in progress");
 
       const response = await axios.post(`${baseURL}/video/crop`, {
-        defaultX,
-        defaultW,
+        selectorLeft,
+        selectorWidth,
         isFixed,
         sensitivity,
       });

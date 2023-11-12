@@ -21,14 +21,15 @@ function SelectArea() {
   const { url } = location.state;
   const videoRef = useRef(null);
   const videoElement = videoRef.current;
+  let videoRect = null;
   const { showLoading } = useProgressStore();
   const {
     isDragging,
     setIsDragging,
-    defaultX,
-    defaultW,
-    setDefaultX,
-    setDefaultW,
+    selectorLeft,
+    selectorWidth,
+    setSelectorLeft,
+    setSelectorWidth,
     resetArea,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
@@ -44,6 +45,10 @@ function SelectArea() {
     }
   }, []);
 
+  if (videoElement) {
+    videoRect = videoElement.getBoundingClientRect();
+  }
+
   function handleMouseDown() {
     setIsDragging(true);
   }
@@ -53,8 +58,8 @@ function SelectArea() {
   }
 
   function handleMouseMove(event) {
-    const leftEdge = Math.round(defaultX / 10);
-    const rightEdge = Math.round((defaultX + defaultW) / 10);
+    const leftEdge = Math.round(selectorLeft / 10);
+    const rightEdge = Math.round((selectorLeft + selectorWidth) / 10);
 
     if (rightEdge - leftEdge <= 35) {
       setIsFixed(true);
@@ -62,20 +67,14 @@ function SelectArea() {
       setIsFixed(false);
     }
 
-    if (videoElement) {
-      const videoRect = videoElement.getBoundingClientRect();
-      const videoX = videoRect.left;
-      const cursorX = event.clientX;
-
-      moveAreaSelector(
-        cursorX,
-        videoX,
-        defaultX,
-        defaultW,
-        setDefaultX,
-        setDefaultW,
-      );
-    }
+    moveAreaSelector(
+      videoRect,
+      event,
+      selectorLeft,
+      selectorWidth,
+      setSelectorLeft,
+      setSelectorWidth,
+    );
   }
 
   async function handleClickConvert() {
@@ -93,8 +92,8 @@ function SelectArea() {
         <div
           className="absolute ring-8 ring-red bg-red opacity-30"
           style={{
-            left: `${defaultX}px`,
-            width: `${defaultW}px`,
+            left: `${selectorLeft}px`,
+            width: `${selectorWidth}px`,
             height: `560px`,
           }}
         >
