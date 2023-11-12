@@ -43,7 +43,11 @@ function Result() {
       </div>
       <div className="flex flex-col justify-center items-center w-[700px] min-w-[500px]">
         <div className="flex flex-col items-center w-[400px]">
-          <img className="w-20 mb-10" src="/assets/download_icon.png" />
+          <img
+            className="w-20 mb-10"
+            src="/assets/download_icon.png"
+            alt="download icon"
+          />
           <h2 className="mb-10 text-3xl">Your Download will start now</h2>
           <Button className="rounded-xl text-red" onClick={handleClickHome}>
             try with another video?

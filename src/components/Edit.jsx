@@ -137,9 +137,17 @@ function Edit() {
           >
             <div className="flex justify-center items-center w-10 h-10 rounded-full bg-white opacity-80">
               {isMuted ? (
-                <img className="w-8" src="/assets/muted_icon.png" />
+                <img
+                  className="w-8"
+                  src="/assets/muted_icon.png"
+                  alt="muted icon"
+                />
               ) : (
-                <img className="w-8" src="/assets/unmuted_icon.png" />
+                <img
+                  className="w-8"
+                  src="/assets/unmuted_icon.png"
+                  alt="unmuted icon"
+                />
               )}
             </div>
           </Button>

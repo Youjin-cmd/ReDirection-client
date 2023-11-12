@@ -29,7 +29,7 @@ function Carousel({ array, type, setArray }) {
           handleClickUp(event);
         }}
       >
-        <img className="select-none" src="/assets/up_icon.png" />
+        <img className="select-none" src="/assets/up_icon.png" alt="up icon" />
       </div>
       <div className="flex overflow-hidden justify-center w-[300px] h-[700px] rounded-xl ring-4 ring-red">
         <div className="flex flex-col">
@@ -42,7 +42,11 @@ function Carousel({ array, type, setArray }) {
           handleClickDown(event);
         }}
       >
-        <img className="select-none" src="/assets/down_icon.png" />
+        <img
+          className="select-none"
+          src="/assets/down_icon.png"
+          alt="down icon"
+        />
       </div>
     </div>
   );

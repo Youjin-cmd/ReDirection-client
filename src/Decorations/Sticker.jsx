@@ -10,6 +10,7 @@ function Sticker() {
       <img
         key="sticker"
         id="sticker"
+        alt="selected sticker"
         className={`peer absolute w-[150px] z-10 select-none`}
         style={{
           left: `${stickerX}px`,

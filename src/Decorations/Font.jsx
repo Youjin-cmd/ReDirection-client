@@ -53,8 +53,8 @@ function Font() {
   return (
     <div>
       <input
-        key="font"
-        id="font"
+        key="selected font"
+        id="selected font"
         className={`peer absolute z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
         style={{
           left: `${fontX}px`,

@@ -31,15 +31,31 @@ function Squares({ array, type }) {
             <img
               className="absolute top-5 right-5 select-none"
               src="/assets/checked_icon.png"
+              alt="checked"
             />
-            <img className="w-24 select-none" src={element} draggable={false} />
+            <img
+              className="w-24 select-none"
+              src={element}
+              alt={
+                element &&
+                `selected ${element.split("/").pop().replace(".svg", "")}`
+              }
+              draggable={false}
+            />
           </Square>
         ) : (
           <Square
             onClick={() => clickHandleSquare(element, type)}
             active={false}
           >
-            <img className="w-24 opacity-20 select-none" src={element} />
+            <img
+              className="w-24 opacity-20 select-none"
+              alt={
+                element &&
+                `none selected ${element.split("/").pop().replace(".svg", "")}`
+              }
+              src={element}
+            />
           </Square>
         )}
       </div>

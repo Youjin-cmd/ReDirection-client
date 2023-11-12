@@ -15,6 +15,7 @@ function GrabPointToDrag({ coordX, coordY, setIsDragging }) {
       <img
         className="w-5 select-none"
         src="/assets/move_icon.png"
+        alt="move icon"
         draggable={false}
       />
     </div>
