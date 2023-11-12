@@ -1,57 +1,76 @@
-export default function calculateElementsCoord(
-  type,
-  videoX,
-  videoY,
-  cursorX,
-  cursorY,
+import CONSTANT from "../constants/constant";
+const { EDIT_VID_WIDTH, EDIT_VID_HEIGHT } = CONSTANT;
+
+function calculateElementsCoord(
+  videoRect,
+  event,
   setElementX,
   setElementY,
-  fontWidth,
+  targetElementWidth,
+  targetElementHeight,
 ) {
-  const currentXBasedOnVideoArea = cursorX - videoX;
-  const currentYBasedOnVideoArea = cursorY - videoY;
+  const videoTopEdge = videoRect.top;
+  const videoLeftEdge = videoRect.left;
+  const cursorX = event.clientX;
+  const cursorY = event.clientY;
+  const currentXBasedOnVideoArea = cursorX - videoLeftEdge;
+  const currentYBasedOnVideoArea = cursorY - videoTopEdge;
 
-  if (type === "font") {
-    if (
-      406 - fontWidth - currentXBasedOnVideoArea < 0 &&
-      720 - 40 - currentYBasedOnVideoArea < 0
-    ) {
-      return;
-    }
+  const isAboveCanvas = currentYBasedOnVideoArea < 0;
+  const isLeftOfCanvas = currentXBasedOnVideoArea < 0;
+  const isRightOfCanvas =
+    currentXBasedOnVideoArea > EDIT_VID_WIDTH - targetElementWidth;
+  const isBelowCanvas =
+    currentYBasedOnVideoArea > EDIT_VID_HEIGHT - targetElementHeight;
 
-    if (406 - fontWidth - currentXBasedOnVideoArea < 0) {
-      setElementY(currentYBasedOnVideoArea);
-      return;
-    }
-
-    if (720 - 40 - currentYBasedOnVideoArea < 0) {
-      setElementX(currentXBasedOnVideoArea);
-      return;
-    }
-
-    setElementX(currentXBasedOnVideoArea);
-    setElementY(currentYBasedOnVideoArea);
+  function setCoordinates(x, y) {
+    setElementX(x);
+    setElementY(y);
   }
 
-  if (type === "sticker") {
-    if (
-      406 - 150 - currentXBasedOnVideoArea < 0 &&
-      720 - 135 - currentYBasedOnVideoArea < 0
-    ) {
-      return;
-    }
-
-    if (406 - 150 - currentXBasedOnVideoArea < 0) {
-      setElementY(currentYBasedOnVideoArea);
-      return;
-    }
-
-    if (720 - 135 - currentYBasedOnVideoArea < 0) {
-      setElementX(currentXBasedOnVideoArea);
-      return;
-    }
-
-    setElementX(currentXBasedOnVideoArea);
-    setElementY(currentYBasedOnVideoArea);
+  if (isAboveCanvas && isLeftOfCanvas) {
+    setCoordinates(0, 0);
+    return;
   }
+
+  if (isAboveCanvas && isRightOfCanvas) {
+    setCoordinates(EDIT_VID_WIDTH - targetElementWidth, 0);
+    return;
+  }
+
+  if (isBelowCanvas && isLeftOfCanvas) {
+    setCoordinates(0, EDIT_VID_HEIGHT - targetElementHeight);
+    return;
+  }
+
+  if (isBelowCanvas && isRightOfCanvas) {
+    setCoordinates(
+      EDIT_VID_WIDTH - targetElementWidth,
+      EDIT_VID_HEIGHT - targetElementHeight,
+    );
+
+    return;
+  }
+
+  if (isAboveCanvas || isLeftOfCanvas || isRightOfCanvas || isBelowCanvas) {
+    setCoordinates(
+      Math.max(
+        0,
+        Math.min(currentXBasedOnVideoArea, EDIT_VID_WIDTH - targetElementWidth),
+      ),
+      Math.max(
+        0,
+        Math.min(
+          currentYBasedOnVideoArea,
+          EDIT_VID_HEIGHT - targetElementHeight,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  setCoordinates(currentXBasedOnVideoArea, currentYBasedOnVideoArea);
 }
+
+export default calculateElementsCoord;

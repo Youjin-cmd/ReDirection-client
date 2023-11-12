@@ -10,57 +10,47 @@ function Decorations({ handleMouseUp, videoRect }) {
     selectedSquares,
     setFontX,
     setFontY,
-    fontWidth,
-    isFontDragging,
-    setIsFontDragging,
-    isStickerDragging,
-    setIsStickerDragging,
+    isDragging,
+    setIsDragging,
     setStickerX,
     setStickerY,
+    targetElementWidth,
+    targetElementHeight,
   } = useEditStore();
 
   if (!videoRect) {
     return null;
   }
 
-  const handleMouseMove = event => {
-    if (!isStickerDragging && !isFontDragging) {
-      return;
-    }
-
-    if (isStickerDragging) {
+  function handleMouseMove(event) {
+    if (isDragging === "sticker") {
       calculateElementsCoord(
-        "sticker",
-        videoRect.left,
-        videoRect.top,
-        event.clientX,
-        event.clientY,
+        videoRect,
+        event,
         setStickerX,
         setStickerY,
-        setIsStickerDragging,
+        targetElementWidth,
+        targetElementHeight,
       );
     }
 
-    if (isFontDragging) {
+    if (isDragging === "font") {
       calculateElementsCoord(
-        "font",
-        videoRect.left,
-        videoRect.top,
-        event.clientX,
-        event.clientY,
+        videoRect,
+        event,
         setFontX,
         setFontY,
-        setIsFontDragging,
-        fontWidth,
+        targetElementWidth,
+        targetElementHeight,
       );
     }
-  };
+  }
 
   return (
     <div
       onMouseUp={handleMouseUp}
       className={`absolute top-${videoRect.top} left-${videoRect.left} w-[406px] h-[720px] z-10`}
-      onMouseMove={e => handleMouseMove(e)}
+      onMouseMove={isDragging ? e => handleMouseMove(e) : undefined}
     >
       {selectedSquares.font && <Font />}
       {selectedSquares.sticker && <Sticker />}

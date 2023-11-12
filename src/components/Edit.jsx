@@ -28,8 +28,7 @@ function Edit() {
     setFontArray,
     stickerArray,
     setStickerArray,
-    setIsFontDragging,
-    setIsStickerDragging,
+    setIsDragging,
   } = useEditStore();
   const [isMuted, setIsMuted] = useState("muted");
   const videoRef = useRef(null);
@@ -45,8 +44,7 @@ function Edit() {
   }
 
   const handleMouseUp = useCallback(() => {
-    setIsStickerDragging(false);
-    setIsFontDragging(false);
+    setIsDragging(null);
   }, []);
 
   function handleToggleMute() {
@@ -78,7 +76,10 @@ function Edit() {
   }
 
   return (
-    <div className="flex flex-col items-center h-full p-5">
+    <div
+      className="flex flex-col items-center h-full p-5"
+      onMouseUp={() => setIsDragging(null)}
+    >
       <div className="flex justify-center items-center w-[1300px] mb-5">
         <Carousel array={fontArray} type="font" setArray={setFontArray} />
         <div className="relative flex justify-center w-[406px] h-[720px]">

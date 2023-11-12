@@ -12,7 +12,14 @@ function Font() {
     fontContent,
     setFontWidth,
     setFontContent,
+    setTargetElementWidth,
+    setTargetElementHeight,
   } = useEditStore();
+
+  function setElementScale() {
+    setTargetElementWidth(fontWidth);
+    setTargetElementHeight(40);
+  }
 
   function handleChangeText(event) {
     const value = event.target.value;
@@ -51,7 +58,7 @@ function Font() {
   }
 
   return (
-    <div>
+    <div id="fontWrapper">
       <input
         key="selected font"
         id="selected font"
@@ -70,7 +77,7 @@ function Font() {
         onKeyUp={e => handleKeyUp(e)}
         autoComplete="off"
       />
-      <FontHandler />
+      <FontHandler setElementScale={setElementScale} />
     </div>
   );
 }

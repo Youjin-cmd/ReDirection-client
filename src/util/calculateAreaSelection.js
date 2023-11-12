@@ -1,5 +1,5 @@
 import CONSTANT from "../constants/constant";
-const { RESULT_WIDTH, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
+const { MINIMUM_WIDTH, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
 export default function calculateAreaSelection(
   cursorX,
@@ -16,13 +16,13 @@ export default function calculateAreaSelection(
   }
 
   if (
-    defaultW < RESULT_WIDTH &&
-    cursorX > videoX + ANALYSIS_VIDEO_WIDTH - RESULT_WIDTH
+    defaultW < MINIMUM_WIDTH &&
+    cursorX > videoX + ANALYSIS_VIDEO_WIDTH - MINIMUM_WIDTH
   ) {
     return;
   }
 
-  if (defaultW < RESULT_WIDTH && cursorX < videoX + RESULT_WIDTH) {
+  if (defaultW < MINIMUM_WIDTH && cursorX < videoX + MINIMUM_WIDTH) {
     return;
   }
 
@@ -30,15 +30,15 @@ export default function calculateAreaSelection(
     setDefaultX(clickedCoordOnVideo);
     setDefaultW(defaultW + defaultX - clickedCoordOnVideo);
 
-    if (defaultW < RESULT_WIDTH) {
-      setDefaultW(RESULT_WIDTH);
+    if (defaultW < MINIMUM_WIDTH) {
+      setDefaultW(MINIMUM_WIDTH);
     }
   } else {
     setDefaultW(defaultW - defaultX - defaultW + clickedCoordOnVideo);
 
-    if (defaultW < RESULT_WIDTH) {
-      setDefaultX(clickedCoordOnVideo - RESULT_WIDTH);
-      setDefaultW(RESULT_WIDTH);
+    if (defaultW < MINIMUM_WIDTH) {
+      setDefaultX(clickedCoordOnVideo - MINIMUM_WIDTH);
+      setDefaultW(MINIMUM_WIDTH);
     }
   }
 }
