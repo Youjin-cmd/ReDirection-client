@@ -25,7 +25,7 @@ function Squares({ array, type }) {
       <div key={crypto.randomUUID()}>
         {selectedSquares[type] === element ? (
           <Square
-            onClick={() => clickHandleSquare(element, type)}
+            clickHandleSquare={() => clickHandleSquare(element, type)}
             active={true}
           >
             <img
@@ -45,7 +45,7 @@ function Squares({ array, type }) {
           </Square>
         ) : (
           <Square
-            onClick={() => clickHandleSquare(element, type)}
+            clickHandleSquare={() => clickHandleSquare(element, type)}
             active={false}
           >
             <img

@@ -6,7 +6,7 @@ function Button({ className, type, children, disabled, onClick }) {
       type={type}
       className={className}
       disabled={disabled}
-      onClick={onClick}
+      onMouseDown={onClick}
     >
       {children}
     </button>

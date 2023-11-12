@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Button from "../shared/Button";
 
-function Square({ children, onClick, active }) {
+function Square({ children, clickHandleSquare, active }) {
   return (
     <div
       className={`flex justify-center items-center h-[141px] w-[300px] border-b-4 border-lightRed
@@ -10,7 +10,7 @@ function Square({ children, onClick, active }) {
     >
       <Button
         className="relative flex justify-center items-center h-[120px] w-full hover:cursor-pointer"
-        onClick={() => onClick()}
+        onClick={clickHandleSquare}
       >
         {children}
       </Button>
@@ -20,7 +20,7 @@ function Square({ children, onClick, active }) {
 
 Square.propTypes = {
   children: PropTypes.any.isRequired,
-  onClick: PropTypes.func.isRequired,
+  clickHandleSquare: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
 };
 
