@@ -18,9 +18,12 @@ function usePostCropRequest() {
       setShowLoading(true);
       setCropStatus("in progress");
 
+      const leftEdge = Math.round(selectorLeft / 10);
+      const rightEdge = Math.round((selectorLeft + selectorWidth) / 10);
+
       const response = await axios.post(`${baseURL}/video/crop`, {
-        selectorLeft,
-        selectorWidth,
+        leftEdge,
+        rightEdge,
         isFixed,
         sensitivity,
       });
