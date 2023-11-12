@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import usePageStore from "../store/page";
+import useProgressStore from "../store/progress";
+
 import Button from "../shared/Button";
 
 function Error() {
+  const { resetAllStatus } = useProgressStore();
   const { setCurrentPage } = usePageStore();
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,6 +19,7 @@ function Error() {
   }, []);
 
   function handleClickHome() {
+    resetAllStatus();
     navigate("/");
   }
 
