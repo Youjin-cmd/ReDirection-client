@@ -1,83 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
-import axios from "axios";
+import usePostVideoRequest from "../apis/usePostVideoRequest";
 
-const baseURL = import.meta.env.VITE_BASE_URL;
-import CONSTANT from "../constants/constant";
-const { ONE_SECOND } = CONSTANT;
+import useProgressStore from "../store/progress";
 
 import LoadingArea from "../Loading/LoadingArea";
-import useProgressStore from "../store/progress";
-import { useEffect } from "react";
-import useEditStore from "../store/edit";
 
 function DropInput() {
-  const navigate = useNavigate();
-  const { resetEditData } = useEditStore();
-  const {
-    showLoading,
-    setShowLoading,
-    setUploadStatus,
-    setAnalysisStatus,
-    resetAllStatus,
-  } = useProgressStore();
+  const { showLoading, setUploadStatus } = useProgressStore();
+  const postVideoRequest = usePostVideoRequest();
 
-  useEffect(() => {
-    resetEditData();
-  }, []);
+  async function onDrop(acceptedFiles) {
+    const formData = new FormData();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: progressEvent => {
+        const progress = (progressEvent.loaded / progressEvent.total) * 100;
 
-  const onDrop = async acceptedFiles => {
-    try {
-      const formData = new FormData();
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: progressEvent => {
-          const progress = (progressEvent.loaded / progressEvent.total) * 100;
+        setUploadStatus(progress);
+      },
+    };
 
-          setUploadStatus(progress);
-        },
-      };
+    formData.append("video", acceptedFiles[0]);
 
-      setShowLoading(true);
-      setAnalysisStatus("in progress");
-
-      formData.append("video", acceptedFiles[0]);
-
-      const response = await axios.post(
-        `${baseURL}/video/preview`,
-        formData,
-        config,
-      );
-
-      if (response.data.success) {
-        setAnalysisStatus("done");
-
-        setTimeout(() => {
-          resetAllStatus();
-
-          navigate("/selectArea", {
-            state: {
-              url: response.data.url,
-              startPixelArray: response.data.startPixelArray,
-              videoWidth: response.data.videoWidth,
-            },
-          });
-        }, ONE_SECOND);
-      }
-    } catch (error) {
-      resetAllStatus();
-
-      navigate("/error", {
-        state: {
-          errorCode: error.response.status,
-          errorText: error.response.data.customMessage,
-        },
-      });
-    }
-  };
+    await postVideoRequest(formData, config);
+  }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

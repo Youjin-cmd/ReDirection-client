@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../shared/Button";
+
 import useEditStore from "../store/edit";
 import usePageStore from "../store/page";
+
+import Button from "../shared/Button";
 
 function Result() {
   const location = useLocation();

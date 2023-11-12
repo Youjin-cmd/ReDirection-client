@@ -1,28 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import usePostCropRequest from "../apis/usePostCropRequest";
 
-import calculateAreaSelection from "../util/calculateAreaSelection";
 import CONSTANT from "../constants/constant";
-const { ONE_SECOND, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
-const baseURL = import.meta.env.VITE_BASE_URL;
-
-import LoadingArea from "../Loading/LoadingArea";
+const { ANALYSIS_VIDEO_WIDTH } = CONSTANT;
+import calculateAreaSelection from "../util/calculateAreaSelection";
 import useProgressStore from "../store/progress";
 import useSelectAreaStore from "../store/selectArea";
 import usePageStore from "../store/page";
+
+import LoadingArea from "../Loading/LoadingArea";
 import Button from "../shared/Button";
 import OptionSlider from "./OptionSlider";
 
 function SelectArea() {
-  const videoRef = useRef(null);
-  const videoElement = videoRef.current;
+  const postCropRequest = usePostCropRequest();
   const navigate = useNavigate();
   const location = useLocation();
   const { url } = location.state;
-  const { showLoading, setShowLoading, setCropStatus, resetAllStatus } =
-    useProgressStore();
+  const videoRef = useRef(null);
+  const videoElement = videoRef.current;
+  const { showLoading } = useProgressStore();
   const {
     isDragging,
     setIsDragging,
@@ -84,29 +83,7 @@ function SelectArea() {
   }
 
   async function handleClickConvert() {
-    setShowLoading(true);
-    setCropStatus("in progress");
-
-    const response = await axios.post(`${baseURL}/video/crop`, {
-      defaultX,
-      defaultW,
-      isFixed,
-      sensitivity,
-    });
-
-    if (response.data.success) {
-      setCropStatus("done");
-
-      setTimeout(() => {
-        resetAllStatus();
-
-        navigate("/edit", {
-          state: {
-            url: response.data.url,
-          },
-        });
-      }, ONE_SECOND);
-    }
+    await postCropRequest(isFixed, sensitivity);
   }
 
   return (

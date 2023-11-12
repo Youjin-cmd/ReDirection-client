@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useCallback, useEffect } from "react";
-import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import usePostEditRequest from "../apis/usePostEditRequest";
 
-const baseURL = import.meta.env.VITE_BASE_URL;
 import useProgressStore from "../store/progress";
 import useEditStore from "../store/edit";
 import usePageStore from "../store/page";
@@ -18,6 +17,7 @@ import Decorations from "../Decorations/Decorations";
 function Edit() {
   const location = useLocation();
   const navigate = useNavigate();
+  const postEditReuqest = usePostEditRequest();
   const { url } = location.state;
   const { setCurrentPage } = usePageStore();
   const { showLoading, setShowLoading, setEditStatus, resetAllStatus } =
@@ -30,14 +30,6 @@ function Edit() {
     setStickerArray,
     setIsFontDragging,
     setIsStickerDragging,
-    fontX,
-    fontY,
-    stickerX,
-    stickerY,
-    fontColor,
-    fontBg,
-    fontWidth,
-    fontContent,
   } = useEditStore();
   const [isMuted, setIsMuted] = useState("muted");
   const videoRef = useRef(null);
@@ -82,47 +74,7 @@ function Edit() {
       return;
     }
 
-    try {
-      setShowLoading(true);
-      setEditStatus("in progress");
-
-      const response = await axios.post(`${baseURL}/video/edit`, {
-        typeface: selectedSquares.typeface,
-        fontContent,
-        fontX: Math.round(fontX),
-        fontY: Math.round(fontY),
-        fontWidth,
-        fontColor,
-        fontBg,
-        stickerName: selectedSquares.stickerName,
-        stickerX: Math.round(stickerX),
-        stickerY: Math.round(stickerY),
-      });
-
-      if (response.data.success) {
-        setEditStatus("done");
-
-        setTimeout(() => {
-          resetAllStatus();
-          setCurrentPage("Result");
-
-          navigate("/result", {
-            state: {
-              url: response.data.url,
-            },
-          });
-        }, ONE_SECOND);
-      }
-    } catch (error) {
-      resetAllStatus();
-
-      navigate("/error", {
-        state: {
-          errorCode: error.response.status,
-          errorText: error.response.data.customMessage,
-        },
-      });
-    }
+    await postEditReuqest(selectedSquares);
   }
 
   return (

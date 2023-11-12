@@ -51,7 +51,8 @@ function Introduction() {
             </div>
             <div className="h-20 mx-5 mb-5 text-center">
               <h4>
-                Review the results, and optionally add text and stickers for decoration.
+                Review the results, and optionally add text and stickers for
+                decoration.
               </h4>
             </div>
           </div>

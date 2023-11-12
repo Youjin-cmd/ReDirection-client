@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../shared/Button";
-import usePageStore from "../store/page";
 import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import usePageStore from "../store/page";
+import Button from "../shared/Button";
 
 function Error() {
   const { setCurrentPage } = usePageStore();
