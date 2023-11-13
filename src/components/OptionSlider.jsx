@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
 import useProgressStore from "../store/progress";
+import useSelectAreaStore from "../store/selectArea";
 
-function OptionSlider({ isFixed, setSensitivity }) {
+function OptionSlider() {
+  const { isFixed, setSensitivity } = useSelectAreaStore();
   const { showLoading } = useProgressStore();
 
   return (
@@ -30,10 +31,5 @@ function OptionSlider({ isFixed, setSensitivity }) {
     </>
   );
 }
-
-OptionSlider.propTypes = {
-  isFixed: PropTypes.bool.isRequired,
-  setSensitivity: PropTypes.func.isRequired,
-};
 
 export default OptionSlider;

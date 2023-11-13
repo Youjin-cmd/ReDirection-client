@@ -6,6 +6,8 @@ const initialState = {
   isDragging: false,
   selectorLeft: 0,
   selectorWidth: ANALYSIS_VIDEO_WIDTH,
+  isFixed: false,
+  sensitivity: 15,
 };
 
 const useSelectAreaStore = create(set => ({
@@ -13,6 +15,8 @@ const useSelectAreaStore = create(set => ({
   setIsDragging: bool => set({ isDragging: bool }),
   setSelectorLeft: newLeftCorner => set({ selectorLeft: newLeftCorner }),
   setSelectorWidth: newRightCorner => set({ selectorWidth: newRightCorner }),
+  setIsFixed: bool => set({ isFixed: bool }),
+  setSensitivity: number => set({ sensitivity: number }),
   resetArea: () => set(initialState),
 }));
 

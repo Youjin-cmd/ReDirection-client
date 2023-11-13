@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import usePostCropRequest from "../apis/usePostCropRequest";
 
@@ -30,11 +30,12 @@ function SelectArea() {
     selectorWidth,
     setSelectorLeft,
     setSelectorWidth,
+    isFixed,
+    setIsFixed,
+    sensitivity,
     resetArea,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
-  const [isFixed, setIsFixed] = useState(false);
-  const [sensitivity, setSensitivity] = useState(15);
 
   useEffect(() => {
     setCurrentPage("Select Area");
@@ -90,6 +91,7 @@ function SelectArea() {
     >
       <div className="relative flex justify-center items-center min-w-[1000px] mb-10">
         <div
+          id="selector"
           className="absolute ring-8 ring-red bg-red opacity-30"
           style={{
             left: `${selectorLeft}px`,
@@ -105,6 +107,7 @@ function SelectArea() {
         </div>
         <video
           className="hover:cursor-ew-resize"
+          data-testid="video"
           ref={videoRef}
           autoPlay={true}
           loop={true}
@@ -125,7 +128,7 @@ function SelectArea() {
         This selected segment will be the area where automatic cropping will
         take place.
       </h2>
-      <OptionSlider isFixed={isFixed} setSensitivity={setSensitivity} />
+      <OptionSlider />
       <div className="relative h-16 w-80">
         {showLoading && (
           <LoadingArea
