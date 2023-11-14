@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import useEditStore from "../../store/edit";
 
-const initialState = useEditStore.getState()
+const initialState = useEditStore.getState();
 
 describe("useEditStore", () => {
   beforeEach(() => {

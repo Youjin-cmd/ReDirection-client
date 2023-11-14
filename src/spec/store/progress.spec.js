@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import useProgressStore from "../../store/progress";
 
-const initialState = useProgressStore.getState()
+const initialState = useProgressStore.getState();
 
 describe("useProgressStore", () => {
   beforeEach(() => {
@@ -17,7 +17,6 @@ describe("useProgressStore", () => {
 
     expect(showLoading).toBe(true);
   });
-
 
   it("should set uploadStatus to 'done'", () => {
     const { setUploadStatus } = useProgressStore.getState();
