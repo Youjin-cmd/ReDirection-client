@@ -32,8 +32,6 @@ function usePostVideoRequest() {
           navigate("/selectArea", {
             state: {
               url: response.data.url,
-              startPixelArray: response.data.startPixelArray,
-              videoWidth: response.data.videoWidth,
             },
           });
         }, ONE_SECOND);
