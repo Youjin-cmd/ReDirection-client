@@ -1,5 +1,9 @@
 import PropTypes from "prop-types";
+
 import Squares from "./Squares";
+import Button from "../shared/Button";
+import CarouselContainer from "./CarouselContainer";
+import SquaresContainer from "./SquaresContainer";
 
 function Carousel({ array, type, setArray }) {
   function handleClickUp(event) {
@@ -19,24 +23,19 @@ function Carousel({ array, type, setArray }) {
   }
 
   return (
-    <div
-      className="relative flex justify-center items-center w-[300px] h-[750px] mx-10"
-      draggable={false}
-    >
-      <div
+    <CarouselContainer>
+      <Button
         className="absolute flex justify-center items-center top-[5px] w-10 h-10 z-10 rounded-full bg-red hover:bg-hoverRed hover:cursor-pointer"
         onClick={event => {
           handleClickUp(event);
         }}
       >
         <img className="select-none" src="/assets/up_icon.png" alt="up icon" />
-      </div>
-      <div className="flex overflow-hidden justify-center w-[300px] h-[700px] rounded-xl ring-4 ring-red">
-        <div className="flex flex-col">
-          <Squares array={array} type={type} />
-        </div>
-      </div>
-      <div
+      </Button>
+      <SquaresContainer>
+        <Squares array={array} type={type} />
+      </SquaresContainer>
+      <Button
         className="absolute flex justify-center items-center bottom-[5px] w-10 h-10 z-10 rounded-full bg-red hover:bg-hoverRed hover:cursor-pointer"
         onClick={event => {
           handleClickDown(event);
@@ -47,8 +46,8 @@ function Carousel({ array, type, setArray }) {
           src="/assets/down_icon.png"
           alt="down icon"
         />
-      </div>
-    </div>
+      </Button>
+    </CarouselContainer>
   );
 }
 
