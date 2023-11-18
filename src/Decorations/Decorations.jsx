@@ -19,12 +19,13 @@ function Decorations({ handleMouseUp, videoRect }) {
   }
 
   function handleMouseMove(event) {
-    if (isDragging === "sticker") {
-      moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
-    }
-
-    if (isDragging === "font") {
-      moveDecoElement(videoRect, event, setFontCoord, targetElementScale);
+    switch (isDragging) {
+      case "sticker":
+        moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
+        break;
+      case "font":
+        moveDecoElement(videoRect, event, setFontCoord, targetElementScale);
+        break;
     }
   }
 
