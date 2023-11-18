@@ -7,16 +7,16 @@ import SquaresContainer from "./SquaresContainer";
 
 function Carousel({ type, array, setArray }) {
   function handleClickUp(event) {
-    const lastItem = array.pop();
-    const updatedArray = [lastItem, ...array];
+    const lastItem = array[array.length - 1];
+    const updatedArray = [lastItem, ...array.slice(0, array.length - 1)];
 
     event.stopPropagation();
     setArray(updatedArray);
   }
 
   function handleClickDown(event) {
-    const firstItem = array.shift();
-    const updatedArray = [...array, firstItem];
+    const firstItem = array[0];
+    const updatedArray = [...array.slice(1), firstItem];
 
     event.stopPropagation();
     setArray(updatedArray);
