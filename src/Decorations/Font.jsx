@@ -4,21 +4,18 @@ import FontHandler from "./FontHandler";
 function Font() {
   const {
     selectedSquares,
-    fontX,
-    fontY,
+    fontCoord,
     fontColor,
     fontBg,
     fontWidth,
     fontContent,
     setFontWidth,
     setFontContent,
-    setTargetElementWidth,
-    setTargetElementHeight,
+    setTargetElementScale,
   } = useEditStore();
 
   function setElementScale() {
-    setTargetElementWidth(fontWidth);
-    setTargetElementHeight(40);
+    setTargetElementScale(fontWidth, 40);
   }
 
   function handleChangeText(event) {
@@ -64,8 +61,8 @@ function Font() {
         id="selected font"
         className={`peer absolute z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
         style={{
-          left: `${fontX}px`,
-          top: `${fontY}px`,
+          left: `${fontCoord.fontX}px`,
+          top: `${fontCoord.fontY}px`,
           color: `${fontColor}`,
           background: `${fontBg}`,
           width: `${fontWidth}px`,

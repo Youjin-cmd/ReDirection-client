@@ -11,16 +11,8 @@ import useEditStore from "../store/edit";
 function usePostEditRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setEditStatus, resetAllStatus } = useProgressStore();
-  const {
-    fontX,
-    fontY,
-    stickerX,
-    stickerY,
-    fontColor,
-    fontBg,
-    fontWidth,
-    fontContent,
-  } = useEditStore();
+  const { fontCoord, stickerCoord, fontColor, fontBg, fontWidth, fontContent } =
+    useEditStore();
 
   async function postEditRequest(selectedSquares) {
     try {
@@ -30,14 +22,14 @@ function usePostEditRequest() {
       const response = await axios.post(`${baseURL}/video/edit`, {
         typeface: selectedSquares.typeface,
         fontContent,
-        fontX: Math.round(fontX),
-        fontY: Math.round(fontY),
+        fontX: Math.round(fontCoord.fontX),
+        fontY: Math.round(fontCoord.fontY),
         fontWidth,
         fontColor,
         fontBg,
         stickerName: selectedSquares.stickerName,
-        stickerX: Math.round(stickerX),
-        stickerY: Math.round(stickerY),
+        stickerX: Math.round(stickerCoord.stickerX),
+        stickerY: Math.round(stickerCoord.stickerY),
       });
 
       if (response.data.success) {

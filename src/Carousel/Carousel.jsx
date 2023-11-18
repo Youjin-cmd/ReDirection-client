@@ -5,7 +5,7 @@ import Button from "../shared/Button";
 import CarouselContainer from "./CarouselContainer";
 import SquaresContainer from "./SquaresContainer";
 
-function Carousel({ array, type, setArray }) {
+function Carousel({ type, array, setArray }) {
   function handleClickUp(event) {
     const lastItem = array.pop();
     const updatedArray = [lastItem, ...array];
@@ -52,9 +52,9 @@ function Carousel({ array, type, setArray }) {
 }
 
 Carousel.propTypes = {
+  type: PropTypes.string.isRequired,
   array: PropTypes.array.isRequired,
   setArray: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
 };
 
 export default Carousel;

@@ -1,7 +1,7 @@
 import useEditStore from "../store/edit";
 
 function FontBgColorSelector() {
-  const { fontX, fontY, setFontBg, fontWidth } = useEditStore();
+  const { fontCoord, setFontBg, fontWidth } = useEditStore();
 
   function handleClickBgColor(event) {
     if (event.target.id === "bg-white") {
@@ -21,8 +21,8 @@ function FontBgColorSelector() {
     <div
       className="absolute justify-center w-[150px] h-10 z-10 hidden hover:flex peer-focus:flex"
       style={{
-        left: `${fontX + fontWidth / 4}px`,
-        top: `${fontY + 50}px`,
+        left: `${fontCoord.fontX + fontWidth / 4}px`,
+        top: `${fontCoord.fontY + 50}px`,
       }}
     >
       <div

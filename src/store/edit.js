@@ -31,16 +31,22 @@ const initialState = {
     stickerName: null,
   },
   isDragging: null,
-  fontX: 150,
-  fontY: 340,
+  fontCoord: {
+    fontX: 150,
+    fontY: 340,
+  },
   fontColor: "#000000",
   fontBg: "#FFFFFF",
   fontWidth: 100,
   fontContent: "TEXT",
-  stickerX: 0,
-  stickerY: 0,
-  targetElementWidth: null,
-  targetElementHeight: null,
+  stickerCoord: {
+    stickerX: 0,
+    stickerY: 0,
+  },
+  targetElementScale: {
+    width: null,
+    height: null,
+  },
 };
 
 const useEditStore = create(set => ({
@@ -58,16 +64,34 @@ const useEditStore = create(set => ({
     }));
   },
   setIsDragging: elementType => set({ isDragging: elementType }),
-  setFontX: newLeftCorner => set({ fontX: newLeftCorner }),
-  setFontY: newTopCorner => set({ fontY: newTopCorner }),
+  setFontCoord: (newX, newY) => {
+    set({
+      fontCoord: {
+        fontX: newX,
+        fontY: newY,
+      },
+    });
+  },
   setFontColor: newColor => set({ fontColor: newColor }),
   setFontBg: newColor => set({ fontBg: newColor }),
   setFontWidth: newWidth => set({ fontWidth: newWidth }),
   setFontContent: newContent => set({ fontContent: newContent }),
-  setStickerX: newLeftCorner => set({ stickerX: newLeftCorner }),
-  setStickerY: newTopCorner => set({ stickerY: newTopCorner }),
-  setTargetElementWidth: newWidth => set({ targetElementWidth: newWidth }),
-  setTargetElementHeight: newHeight => set({ targetElementHeight: newHeight }),
+  setStickerCoord: (newX, newY) => {
+    set({
+      stickerCoord: {
+        stickerX: newX,
+        stickerY: newY,
+      },
+    });
+  },
+  setTargetElementScale: (newWidth, newHeight) => {
+    set({
+      targetElementScale: {
+        width: newWidth,
+        height: newHeight,
+      },
+    });
+  },
   resetEditData: () => set(initialState),
 }));
 

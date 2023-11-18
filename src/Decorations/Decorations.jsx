@@ -8,13 +8,10 @@ import moveDecoElement from "../util/moveDecoElement";
 function Decorations({ handleMouseUp, videoRect }) {
   const {
     selectedSquares,
-    setFontX,
-    setFontY,
     isDragging,
-    setStickerX,
-    setStickerY,
-    targetElementWidth,
-    targetElementHeight,
+    setFontCoord,
+    setStickerCoord,
+    targetElementScale,
   } = useEditStore();
 
   if (!videoRect) {
@@ -23,25 +20,11 @@ function Decorations({ handleMouseUp, videoRect }) {
 
   function handleMouseMove(event) {
     if (isDragging === "sticker") {
-      moveDecoElement(
-        videoRect,
-        event,
-        setStickerX,
-        setStickerY,
-        targetElementWidth,
-        targetElementHeight,
-      );
+      moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
     }
 
     if (isDragging === "font") {
-      moveDecoElement(
-        videoRect,
-        event,
-        setFontX,
-        setFontY,
-        targetElementWidth,
-        targetElementHeight,
-      );
+      moveDecoElement(videoRect, event, setFontCoord, targetElementScale);
     }
   }
 

@@ -4,10 +4,8 @@ const { EDIT_VID_WIDTH, EDIT_VID_HEIGHT } = CONSTANT;
 function moveDecoElement(
   videoRect,
   event,
-  setElementX,
-  setElementY,
-  targetElementWidth,
-  targetElementHeight,
+  setElementCoord,
+  targetElementScale,
 ) {
   const videoTopEdge = videoRect.top;
   const videoLeftEdge = videoRect.left;
@@ -15,6 +13,8 @@ function moveDecoElement(
   const cursorY = event.clientY;
   const currentXBasedOnVideoArea = cursorX - videoLeftEdge;
   const currentYBasedOnVideoArea = cursorY - videoTopEdge;
+  const targetElementWidth = targetElementScale.width;
+  const targetElementHeight = targetElementScale.height;
 
   const isAboveVideo = currentYBasedOnVideoArea < 0;
   const isLeftOfVideo = currentXBasedOnVideoArea < 0;
@@ -23,28 +23,23 @@ function moveDecoElement(
   const isBelowVideo =
     currentYBasedOnVideoArea > EDIT_VID_HEIGHT - targetElementHeight;
 
-  function setCoordinates(x, y) {
-    setElementX(x);
-    setElementY(y);
-  }
-
   if (isAboveVideo && isLeftOfVideo) {
-    setCoordinates(0, 0);
+    setElementCoord(0, 0);
     return;
   }
 
   if (isAboveVideo && isRightOfVideo) {
-    setCoordinates(EDIT_VID_WIDTH - targetElementWidth, 0);
+    setElementCoord(EDIT_VID_WIDTH - targetElementWidth, 0);
     return;
   }
 
   if (isBelowVideo && isLeftOfVideo) {
-    setCoordinates(0, EDIT_VID_HEIGHT - targetElementHeight);
+    setElementCoord(0, EDIT_VID_HEIGHT - targetElementHeight);
     return;
   }
 
   if (isBelowVideo && isRightOfVideo) {
-    setCoordinates(
+    setElementCoord(
       EDIT_VID_WIDTH - targetElementWidth,
       EDIT_VID_HEIGHT - targetElementHeight,
     );
@@ -53,7 +48,7 @@ function moveDecoElement(
   }
 
   if (isAboveVideo || isLeftOfVideo || isRightOfVideo || isBelowVideo) {
-    setCoordinates(
+    setElementCoord(
       Math.max(
         0,
         Math.min(currentXBasedOnVideoArea, EDIT_VID_WIDTH - targetElementWidth),
@@ -70,7 +65,7 @@ function moveDecoElement(
     return;
   }
 
-  setCoordinates(currentXBasedOnVideoArea, currentYBasedOnVideoArea);
+  setElementCoord(currentXBasedOnVideoArea, currentYBasedOnVideoArea);
 }
 
 export default moveDecoElement;

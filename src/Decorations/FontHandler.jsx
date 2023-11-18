@@ -6,12 +6,12 @@ import FontBgColorSelector from "./FontBgColorSelector";
 import FontColorSelector from "./FontColorSelector";
 
 function FontHandler({ setElementScale }) {
-  const { fontX, fontY, setIsDragging } = useEditStore();
+  const { fontCoord, setIsDragging } = useEditStore();
   return (
     <>
       <GrabPointToDrag
-        coordX={fontX}
-        coordY={fontY}
+        coordX={fontCoord.fontX}
+        coordY={fontCoord.fontY}
         elementType="font"
         setIsDragging={setIsDragging}
         setElementScale={setElementScale}

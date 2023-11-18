@@ -1,7 +1,7 @@
 import useEditStore from "../store/edit";
 
 function FontColorSelector() {
-  const { fontX, fontY, fontWidth, setFontColor } = useEditStore();
+  const { fontCoord, fontWidth, setFontColor } = useEditStore();
 
   function handleClickColor(event) {
     if (event.target.id === "font-red") {
@@ -26,8 +26,8 @@ function FontColorSelector() {
       <div
         className="absolute justify-center w-[150px] h-10 z-10 hidden hover:flex peer-focus:flex"
         style={{
-          left: `${fontX + fontWidth / 4}px`,
-          top: `${fontY - 40}px`,
+          left: `${fontCoord.fontX + fontWidth / 4}px`,
+          top: `${fontCoord.fontY - 40}px`,
         }}
       >
         <div
