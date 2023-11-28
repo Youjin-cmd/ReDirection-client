@@ -1,7 +1,11 @@
 import { createPortal } from "react-dom";
+import useProgressStore from "../store/progress";
+
 import Button from "../shared/Button";
 
 function Modal({ children, onClick }) {
+  const { showLoading } = useProgressStore();
+
   return createPortal(
     <div className="fixed flex justify-center items-center left-0 right-0 top-0 bottom-0 bg-black bg-opacity-50 z-10">
       <div
@@ -11,6 +15,7 @@ function Modal({ children, onClick }) {
         <Button
           className="absolute top-3 right-3 flex w-6 h-6"
           onClick={onClick}
+          disabled={showLoading}
         >
           <img className="" src="/assets/close_icon.svg" alt="close button" />
         </Button>

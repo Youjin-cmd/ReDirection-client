@@ -27,6 +27,7 @@ function TrialModal() {
               className={`p-1 mr-5
                 ${selectedTrialVideo === "cover" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("cover")}
+              disabled={showLoading}
             >
               <img width="400px" src="/assets/trial_cover.png" />
             </Button>
@@ -34,6 +35,7 @@ function TrialModal() {
               className={`p-1 mr-5
                 ${selectedTrialVideo === "stage" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("stage")}
+              disabled={showLoading}
             >
               <img width="400px" src="/assets/trial_stage.png" />
             </Button>
@@ -41,6 +43,7 @@ function TrialModal() {
               className={`p-1 mr-5
                 ${selectedTrialVideo === "wedding" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("wedding")}
+              disabled={showLoading}
             >
               <img width="400px" src="/assets/trial_wedding.png" />
             </Button>
