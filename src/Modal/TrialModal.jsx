@@ -31,7 +31,7 @@ function TrialModal() {
             >
               <div className="w-[400px]">
                 <img
-                  className="absolute group-hover:hidden"
+                  className="absolute transition ease-in-out group-hover:opacity-0"
                   width="400px"
                   src="/assets/trial_cover.png"
                 />
@@ -46,7 +46,7 @@ function TrialModal() {
             >
               <div className="w-[400px]">
                 <img
-                  className="absolute group-hover:hidden"
+                  className="absolute transition ease-in-out group-hover:opacity-0"
                   width="400px"
                   src="/assets/trial_stage.png"
                 />
@@ -61,7 +61,7 @@ function TrialModal() {
             >
               <div className="w-[400px]">
                 <img
-                  className="absolute group-hover:hidden"
+                  className="absolute transition ease-in-out group-hover:opacity-0"
                   width="400px"
                   src="/assets/trial_wedding.png"
                 />
