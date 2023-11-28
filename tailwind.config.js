@@ -27,7 +27,7 @@ export default {
     extend: {
       animation: {
         spin: "spin 1s linear infinite",
-        appearGeneral: "appearGeneral 0.3s ease-in-out forwards",
+        appearFromBelowToTop: "appearFromBelowToTop 0.3s ease-in-out forwards",
         appearImage: "appearImage 2s ease-in-out forwards",
         appearFrame: "appearFrame 2s ease-in-out forwards",
         appearBlocker: "appearBlocker 2s ease-in-out forwards",
@@ -46,7 +46,7 @@ export default {
           transform: "rotate(360deg)",
         },
       },
-      appearGeneral: {
+      appearFromBelowToTop: {
         from: {
           opacity: "50%",
           transform: "translateY(2%)",

@@ -33,7 +33,7 @@ function DropInput() {
   return (
     <div className="flex flex-col justify-center items-center py-10">
       <div
-        className="flex flex-col justify-center items-center w-[600px] h-[180px] mb-5 rounded-xl border-dashed border-2 border-red bg-lightRed hover:bg-white"
+        className="flex flex-col justify-center items-center w-[600px] h-[180px] mb-5 rounded-xl border-dashed border-2 transition ease-in-out border-red bg-lightRed hover:bg-white"
         {...getRootProps()}
       >
         {showLoading && (

@@ -24,28 +24,49 @@ function TrialModal() {
         <div className="flex flex-col items-center">
           <div className="flex mb-10">
             <Button
-              className={`p-1 mr-5
+              className={`group p-1 mr-5
                 ${selectedTrialVideo === "cover" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("cover")}
               disabled={showLoading}
             >
-              <img width="400px" src="/assets/trial_cover.png" />
+              <div className="w-[400px]">
+                <img
+                  className="absolute group-hover:hidden"
+                  width="400px"
+                  src="/assets/trial_cover.png"
+                />
+                <img width="400px" src="/assets/trial_cover.gif" />
+              </div>
             </Button>
             <Button
-              className={`p-1 mr-5
+              className={`group p-1 mr-5
                 ${selectedTrialVideo === "stage" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("stage")}
               disabled={showLoading}
             >
-              <img width="400px" src="/assets/trial_stage.png" />
+              <div className="w-[400px]">
+                <img
+                  className="absolute group-hover:hidden"
+                  width="400px"
+                  src="/assets/trial_stage.png"
+                />
+                <img width="400px" src="/assets/trial_stage.gif" />
+              </div>
             </Button>
             <Button
-              className={`p-1 mr-5
+              className={`group p-1
                 ${selectedTrialVideo === "wedding" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("wedding")}
               disabled={showLoading}
             >
-              <img width="400px" src="/assets/trial_wedding.png" />
+              <div className="w-[400px]">
+                <img
+                  className="absolute group-hover:hidden"
+                  width="400px"
+                  src="/assets/trial_wedding.png"
+                />
+                <img width="400px" src="/assets/trial_wedding.gif" />
+              </div>
             </Button>
           </div>
           <div className="relative h-16 w-80">

@@ -26,7 +26,7 @@ function Main() {
       <Introduction />
       <DropInput />
       <Button
-        className="fixed bottom-10 right-10 w-28 h-28 text-xl text-red rounded-full font-pacifico ring-2 ring-red bg-white hover:ring-2 hover:ring-white hover:bg-red hover:text-white hover:animate-dancing"
+        className="fixed bottom-10 right-10 w-28 h-28 text-xl text-red rounded-full font-pacifico ring-2 ring-red bg-white transition ease-in-out hover:ring-2 hover:ring-white hover:bg-red hover:text-white hover:animate-dancing"
         onClick={() => setShowTrialModal(true)}
       >
         try demo
