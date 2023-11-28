@@ -26,6 +26,7 @@ function useGetTrialRequest() {
 
         setTimeout(() => {
           resetAllStatus();
+          setShowTrialModal(false);
 
           navigate("/selectArea", {
             state: {

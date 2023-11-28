@@ -25,17 +25,17 @@ function TrialModal() {
           <div className="flex mb-10">
             <Button
               className={`p-1 mr-5
-                ${selectedTrialVideo === "dog" && "ring-4 ring-red"}`}
-              onClick={() => setSelectedTrialVideo("dog")}
+                ${selectedTrialVideo === "cover" && "ring-4 ring-red"}`}
+              onClick={() => setSelectedTrialVideo("cover")}
             >
-              <img width="400px" src="/assets/trial_dog.png" />
+              <img width="400px" src="/assets/trial_cover.png" />
             </Button>
             <Button
               className={`p-1 mr-5
-                ${selectedTrialVideo === "dance" && "ring-4 ring-red"}`}
-              onClick={() => setSelectedTrialVideo("dance")}
+                ${selectedTrialVideo === "stage" && "ring-4 ring-red"}`}
+              onClick={() => setSelectedTrialVideo("stage")}
             >
-              <img width="400px" src="/assets/trial_dance.png" />
+              <img width="400px" src="/assets/trial_stage.png" />
             </Button>
             <Button
               className={`p-1 mr-5
