@@ -2,18 +2,31 @@
   <img width="400" src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/d0a05e94-f003-4938-92bf-eeace7a9eead">
 </p>
 
-Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 영상으로 바꾸어주는 웹 애플리케이션입니다.
+<br>
+
+<p align="center">
+  Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 영상으로 바꾸어주는 웹 애플리케이션입니다.
+</p>
+
+<br>
+
+<p align="center">
+  <a href="https://app.re-direction.xyz/">Deployed website</a>
+  <span> | </span>
+  <a href="https://github.com/Youjin-cmd/ReDirection-client">Frontend Repository</a>
+  <span> | </span>
+  <a href="https://github.com/Youjin-cmd/ReDirection-server">Backend Repository</a>
+</p>
 
 <br>
 
 # 📖 CONTENTS
 
-- [🔍 Preview](#🔍-preview)
-- [🛠 Tech Stacks](#🛠-tech-stacks)
-- [💥 Motivation](#💥-motivation)
-- [🕹️ Feature](#🕹️-feature)
-- [🔗 Links](#🔗-links)
-- [🏔 Challenges](#🏔-challenges)
+- [🔍 Preview](#-preview)
+- [🛠 Tech Stacks](#-tech-stacks)
+- [💥 Motivation](#-motivation)
+- [🕹️ Features](#-features)
+- [🏔 Challenges](#-challenges)
   - [1. 어떻게 자바스크립트로 모션 분석을 할 수 있을까?](#1-어떻게-자바스크립트로-모션-분석을-할-수-있을까)
   - [2. 자바스크립트 환경에서 비디오와 이미지 다루기](#2-자바스크립트-환경에서-비디오와-이미지-다루기)
     - [2-1. 기술검증](#2-1-기술-검증)
@@ -27,8 +40,8 @@ Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 �
   - [4. 글귀와 스티커를 어떻게 영상에 삽입할까?](#4-글귀와-스티커를-어떻게-영상에-삽입할까)
     - [4-1. 간편한 꾸미기 인터페이스 제공하기](#4-1-간편한-꾸미기-인터페이스-제공하기)
     - [4-2. 요청과 정확히 일치하는 결과물 반환](#4-2-요청과-정확히-일치하는-결과물-반환)
-- [🗓 Schedule](#🗓-schedule)
-- [📒프로젝트 소감](#📒-프로젝트-소감)
+- [🗓 Schedule](#-schedule)
+- [📒프로젝트 소감](#-프로젝트-소감)
 
 <br>
 
@@ -38,25 +51,37 @@ Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 �
   <img src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/c379f80e-2581-45a7-8181-592f17afb5ba">
 </p>
 
+<br>
+
 # **🛠 Tech Stacks**
+
 ### Client
- `JavaScript, React, Vite, Tailwind CSS`
+
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ### Server
- `Node.js, Express, multer, FFmpeg, Sharp`
+
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Multer](https://img.shields.io/badge/Multer-white?style=for-the-badge&logoColor=black) ![FFmpeg](https://img.shields.io/badge/FFmpeg-000?style=for-the-badge&logoColor=white) ![Sharp](https://img.shields.io/badge/Sharp-%234ea94b.svg?style=for-the-badge&logoColor=white)
 
 ### Test
- `React Testing Library, Vitest, Jest`
+
+![React Dom Testing](https://img.shields.io/badge/react%20dom%20testing-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Vitest](https://img.shields.io/badge/Vitest-%2344A833.svg?style=for-the-badge&logoColor=white) ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 
 ### Deployment
- `Netlify, AWS Elastic Beanstalk`
+
+![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7) ![AWS Elastic Beanstalk](https://img.shields.io/badge/AWS%20Elastic%20Beanstalk-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
+<br>
 
 # **💥 Motivation**
 
 요즈음 트렌드인 인스타그램의 스토리나 틱톡에 가로영상을 올리려고 할 때면 그 중에 가장 맘에 드는 세로구간을 선택하면서 난감했던 적이 있을 것입니다. 춤을 추는 친구가 좌우로 크게 움직이거나, 결혼식에서 입장하는 부부가 우측 끝에서 좌측 끝으로 이동을 한다면, 전문 영상편집 프로그램이 제공하는 모션트랙킹을 이용하지 않는 이상 적당한 세로구간을 고르기가 어렵습니다.<br>
 위와 같은 경험을 바탕으로, 일반인들도 손쉽게 가로영상의 하이라이트 구간만을 골라서 세로영상으로 변환할 수 있는 툴을 만들 수는 없을지 고민하게 되었습니다. 이번에 진행한 프로젝트가 제공하는 기능은 영상 트랜드가 가로에서 세로로 바뀌어가는 현재에 많은 분들이 필요로 하지 않을까 합니다. 또한 AI 없이 자바스크립트만으로 모션을 분석해본다는 점에서 도전욕구를 불러일으켰고, 이전에 영상과 애니메이션을 제작한 경험이 있었기 때문에 코드를 통해 비디오를 직접 변환하는 법을 이번 기회를 통해 배워본다는 점에서 강한 동기부여가 되었습니다.
 
-# **🕹️ Feature**
+<br>
+
+# **🕹️ Features**
+
 ### 동영상 업로드
 
 <p align="center">
@@ -100,13 +125,8 @@ Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 �
 - 최종결과물이 자동으로 다운로드되어 download 폴더에 저장됩니다. 사용자는 .mp4 확장자의 결과물을 확인할 수 있습니다.
   - 좌측 상단의 로고를 클릭하거나 try with another video?를 클릭하면 메인페이지로 돌아갑니다.
 
-# **🔗 Links**
-### Deployed link
-- **[Link](https://app.re-direction.xyz/)**
+<br>
 
-### Github Repositories
-- **[Frontend Repo](https://github.com/Youjin-cmd/ReDirection-client)**
-- **[Backend Repo](https://github.com/Youjin-cmd/ReDirection-server)**
 # **🏔 Challenges**
 ## 1. 어떻게 자바스크립트로 모션 분석을 할 수 있을까?
 
@@ -118,6 +138,8 @@ Re-Direction은 가로 영상의 피사체의 움직임을 분석해서 세로 �
 영상는 많은 수의 이미지가 연속적으로 빠르게 전환하여 화면이 움직이는 것처럼 보이게 만드는 디지털매체입니다. 이러한 영상을 이루는 연속된 이미지를 프레임이라고 합니다. 현재 보고 있는 프레임과 다음에 올 프레임, 그 사이에 “격렬한 색상 변화”가 있다고 할 때, 화면은 단순히 표시하는 색깔을 바꾼것에 불과하지만 사람은 이를 보고 “움직임”이라고 인식합니다.
 
 저는 이 개념에 착안해서, 색상의 변화가 얼마만큼의 면적에서, 얼마나 격렬하게 일어났는지를 분석하면 자바스크립트로도 충분히 모션분석이 가능하지 않을까 생각했습니다.
+
+<br>
 
 ## 2. 자바스크립트 환경에서 비디오와 이미지 다루기
 
@@ -144,6 +166,8 @@ composite는 두 이미지를 합성할 때 사용하는 메서드로, 옵션으
 
 움직임이 거의 없는 픽셀은 어두운 색깔을 띄고 움직임이 많은 픽셀은 밝은 색깔을 띄는 것을 볼 수 있습니다. RGB는 픽셀이 가진 삼원색의 속성으로써 색상이 밝을 수록 RGB의 합계 스코어가 높습니다. 즉 위 이미지의 모든 픽셀의 RGB 스코어 분석을 하면 변화가 격렬했던 부분을 가려낼 수 있게 됩니다.
 
+<br>
+
 ### 2-2. 분석시 추출하는 프레임을 최대한 가볍게
 
 영상 미디어를 편집하는 작업은 컴퓨터의 성능을 한계까지 끌어내서 쓴다고 해도 과언이 아닐 정도로 많은 리소스를 요하는 무거운 작업입니다. 리디렉션은 웹 기반의 컨버터로써 누구나 캐쥬얼하게 이용 가능해야하는 만큼 퍼포먼스의 성능향상은 아주 중요한 과제 중 하나였습니다. 퍼포먼스가 좋지 못하면 변환 결과를 오래 동안 기다려야하므로 유저경험에도 좋지 않을 뿐만 아니라, 서버에도 부하가 심할 것이기 때문이었습니다.
@@ -167,6 +191,8 @@ composite는 두 이미지를 합성할 때 사용하는 메서드로, 옵션으
 
 위의 두 방법을 적용해보고 분석용 프레임 폴더의 총 용량을 비교해보니, 15초 영상 기준으로 823KB의 폴더가 생성되었습니다. 기존의 141.1MB와 비교하여 드라마틱하게 가벼워짐에 따라 결과적으로 퍼포먼스도 크게 향상되는 모습을 확인할 수 있었습니다.
 
+<br>
+
 ### 2-3. 모션 분석부터 결과 반환까지
 
 <p align="center">
@@ -182,11 +208,11 @@ FFmpeg와 Sharp를 이용한 모션분석의 과정을 그림으로 표현하면
 
 3. **모션 히트맵 영상 생성** <br> Sharp의 composite 메서드를 통해 두 이미지를 합성하여 변화한 구간만을 도출합니다.
 
-4. **분석할 영역 컨펌** <br> 유저는 반환된 모션히트맵 프리뷰 영상을 토대로 모션 분석을 요청할 영역과 예민도를 컨펌합니다. ([관련목차](#3-4-유저의-주관을-반영하는-단계를-추가))
+4. **분석할 영역 컨펌** <br> 유저는 반환된 모션히트맵 프리뷰 영상을 토대로 모션 분석을 요청할 영역과 예민도를 컨펌합니다.
 
 5. **고퀄리티 프레임 추출** <br> FFmpeg를 이용하여 원본영상에서 고퀄리티의 프레임을 초당 25매로 추출해줍니다.
 
-6. **영역 내부에서 모션 분석, 최적화** <br> 이미지의 픽셀을 순회하며 스코어가 강한 세로줄의 위치를 배열에 담습니다. <br> 배열에 담을지 여부를 가리는 기준점인 Threshold는 실험을 통해 얻은 적절한 숫자로 설정되어 있으며 픽셀이 단순 노이즈인지 모션에 해당하는지를 가려줍니다. <br> "모션분석 배열"의 중앙을 구한 후, 크롭의 기준점이 되는 좌측 최상단의 좌표값을 구하여 "좌표 배열"에 넣어줍니다.<br> 안정적인 결과물을 얻을 수 있도록 배열내부의 좌표값을 최적화해줍니다. ([관련목차](#3-1-모션이-없는-구간0의-처리))
+6. **영역 내부에서 모션 분석, 최적화** <br> 이미지의 픽셀을 순회하며 스코어가 강한 세로줄의 위치를 배열에 담습니다. <br> 배열에 담을지 여부를 가리는 기준점인 Threshold는 실험을 통해 얻은 적절한 숫자로 설정되어 있으며 픽셀이 단순 노이즈인지 모션에 해당하는지를 가려줍니다. <br> "모션분석 배열"의 중앙을 구한 후, 크롭의 기준점이 되는 좌측 최상단의 좌표값을 구하여 "좌표 배열"에 넣어줍니다.<br> 안정적인 결과물을 얻을 수 있도록 배열내부의 좌표값을 최적화해줍니다.
 
 7. **프레임을 크롭하여 세로영상 생성** <br> 좌표배열을 기반으로 하여 Sharp를 이용해 프레임들을 크롭해줍니다. <br> 크롭이 완료된 프레임들을 FFmpeg를 이용해 비디오로 합쳐줍니다. <br> 이때에 미리 준비해놓았던 오디오 파일과 영상을 함께 먹싱해줍니다.
 
@@ -195,6 +221,8 @@ FFmpeg와 Sharp를 이용한 모션분석의 과정을 그림으로 표현하면
 9. **꾸미기 반영하여 최종영상 생성** <br> FFmpeg의 필터를 이용하여 유저가 제출한 디자인대로 영상을 편집하고 최종결과물을 생성합니다.
 
 10. **최종영상 반환** <br> S3에 업로드된 결과물의 url을 이용하여 사용자가 결과물을 다운로드 받을 수 있게 합니다.
+
+<br>
 
 ## 3. 결과영상을 최적화하여 유저만족도 높이기
 <p align="center">
