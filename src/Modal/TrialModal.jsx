@@ -13,6 +13,12 @@ function TrialModal() {
   const { showLoading } = useProgressStore();
   const getTrialRequest = useGetTrialRequest();
 
+  window.onkeydown = function (event) {
+    if (event.keyCode == 27) {
+      setShowTrialModal(false);
+    }
+  };
+
   async function handleClickSubmit() {
     await getTrialRequest(selectedTrialVideo);
   }
