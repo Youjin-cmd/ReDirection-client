@@ -1,5 +1,8 @@
+import { useEffect, useRef } from "react";
+
 import useEditStore from "../store/edit";
 import FontHandler from "./FontHandler";
+import isEnglishLetter from "../util/isEnglishLetter";
 
 function Font() {
   const {
@@ -14,44 +17,29 @@ function Font() {
     setTargetElementScale,
   } = useEditStore();
 
+  const spanRef = useRef(null);
+
+  useEffect(() => {
+    if (spanRef.current) {
+      const spanWidth = spanRef.current.getBoundingClientRect().width;
+      setFontWidth(spanWidth);
+    }
+  }, [fontContent, selectedSquares.typeface]);
+
   function setElementScale() {
     setTargetElementScale(fontWidth, 40);
   }
 
   function handleChangeText(event) {
     const value = event.target.value;
-    const englishLowerCaseRegex = /[a-z]/;
-    const specialCharacterRegex = /[!@#$%^&*()_+{}[\]:;<>,.?~\-/\\|=]/;
-    const spaceRegex = /\s/;
-    let newLength = 0;
-    let newValue = "";
 
-    for (let i = 0; i < value.length; i++) {
-      if (
-        englishLowerCaseRegex.test(value[i]) ||
-        specialCharacterRegex.test(value[i]) ||
-        spaceRegex.test(value[i])
-      ) {
-        newLength += 17;
-        newValue += value[i];
-      } else {
-        newLength += 29;
-        newValue += value[i];
+    for (const char of value) {
+      if (!isEnglishLetter(char)) {
+        return;
       }
     }
 
-    if (newLength > 370) {
-      return;
-    }
-
-    setFontContent(newValue);
-    setFontWidth(newLength);
-  }
-
-  function handleKeyUp(event) {
-    if (!event.target.value) {
-      setFontWidth(10);
-    }
+    setFontContent(value);
   }
 
   return (
@@ -71,9 +59,17 @@ function Font() {
         draggable={false}
         value={fontContent}
         onChange={handleChangeText}
-        onKeyUp={e => handleKeyUp(e)}
         autoComplete="off"
       />
+      <span
+        ref={spanRef}
+        className="px-3 text-3xl bg-red opacity-0"
+        style={{
+          fontFamily: selectedSquares.typeface,
+        }}
+      >
+        {fontContent}
+      </span>
       <FontHandler setElementScale={setElementScale} />
     </div>
   );
