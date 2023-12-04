@@ -30,10 +30,10 @@ function Edit() {
     setStickerArray,
     setIsDragging,
   } = useEditStore();
-  const [isMuted, setIsMuted] = useState("muted");
-  const videoRef = useRef(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const videoElement = videoRef.current;
-  let videoRect = null;
+  let videoRect: DOMRect | null = null;
 
   useEffect(() => {
     setCurrentPage("Edit your video");
@@ -48,10 +48,9 @@ function Edit() {
   }, []);
 
   function handleToggleMute() {
-    const videoElement = videoRef.current;
-
-    videoElement.muted = !videoElement.muted;
-    setIsMuted(videoElement.muted);
+    if (videoElement) {
+      setIsMuted(!videoElement.muted);
+    }
   }
 
   async function handleClickConfirm() {

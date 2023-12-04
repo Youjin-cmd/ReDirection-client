@@ -11,7 +11,7 @@ function Result() {
   const location = useLocation();
   const navigate = useNavigate();
   const { url } = location.state;
-  const downloadLinkRef = useRef();
+  const downloadLinkRef = useRef<HTMLAnchorElement>(null);
   const { resetEditData } = useEditStore();
   const { setCurrentPage } = usePageStore();
 

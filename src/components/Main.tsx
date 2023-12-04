@@ -10,7 +10,7 @@ import DropInput from "../MainItems/DropInput";
 import Button from "../shared/Button";
 import TrialModal from "../Modal/TrialModal";
 
-function Main() {
+const Main: React.FunctionComponent = () => {
   const { setCurrentPage } = usePageStore();
   const { resetEditData } = useEditStore();
   const { showTrialModal, setShowTrialModal } = useModalStore();

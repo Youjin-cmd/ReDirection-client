@@ -19,9 +19,6 @@ function SelectArea() {
   const navigate = useNavigate();
   const location = useLocation();
   const { url } = location.state;
-  const videoRef = useRef(null);
-  const videoElement = videoRef.current;
-  let videoRect = null;
   const { showLoading } = useProgressStore();
   const {
     isDragging,
@@ -36,6 +33,9 @@ function SelectArea() {
     resetArea,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoElement = videoRef.current;
+  let videoRect: DOMRect | null = null;
 
   useEffect(() => {
     setCurrentPage("Select Area");
@@ -58,7 +58,7 @@ function SelectArea() {
     setIsDragging(false);
   }
 
-  function handleMouseMove(event) {
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
     const leftEdge = Math.round(selectorLeft / 10);
     const rightEdge = Math.round((selectorLeft + selectorWidth) / 10);
 
