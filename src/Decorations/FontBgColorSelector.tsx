@@ -3,16 +3,17 @@ import useEditStore from "../store/edit";
 function FontBgColorSelector() {
   const { fontCoord, setFontBg, fontWidth } = useEditStore();
 
-  function handleClickBgColor(event) {
-    if (event.target.id === "bg-white") {
+  function handleClickBgColor(event: React.MouseEvent<HTMLDivElement>) {
+    const { id } = event.target as HTMLDivElement;
+    if (id === "bg-white") {
       setFontBg("#FFFFFF");
     }
 
-    if (event.target.id === "bg-black") {
+    if (id === "bg-black") {
       setFontBg("#000000");
     }
 
-    if (event.target.id === "bg-none") {
+    if (id === "bg-none") {
       setFontBg("transparent");
     }
   }

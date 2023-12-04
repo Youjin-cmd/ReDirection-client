@@ -5,7 +5,12 @@ import Font from "./Font";
 import Sticker from "./Sticker";
 import moveDecoElement from "../util/moveDecoElement";
 
-function Decorations({ handleMouseUp, videoRect }) {
+interface Decorations {
+  handleMouseUp: () => void;
+  videoRect: DOMRect | null;
+}
+
+function Decorations({ handleMouseUp, videoRect }: Decorations) {
   const {
     selectedSquares,
     isDragging,
@@ -18,7 +23,7 @@ function Decorations({ handleMouseUp, videoRect }) {
     return null;
   }
 
-  function handleMouseMove(event) {
+  function handleMouseMove(event: React.MouseEvent) {
     switch (isDragging) {
       case "sticker":
         moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
@@ -40,10 +45,5 @@ function Decorations({ handleMouseUp, videoRect }) {
     </div>
   );
 }
-
-Decorations.propTypes = {
-  handleMouseUp: PropTypes.func.isRequired,
-  videoRect: PropTypes.any,
-};
 
 export default Decorations;

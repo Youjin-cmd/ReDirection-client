@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import usePostEditRequest from "../apis/usePostEditRequest";
 
@@ -43,9 +43,9 @@ function Edit() {
     videoRect = videoElement.getBoundingClientRect();
   }
 
-  const handleMouseUp = useCallback(() => {
+  function handleMouseUp () {
     setIsDragging(null);
-  }, []);
+  }
 
   function handleToggleMute() {
     if (videoElement) {

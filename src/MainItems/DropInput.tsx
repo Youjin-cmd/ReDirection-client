@@ -11,14 +11,12 @@ function DropInput() {
   const postVideoRequest = usePostVideoRequest();
 
   async function onDrop(acceptedFiles: any[]) {
-    console.log(acceptedFiles);
     const formData = new FormData();
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
       onUploadProgress: (progressEvent: any) => {
-        console.log(progressEvent);
         const progress = (progressEvent.loaded / progressEvent.total) * 100;
 
         setUploadStatus(progress);

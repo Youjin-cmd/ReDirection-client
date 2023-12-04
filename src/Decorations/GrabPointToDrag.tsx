@@ -1,4 +1,10 @@
-import PropTypes from "prop-types";
+interface GrabPointToDragProps {
+  coordX: number;
+  coordY: number;
+  elementType: string;
+  setIsDragging: (elementType: string | null) => void;
+  setElementScale: () => void;
+}
 
 function GrabPointToDrag({
   coordX,
@@ -6,7 +12,7 @@ function GrabPointToDrag({
   elementType,
   setIsDragging,
   setElementScale,
-}) {
+}: GrabPointToDragProps) {
   return (
     <div
       className="absolute justify-center items-center w-6 h-6 z-10 rounded-full bg-white hidden select-none hover:flex peer-hover:flex hover:cursor-move"
@@ -30,13 +36,5 @@ function GrabPointToDrag({
     </div>
   );
 }
-
-GrabPointToDrag.propTypes = {
-  coordX: PropTypes.number.isRequired,
-  coordY: PropTypes.number.isRequired,
-  elementType: PropTypes.string.isRequired,
-  setIsDragging: PropTypes.func.isRequired,
-  setElementScale: PropTypes.func.isRequired,
-};
 
 export default GrabPointToDrag;

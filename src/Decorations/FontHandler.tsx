@@ -5,7 +5,11 @@ import GrabPointToDrag from "./GrabPointToDrag";
 import FontBgColorSelector from "./FontBgColorSelector";
 import FontColorSelector from "./FontColorSelector";
 
-function FontHandler({ setElementScale }) {
+interface FontHandlerProps {
+  setElementScale: () => void;
+}
+
+function FontHandler({ setElementScale } : FontHandlerProps) {
   const { fontCoord, setIsDragging } = useEditStore();
   return (
     <>

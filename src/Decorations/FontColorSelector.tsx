@@ -3,20 +3,21 @@ import useEditStore from "../store/edit";
 function FontColorSelector() {
   const { fontCoord, fontWidth, setFontColor } = useEditStore();
 
-  function handleClickColor(event) {
-    if (event.target.id === "font-red") {
+  function handleClickColor(event: React.MouseEvent<HTMLDivElement>) {
+    const { id } = event.target as HTMLDivElement;
+    if (id === "font-red") {
       setFontColor("#C32F2F");
     }
 
-    if (event.target.id === "font-white") {
+    if (id === "font-white") {
       setFontColor("#FFFFFF");
     }
 
-    if (event.target.id === "font-blue") {
+    if (id === "font-blue") {
       setFontColor("#4287f5");
     }
 
-    if (event.target.id === "font-black") {
+    if (id === "font-black") {
       setFontColor("#000000");
     }
   }

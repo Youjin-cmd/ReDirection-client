@@ -5,7 +5,11 @@ import CropProgress from "./CropProgress";
 import AnalysisProgress from "./AnalysisProgress";
 import EditProgress from "./EditProgress";
 
-function LoadingArea({ className }) {
+interface LoadingAreaProps {
+  className: string;
+}
+
+function LoadingArea({ className }: LoadingAreaProps) {
   return (
     <ul className={className}>
       <UploadProgress />

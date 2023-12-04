@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 
 import useEditStore from "../store/edit";
 import FontHandler from "./FontHandler";
@@ -17,7 +17,7 @@ function Font() {
     setTargetElementScale,
   } = useEditStore();
 
-  const spanRef = useRef(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (spanRef.current) {
@@ -30,7 +30,7 @@ function Font() {
     setTargetElementScale(fontWidth, 40);
   }
 
-  function handleChangeText(event) {
+  function handleChangeText(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
 
     for (const char of value) {
