@@ -3,7 +3,12 @@ import useProgressStore from "../store/progress";
 
 import Button from "../shared/Button";
 
-function Modal({ children, onClick }) {
+interface ModalProps {
+  children: React.ReactNode,
+  onClick: () => void;
+}
+
+function Modal({ children, onClick }: ModalProps) {
   const { showLoading } = useProgressStore();
 
   return createPortal(

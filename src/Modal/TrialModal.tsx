@@ -14,7 +14,7 @@ function TrialModal() {
   const getTrialRequest = useGetTrialRequest();
 
   window.onkeydown = function (event) {
-    if (event.keyCode == 27) {
+    if (event.key === "Escape") {
       setShowTrialModal(false);
     }
   };
