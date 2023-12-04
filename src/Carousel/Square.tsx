@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import Button from "../shared/Button";
 
-function Square({ children, clickHandleSquare, active }) {
+interface SquareProps {
+  children: React.ReactNode;
+  clickHandleSquare: (path: string, type: string) => void;
+  active: boolean;
+}
+
+function Square({ children, clickHandleSquare, active }: SquareProps) {
   return (
     <div
       className={`flex justify-center items-center h-[141px] w-[300px] border-b-4 border-lightRed
@@ -17,11 +23,5 @@ function Square({ children, clickHandleSquare, active }) {
     </div>
   );
 }
-
-Square.propTypes = {
-  children: PropTypes.any.isRequired,
-  clickHandleSquare: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired,
-};
 
 export default Square;

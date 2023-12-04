@@ -1,20 +1,24 @@
-import PropTypes from "prop-types";
 import useEditStore from "../store/edit";
 import Square from "./Square";
 
-function Squares({ array, type }) {
+interface SquaresProps {
+  array: (string | null)[];
+  type: string;
+}
+
+function Squares({ array, type }: SquaresProps) {
   const { selectedSquares, setSelectedSquares } = useEditStore();
 
-  function clickHandleSquare(path, type) {
+  function clickHandleSquare(path: string | null, type: string) {
     let typeface = selectedSquares.typeface;
     let stickerName = selectedSquares.stickerName;
 
     if (type === "font") {
-      typeface = path ? path.split("/").pop().replace(".svg", "") : null;
+      typeface = path ? path.split("/").pop()!.replace(".svg", "") : null;
     }
 
     if (type === "sticker") {
-      stickerName = path ? path.split("/").pop().replace(".svg", "") : null;
+      stickerName = path ? path.split("/").pop()!.replace(".svg", "") : null;
     }
 
     setSelectedSquares(path, type, typeface, stickerName);
@@ -35,10 +39,11 @@ function Squares({ array, type }) {
             />
             <img
               className="w-24 select-none"
-              src={element}
+              src={element ?? undefined}
               alt={
-                element &&
-                `selected ${element.split("/").pop().replace(".svg", "")}`
+                element ?
+                `selected ${element.split("/").pop()!.replace(".svg", "")}`
+                : undefined
               }
               draggable={false}
             />
@@ -50,11 +55,12 @@ function Squares({ array, type }) {
           >
             <img
               className="w-24 opacity-20 select-none"
+              src={element ?? undefined}
               alt={
-                element &&
-                `none selected ${element.split("/").pop().replace(".svg", "")}`
+                element ?
+                `none selected ${element.split("/").pop()!.replace(".svg", "")}`
+                : undefined
               }
-              src={element}
             />
           </Square>
         )}
@@ -62,10 +68,5 @@ function Squares({ array, type }) {
     );
   });
 }
-
-Squares.propTypes = {
-  array: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
-};
 
 export default Squares;

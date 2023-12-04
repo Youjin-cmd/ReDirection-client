@@ -1,12 +1,16 @@
-import PropTypes from "prop-types";
-
 import Squares from "./Squares";
 import Button from "../shared/Button";
 import CarouselContainer from "./CarouselContainer";
 import SquaresContainer from "./SquaresContainer";
 
-function Carousel({ type, array, setArray }) {
-  function handleClickUp(event) {
+interface CarouselProps {
+  type: string;
+  array: (string | null)[];
+  setArray: (updatedArray: (string | null)[]) => void;
+}
+
+function Carousel({ type, array, setArray }: CarouselProps) {
+  function handleClickUp(event: React.MouseEvent) {
     const lastItem = array[array.length - 1];
     const updatedArray = [lastItem, ...array.slice(0, array.length - 1)];
 
@@ -14,7 +18,7 @@ function Carousel({ type, array, setArray }) {
     setArray(updatedArray);
   }
 
-  function handleClickDown(event) {
+  function handleClickDown(event: React.MouseEvent) {
     const firstItem = array[0];
     const updatedArray = [...array.slice(1), firstItem];
 
@@ -50,11 +54,5 @@ function Carousel({ type, array, setArray }) {
     </CarouselContainer>
   );
 }
-
-Carousel.propTypes = {
-  type: PropTypes.string.isRequired,
-  array: PropTypes.array.isRequired,
-  setArray: PropTypes.func.isRequired,
-};
 
 export default Carousel;

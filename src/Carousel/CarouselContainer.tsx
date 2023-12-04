@@ -1,6 +1,8 @@
-import PropTypes from "prop-types";
+interface CarouselContainerProps {
+  children: React.ReactNode;
+}
 
-function CarouselContainer({ children }) {
+function CarouselContainer({ children }: CarouselContainerProps) {
   return (
     <div
       className="relative flex justify-center items-center w-[320px] h-[750px] mx-5"
@@ -10,9 +12,5 @@ function CarouselContainer({ children }) {
     </div>
   );
 }
-
-CarouselContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default CarouselContainer;
