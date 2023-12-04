@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import useEditStore from "../store/edit";
 import GrabPointToDrag from "./GrabPointToDrag";
 
@@ -9,11 +10,17 @@ function Sticker() {
     setTargetElementScale,
   } = useEditStore();
 
-  function setElementScale() {
-    const stickerImg = document.getElementById("selected sticker");
+  const stickerRef = useRef<HTMLImageElement>(null);
 
-    setTargetElementScale(stickerImg.width, stickerImg.height);
+  function setElementScale() {
+    if (stickerRef.current) {
+      setTargetElementScale(stickerRef.current.width, stickerRef.current.height);
+    }
   }
+
+  useEffect(() => {
+    setElementScale();
+  }, [selectedSquares.sticker]);
 
   return (
     <div>
@@ -27,6 +34,7 @@ function Sticker() {
         }}
         src={selectedSquares.sticker}
         draggable={false}
+        ref={stickerRef}
       />
       <GrabPointToDrag
         coordX={stickerCoord.stickerX}
