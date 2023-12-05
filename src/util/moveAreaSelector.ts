@@ -2,12 +2,12 @@ import CONSTANT from "../constants/constant";
 const { MINIMUM_WIDTH, ANALYSIS_VIDEO_WIDTH } = CONSTANT;
 
 function moveAreaSelector(
-  videoRect,
-  event,
-  selectorLeft,
-  selectorWidth,
-  setSelectorLeft,
-  setSelectorWidth,
+  videoRect: DOMRect,
+  event: React.MouseEvent,
+  selectorLeft: number,
+  selectorWidth: number,
+  setSelectorLeft: (selectorLeft: number) => void,
+  setSelectorWidth: (selectorWidth: number) => void,
 ) {
   const videoLeftEdge = videoRect.left;
   const cursorX = event.clientX;

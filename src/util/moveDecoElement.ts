@@ -2,10 +2,10 @@ import CONSTANT from "../constants/constant";
 const { EDIT_VID_WIDTH, EDIT_VID_HEIGHT } = CONSTANT;
 
 function moveDecoElement(
-  videoRect,
-  event,
-  setElementCoord,
-  targetElementScale,
+  videoRect: DOMRect,
+  event: React.MouseEvent,
+  setElementCoord: (argument1: number, argument2: number) => void,
+  targetElementScale: { width: number, height: number },
 ) {
   const videoTopEdge = videoRect.top;
   const videoLeftEdge = videoRect.left;
