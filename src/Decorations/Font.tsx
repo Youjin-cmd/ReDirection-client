@@ -47,7 +47,7 @@ function Font() {
       <input
         key="selected font"
         id="selected font"
-        className={`peer absolute z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
+        className={`peer absolute pt-1 z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
         style={{
           left: `${fontCoord.fontX}px`,
           top: `${fontCoord.fontY}px`,
