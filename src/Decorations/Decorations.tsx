@@ -7,7 +7,7 @@ import moveDecoElement from "../util/moveDecoElement";
 
 interface Decorations {
   handleMouseUp: () => void;
-  videoRect: DOMRect | null;
+  videoRect: DOMRect;
 }
 
 function Decorations({ handleMouseUp, videoRect }: Decorations) {
@@ -18,10 +18,6 @@ function Decorations({ handleMouseUp, videoRect }: Decorations) {
     setStickerCoord,
     targetElementScale,
   } = useEditStore();
-
-  if (!videoRect) {
-    return null;
-  }
 
   function handleMouseMove(event: React.MouseEvent) {
     switch (isDragging) {

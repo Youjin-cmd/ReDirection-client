@@ -31,26 +31,26 @@ function Edit() {
     setIsDragging,
   } = useEditStore();
   const [isMuted, setIsMuted] = useState(true);
+  const [videoRect, setVideoRect] = useState<DOMRect | undefined>(undefined);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoElement = videoRef.current;
-  let videoRect: DOMRect | null = null;
 
   useEffect(() => {
     setCurrentPage("Edit your video");
   }, []);
 
-  if (videoElement) {
-    videoRect = videoElement.getBoundingClientRect();
-  }
+  useEffect(() => {
+    if (videoRef.current) {
+      const videoRect = videoRef.current.getBoundingClientRect();
+      setVideoRect(videoRect);
+    }
+  }, [videoRef.current]);
 
   function handleMouseUp () {
     setIsDragging(null);
   }
 
   function handleToggleMute() {
-    if (videoElement) {
-      setIsMuted(!videoElement.muted);
-    }
+    setIsMuted(!isMuted);
   }
 
   async function handleClickConfirm() {
@@ -82,7 +82,7 @@ function Edit() {
       <div className="flex justify-center items-center w-[1300px] mb-5">
         <Carousel type="font" array={fontArray} setArray={setFontArray} />
         <div className="relative flex justify-center w-[406px] h-[720px]">
-          <Decorations handleMouseUp={handleMouseUp} videoRect={videoRect} />
+          {videoRect && <Decorations handleMouseUp={handleMouseUp} videoRect={videoRect} />}
           <Button
             className="absolute top-5 right-4 z-10"
             onClick={handleToggleMute}
@@ -109,7 +109,7 @@ function Edit() {
             loop={true}
             draggable={false}
             onMouseUp={handleMouseUp}
-            muted
+            muted={isMuted}
           >
             <source src={url} type="video/webm" />
           </video>

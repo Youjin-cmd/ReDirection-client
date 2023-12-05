@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import useEditStore from "../store/edit";
 import FontHandler from "./FontHandler";

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import usePostCropRequest from "../apis/usePostCropRequest";
 
@@ -13,6 +13,8 @@ import usePageStore from "../store/page";
 import LoadingArea from "../Loading/LoadingArea";
 import Button from "../shared/Button";
 import OptionSlider from "./OptionSlider";
+import Selector from "../SelectAreaItems/Selector";
+import VideoWrapper from "../SelectAreaItems/SelectAreaWrapper";
 
 function SelectArea() {
   const postCropRequest = usePostCropRequest();
@@ -27,28 +29,30 @@ function SelectArea() {
     selectorWidth,
     setSelectorLeft,
     setSelectorWidth,
+    sensitivity,
     isFixed,
     setIsFixed,
-    sensitivity,
     resetArea,
   } = useSelectAreaStore();
   const { setCurrentPage } = usePageStore();
+  const [videoRect, setVideoRect] = useState<DOMRect | undefined>(undefined);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoElement = videoRef.current;
-  let videoRect: DOMRect | null = null;
 
   useEffect(() => {
     setCurrentPage("Select Area");
     resetArea();
 
     if (!url) {
-      navigate("/");
+      navigate("/")
     }
   }, []);
 
-  if (videoElement) {
-    videoRect = videoElement.getBoundingClientRect();
-  }
+  useEffect(() => {
+    if (videoRef.current) {
+      const videoRect = videoRef.current.getBoundingClientRect();
+      setVideoRect(videoRect);
+    }
+  }, [videoRef.current]);
 
   function handleMouseDown() {
     setIsDragging(true);
@@ -59,10 +63,15 @@ function SelectArea() {
   }
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    if (!videoRect) {
+      return;
+    }
+
     const leftEdge = Math.round(selectorLeft / 10);
     const rightEdge = Math.round((selectorLeft + selectorWidth) / 10);
+    const isMinimumWidth = rightEdge - leftEdge <= 35;
 
-    if (rightEdge - leftEdge <= 35) {
+    if (isMinimumWidth) {
       setIsFixed(true);
     } else {
       setIsFixed(false);
@@ -89,22 +98,8 @@ function SelectArea() {
       onMouseMove={isDragging ? e => handleMouseMove(e) : undefined}
       draggable={false}
     >
-      <div className="relative flex justify-center items-center min-w-[1000px] mb-10">
-        <div
-          id="selector"
-          className="absolute ring-8 ring-red bg-red opacity-30"
-          style={{
-            left: `${selectorLeft}px`,
-            width: `${selectorWidth}px`,
-            height: `560px`,
-          }}
-        >
-          {isFixed && (
-            <span className="flex justify-center items-center h-full text-4xl text-white">
-              fixed
-            </span>
-          )}
-        </div>
+      <VideoWrapper>
+        <Selector />
         <video
           className="hover:cursor-ew-resize"
           data-testid="video"
@@ -120,7 +115,7 @@ function SelectArea() {
           <a href={url}>MP4</a>
           video.
         </video>
-      </div>
+      </VideoWrapper>
       <h2 className="mb-1">
         Click and drag over the desired segment on the motion heatmap
       </h2>
