@@ -15,9 +15,17 @@ interface CustomError extends Error {
   };
 }
 
+type Font = {
+  name: string;
+}
+
+type Sticker = {
+  name: string;
+}
+
 interface SelectedSquares {
-  typeface: string;
-  stickerName: string;
+  font?: Font;
+  sticker?: Sticker;
 }
 
 function usePostEditRequest() {
@@ -32,14 +40,14 @@ function usePostEditRequest() {
       setEditStatus("in progress");
 
       const response = await axios.post(`${baseURL}/video/edit`, {
-        typeface: selectedSquares.typeface,
+        typeface: selectedSquares["font"]?.name,
         fontContent,
         fontX: Math.round(fontCoord.fontX),
         fontY: Math.round(fontCoord.fontY),
         fontWidth,
         fontColor,
         fontBg,
-        stickerName: selectedSquares.stickerName,
+        stickerName: selectedSquares["sticker"]?.name,
         stickerX: Math.round(stickerCoord.stickerX),
         stickerY: Math.round(stickerCoord.stickerY),
       });
