@@ -8,13 +8,25 @@ const { ONE_SECOND } = CONSTANT;
 import useProgressStore from "../store/progress";
 import useEditStore from "../store/edit";
 
+interface CustomError extends Error {
+  response?: {
+    data: any;
+    status: number;
+  };
+}
+
+interface SelectedSquares {
+  typeface: string;
+  stickerName: string;
+}
+
 function usePostEditRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setEditStatus, resetAllStatus } = useProgressStore();
   const { fontCoord, stickerCoord, fontColor, fontBg, fontWidth, fontContent } =
     useEditStore();
 
-  async function postEditRequest(selectedSquares) {
+  async function postEditRequest(selectedSquares: SelectedSquares) {
     try {
       setShowLoading(true);
       setEditStatus("in progress");
@@ -45,13 +57,15 @@ function usePostEditRequest() {
           });
         }, ONE_SECOND);
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      const customErr = error as CustomError;
+
       resetAllStatus();
 
       navigate("/error", {
         state: {
-          errorCode: error.response.status,
-          errorText: error.response.data.customMessage,
+          errorCode: customErr.response?.status,
+          errorText: customErr.response?.data.customMessage,
         },
       });
     }

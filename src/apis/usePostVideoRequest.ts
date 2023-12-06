@@ -6,27 +6,35 @@ import CONSTANT from "../constants/constant";
 const { ONE_SECOND } = CONSTANT;
 
 import useProgressStore from "../store/progress";
-import useModalStore from "../store/modal";
 
-function useGetTrialRequest() {
+interface CustomError extends Error {
+  response?: {
+    data: any;
+    status: number;
+  };
+}
+
+function usePostVideoRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setAnalysisStatus, resetAllStatus } =
     useProgressStore();
-  const { setShowTrialModal } = useModalStore();
 
-  async function getTrialRequest(trialVideo) {
+  async function postVideoRequest(formData: any, config: any) {
     try {
       setShowLoading(true);
       setAnalysisStatus("in progress");
 
-      const response = await axios.get(`${baseURL}/video/trial/${trialVideo}`);
+      const response = await axios.post(
+        `${baseURL}/video/preview`,
+        formData,
+        config,
+      );
 
       if (response.data.success) {
         setAnalysisStatus("done");
 
         setTimeout(() => {
           resetAllStatus();
-          setShowTrialModal(false);
 
           navigate("/selectArea", {
             state: {
@@ -35,20 +43,20 @@ function useGetTrialRequest() {
           });
         }, ONE_SECOND);
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      const customErr = error as CustomError;
       resetAllStatus();
-      setShowTrialModal(false);
 
       navigate("/error", {
         state: {
-          errorCode: error.response?.status,
-          errorText: error.response?.data.customMessage,
+          errorCode: customErr.response?.status,
+          errorText: customErr.response?.data.customMessage,
         },
       });
     }
   }
 
-  return getTrialRequest;
+  return postVideoRequest;
 }
 
-export default useGetTrialRequest;
+export default usePostVideoRequest;

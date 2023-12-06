@@ -8,12 +8,19 @@ const { ONE_SECOND } = CONSTANT;
 import useProgressStore from "../store/progress";
 import useSelectAreaStore from "../store/selectArea";
 
+interface CustomError extends Error {
+  response?: {
+    data: any;
+    status: number;
+  };
+}
+
 function usePostCropRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setCropStatus, resetAllStatus } = useProgressStore();
   const { selectorLeft, selectorWidth } = useSelectAreaStore();
 
-  async function postCropRequest(isFixed, sensitivity) {
+  async function postCropRequest(isFixed: boolean, sensitivity: number) {
     try {
       setShowLoading(true);
       setCropStatus("in progress");
@@ -41,13 +48,15 @@ function usePostCropRequest() {
           });
         }, ONE_SECOND);
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      const customErr = error as CustomError;
+
       resetAllStatus();
 
       navigate("/error", {
         state: {
-          errorCode: error.response?.status,
-          errorText: error.response?.data.customMessage,
+          errorCode: customErr.response?.status,
+          errorText: customErr.response?.data.customMessage,
         },
       });
     }
