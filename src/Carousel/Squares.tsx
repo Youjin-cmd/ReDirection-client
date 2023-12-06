@@ -1,35 +1,29 @@
 import useEditStore from "../store/edit";
 import Square from "./Square";
 
-interface SquaresProps {
-  array: (string | null)[];
-  type: string;
+interface Itemslist {
+  name: string;
+  url: string;
 }
 
-function Squares({ array, type }: SquaresProps) {
+interface SquaresProps {
+  type: string;
+  itemsList: Itemslist[];
+}
+
+function Squares({ type, itemsList }: SquaresProps) {
   const { selectedSquares, setSelectedSquares } = useEditStore();
 
-  function clickHandleSquare(path: string | null, type: string) {
-    let typeface = selectedSquares.typeface;
-    let stickerName = selectedSquares.stickerName;
-
-    if (type === "font") {
-      typeface = path ? path.split("/").pop()!.replace(".svg", "") : null;
-    }
-
-    if (type === "sticker") {
-      stickerName = path ? path.split("/").pop()!.replace(".svg", "") : null;
-    }
-
-    setSelectedSquares(path, type, typeface, stickerName);
+  function clickHandleSquare(item: Itemslist) {
+    setSelectedSquares(type, item.name, item.url);
   }
 
-  return array.map(element => {
+  return itemsList.map(item => {
     return (
       <div key={crypto.randomUUID()}>
-        {selectedSquares[type] === element ? (
+        {selectedSquares[type]?.name === item.name ? (
           <Square
-            clickHandleSquare={() => clickHandleSquare(element, type)}
+            clickHandleSquare={() => clickHandleSquare(item)}
             active={true}
           >
             <img
@@ -39,28 +33,20 @@ function Squares({ array, type }: SquaresProps) {
             />
             <img
               className="w-24 select-none"
-              src={element ?? undefined}
-              alt={
-                element ?
-                `selected ${element.split("/").pop()!.replace(".svg", "")}`
-                : undefined
-              }
+              src={item.url ?? undefined}
+              alt={item.name}
               draggable={false}
             />
           </Square>
         ) : (
           <Square
-            clickHandleSquare={() => clickHandleSquare(element, type)}
+            clickHandleSquare={() => clickHandleSquare(item)}
             active={false}
           >
             <img
               className="w-24 opacity-20 select-none"
-              src={element ?? undefined}
-              alt={
-                element ?
-                `none selected ${element.split("/").pop()!.replace(".svg", "")}`
-                : undefined
-              }
+              src={item.url ?? undefined}
+              alt={item.name}
             />
           </Square>
         )}

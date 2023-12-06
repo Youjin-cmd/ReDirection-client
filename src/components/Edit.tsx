@@ -80,7 +80,7 @@ function Edit() {
       onMouseUp={() => setIsDragging(null)}
     >
       <div className="flex justify-center items-center w-[1300px] mb-5">
-        <Carousel type="font" array={fontArray} setArray={setFontArray} />
+        <Carousel type="font" itemsList={fontArray} setItemsList={setFontArray} />
         <div className="relative flex justify-center w-[406px] h-[720px]">
           {videoRect && <Decorations handleMouseUp={handleMouseUp} videoRect={videoRect} />}
           <Button
@@ -116,8 +116,8 @@ function Edit() {
         </div>
         <Carousel
           type="sticker"
-          array={stickerArray}
-          setArray={setStickerArray}
+          itemsList={stickerArray}
+          setItemsList={setStickerArray}
         />
       </div>
       <div className="relative h-16 w-80">

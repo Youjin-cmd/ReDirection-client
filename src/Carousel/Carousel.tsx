@@ -3,27 +3,32 @@ import Button from "../shared/Button";
 import CarouselContainer from "./CarouselContainer";
 import SquaresContainer from "./SquaresContainer";
 
-interface CarouselProps {
-  type: string;
-  array: (string | null)[];
-  setArray: (updatedArray: (string | null)[]) => void;
+interface Itemslist {
+  name: string;
+  url: string;
 }
 
-function Carousel({ type, array, setArray }: CarouselProps) {
+interface CarouselProps {
+  type: string;
+  itemsList: Itemslist[];
+  setItemsList: (updatedArray: Itemslist[]) => void;
+}
+
+function Carousel({ type, itemsList, setItemsList }: CarouselProps) {
   function handleClickUp(event: React.MouseEvent) {
-    const lastItem = array[array.length - 1];
-    const updatedArray = [lastItem, ...array.slice(0, array.length - 1)];
+    const lastItem = itemsList[itemsList.length - 1];
+    const updatedArray = [lastItem, ...itemsList.slice(0, itemsList.length - 1)];
 
     event.stopPropagation();
-    setArray(updatedArray);
+    setItemsList(updatedArray);
   }
 
   function handleClickDown(event: React.MouseEvent) {
-    const firstItem = array[0];
-    const updatedArray = [...array.slice(1), firstItem];
+    const firstItem = itemsList[0];
+    const updatedArray = [...itemsList.slice(1), firstItem];
 
     event.stopPropagation();
-    setArray(updatedArray);
+    setItemsList(updatedArray);
   }
 
   return (
@@ -37,7 +42,7 @@ function Carousel({ type, array, setArray }: CarouselProps) {
         <img className="select-none" src="/assets/up_icon.png" alt="up icon" />
       </Button>
       <SquaresContainer>
-        <Squares array={array} type={type} />
+        <Squares type={type} itemsList={itemsList} />
       </SquaresContainer>
       <Button
         className="absolute flex justify-center items-center bottom-[5px] w-10 h-10 z-10 rounded-full bg-red hover:bg-hoverRed hover:cursor-pointer"

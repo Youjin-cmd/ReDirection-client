@@ -20,7 +20,7 @@ function Sticker() {
 
   useEffect(() => {
     setElementScale();
-  }, [selectedSquares.sticker]);
+  }, [selectedSquares["sticker"].url]);
 
   return (
     <div>
@@ -32,7 +32,7 @@ function Sticker() {
           left: `${stickerCoord.stickerX}px`,
           top: `${stickerCoord.stickerY}px`,
         }}
-        src={selectedSquares.sticker}
+        src={selectedSquares["sticker"].url}
         draggable={false}
         ref={stickerRef}
       />

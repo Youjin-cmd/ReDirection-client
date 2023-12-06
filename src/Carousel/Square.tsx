@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
 import Button from "../shared/Button";
 
 interface SquareProps {
   children: React.ReactNode;
-  clickHandleSquare: (path: string, type: string) => void;
+  clickHandleSquare: () => void;
   active: boolean;
 }
 

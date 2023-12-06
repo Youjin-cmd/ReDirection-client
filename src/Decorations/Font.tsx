@@ -24,7 +24,7 @@ function Font() {
       const spanWidth = spanRef.current.getBoundingClientRect().width;
       setFontWidth(spanWidth);
     }
-  }, [fontContent, selectedSquares.typeface]);
+  }, [fontContent, selectedSquares["font"].name]);
 
   function setElementScale() {
     setTargetElementScale(fontWidth, 40);
@@ -54,7 +54,7 @@ function Font() {
           color: `${fontColor}`,
           background: `${fontBg}`,
           width: `${fontWidth}px`,
-          fontFamily: selectedSquares.typeface,
+          fontFamily: selectedSquares["font"].name,
         }}
         draggable={false}
         value={fontContent}
@@ -65,7 +65,7 @@ function Font() {
         ref={spanRef}
         className="px-3 text-3xl bg-red opacity-0"
         style={{
-          fontFamily: selectedSquares.typeface,
+          fontFamily: selectedSquares["font"].name,
         }}
       >
         {fontContent}
