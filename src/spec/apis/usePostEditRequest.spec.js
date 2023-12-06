@@ -72,8 +72,12 @@ describe("usePostEditRequest", () => {
     await waitFor(
       () => {
         postEditRequest({
-          typeface: "test",
-          stickerName: "test",
+          font: {
+            name: "test"
+          },
+          sticker: {
+            name: "test"
+          },
         });
 
         expect(axios.post).toHaveBeenCalledWith(

@@ -14,8 +14,8 @@ describe("Carousel component", () => {
     render(
       <Carousel
         type="sticker"
-        array={initialState.stickerArray}
-        setArray={initialState.setStickerArray}
+        itemsList={initialState.stickerArray}
+        setItemsList={initialState.setStickerArray}
       />
     );
     const confirmButton = screen.getAllByRole("button");
@@ -26,9 +26,9 @@ describe("Carousel component", () => {
   it("up button updates array well", () => {
     render(
       <Carousel
-        type="sticker"
-        array={initialState.stickerArray}
-        setArray={initialState.setStickerArray}
+      type="sticker"
+      itemsList={initialState.stickerArray}
+      setItemsList={initialState.setStickerArray}
       />
     );
     const upButton = screen.getByAltText("up icon");
@@ -38,25 +38,52 @@ describe("Carousel component", () => {
     const { stickerArray } = useEditStore.getState();
 
     expect(stickerArray).toStrictEqual([
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
-      null,
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
+      {
+        name: "monitor",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
+      },
+      { name: null, url: null },
+      {
+        name: "heart",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
+      },
+      {
+        name: "yay",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
+      },
+      {
+        name: "game_over",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
+      },
+      {
+        name: "fabulous",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
+      },
+      {
+        name: "star",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
+      },
+      {
+        name: "rainbow",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
+      },
+      {
+        name: "pizza",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
+      },
+      {
+        name: "sunglass",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
+      },
     ]);
   });
 
   it("down button updates array well", () => {
     render(
       <Carousel
-        type="sticker"
-        array={initialState.stickerArray}
-        setArray={initialState.setStickerArray}
+      type="sticker"
+      itemsList={initialState.stickerArray}
+      setItemsList={initialState.setStickerArray}
       />
     );
     const downButton = screen.getByAltText("down icon");
@@ -66,16 +93,43 @@ describe("Carousel component", () => {
     const { stickerArray } = useEditStore.getState();
 
     expect(stickerArray).toStrictEqual([
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
-      null,
+      {
+        name: "heart",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
+      },
+      {
+        name: "yay",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
+      },
+      {
+        name: "game_over",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
+      },
+      {
+        name: "fabulous",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
+      },
+      {
+        name: "star",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
+      },
+      {
+        name: "rainbow",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
+      },
+      {
+        name: "pizza",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
+      },
+      {
+        name: "sunglass",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
+      },
+      {
+        name: "monitor",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
+      },
+      { name: null, url: null },
     ]);
   });
 
@@ -83,8 +137,8 @@ describe("Carousel component", () => {
     const { rerender } = render(
       <Carousel
         type="sticker"
-        array={initialState.stickerArray}
-        setArray={initialState.setStickerArray}
+        itemsList={initialState.stickerArray}
+        setItemsList={initialState.setStickerArray}
       />
     );
     const downButton = screen.getByAltText("down icon");
@@ -96,8 +150,8 @@ describe("Carousel component", () => {
     rerender(
       <Carousel
         type="sticker"
-        array={afterFirstClick}
-        setArray={initialState.setStickerArray}
+        itemsList={afterFirstClick}
+        setItemsList={initialState.setStickerArray}
       />
     );
 
@@ -108,8 +162,8 @@ describe("Carousel component", () => {
     rerender(
       <Carousel
         type="sticker"
-        array={afterSecondClick}
-        setArray={initialState.setStickerArray}
+        itemsList={afterSecondClick}
+        setItemsList={initialState.setStickerArray}
       />
     );
 
@@ -118,16 +172,43 @@ describe("Carousel component", () => {
     const { stickerArray: afterThirdClick } = useEditStore.getState();
 
     expect(afterThirdClick).toStrictEqual([
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
-      null,
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
-      "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
+      {
+        name: "game_over",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
+      },
+      {
+        name: "fabulous",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
+      },
+      {
+        name: "star",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
+      },
+      {
+        name: "rainbow",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
+      },
+      {
+        name: "pizza",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
+      },
+      {
+        name: "sunglass",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
+      },
+      {
+        name: "monitor",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
+      },
+      { name: null, url: null },
+      {
+        name: "heart",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
+      },
+      {
+        name: "yay",
+        url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
+      },
     ]);
   });
 });

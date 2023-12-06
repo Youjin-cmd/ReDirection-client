@@ -12,19 +12,18 @@ describe("useEditStore", () => {
     const { setSelectedSquares } = useEditStore.getState();
 
     setSelectedSquares(
-      "test/testfont.svg",
-      "font",
-      "testfont",
-      null,
+      "type",
+      "awesomeFont",
+      "test/awesomeFont.svg",
     );
 
     const { selectedSquares } = useEditStore.getState();
 
     expect(selectedSquares).toEqual({
-      font: "test/testfont.svg",
-      sticker: null,
-      stickerName: null,
-      typeface: "testfont",
+      type: {
+        name: "awesomeFont",
+        url: "test/awesomeFont.svg",
+      }
     });
   });
 
