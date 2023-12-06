@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import useEditStore from "../store/edit";
 import GrabPointToDrag from "./GrabPointToDrag";
 import FontBgColorSelector from "./FontBgColorSelector";
@@ -25,9 +23,5 @@ function FontHandler({ setElementScale } : FontHandlerProps) {
     </>
   );
 }
-
-FontHandler.propTypes = {
-  setElementScale: PropTypes.func.isRequired,
-};
 
 export default FontHandler;

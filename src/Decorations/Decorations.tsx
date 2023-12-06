@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import useEditStore from "../store/edit";
 
 import Font from "./Font";
