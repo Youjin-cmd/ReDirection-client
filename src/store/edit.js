@@ -2,34 +2,56 @@ import { create } from "zustand";
 
 const initialState = {
   fontArray: [
-    null,
-    "/assets/bebasNeue.svg",
-    "/assets/hanuman.svg",
-    "/assets/beauRivage.svg",
-    "/assets/basic.svg",
-    "/assets/justMeAgainDownHere.svg",
-    "/assets/pacifico.svg",
-    "/assets/gochiHand.svg",
-    "/assets/handjet.svg",
+    { name: null, url: null },
+    { name: "bebasNeue", url: "/assets/bebasNeue.svg" },
+    { name: "hanuman", url: "/assets/hanuman.svg" },
+    { name: "beauRivage", url: "/assets/beauRivage.svg" },
+    { name: "basic", url: "/assets/basic.svg" },
+    { name: "justMeAgainDownHere", url: "/assets/justMeAgainDownHere.svg" },
+    { name: "pacifico", url: "/assets/pacifico.svg" },
+    { name: "gochiHand", url: "/assets/gochiHand.svg" },
+    { name: "handjet", url: "/assets/handjet.svg" },
   ],
   stickerArray: [
-    null,
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
-    "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
+    { name: null, url: null },
+    {
+      name: "heart",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/heart.svg",
+    },
+    {
+      name: "yay",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/yay.svg",
+    },
+    {
+      name: "game_over",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/game_over.svg",
+    },
+    {
+      name: "fabulous",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/fabulous.svg",
+    },
+    {
+      name: "star",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/star.svg",
+    },
+    {
+      name: "rainbow",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/rainbow.svg",
+    },
+    {
+      name: "pizza",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/pizza.svg",
+    },
+    {
+      name: "sunglass",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/sunglass.svg",
+    },
+    {
+      name: "monitor",
+      url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
+    },
   ],
-  selectedSquares: {
-    font: null,
-    typeface: null,
-    sticker: null,
-    stickerName: null,
-  },
+  selectedSquares: {},
   isDragging: null,
   fontCoord: {
     fontX: 150,
@@ -53,13 +75,14 @@ const useEditStore = create(set => ({
   ...initialState,
   setFontArray: newArray => set({ fontArray: newArray }),
   setStickerArray: newArray => set({ stickerArray: newArray }),
-  setSelectedSquares: (newSelectedSquare, type, typeface, stickerName) => {
+  setSelectedSquares: (type, name, url) => {
     set(state => ({
       selectedSquares: {
         ...state.selectedSquares,
-        [type]: newSelectedSquare,
-        typeface: typeface,
-        stickerName: stickerName,
+        [type]: {
+          name,
+          url,
+        },
       },
     }));
   },
