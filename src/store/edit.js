@@ -76,15 +76,24 @@ const useEditStore = create(set => ({
   setFontArray: newArray => set({ fontArray: newArray }),
   setStickerArray: newArray => set({ stickerArray: newArray }),
   setSelectedSquares: (type, name, url) => {
-    set(state => ({
-      selectedSquares: {
-        ...state.selectedSquares,
-        [type]: {
-          name,
-          url,
+    set(state => {
+      if (!name) {
+        const { [type]: _, ...updatedSelectedSquares } = state.selectedSquares;
+        return {
+          selectedSquares: updatedSelectedSquares,
+        };
+      }
+
+      return {
+        selectedSquares: {
+          ...state.selectedSquares,
+          [type]: {
+            name,
+            url,
+          },
         },
-      },
-    }));
+      };
+    });
   },
   setIsDragging: elementType => set({ isDragging: elementType }),
   setFontCoord: (newX, newY) => {

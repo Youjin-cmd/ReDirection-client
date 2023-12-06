@@ -54,7 +54,7 @@ function Edit() {
   }
 
   async function handleClickConfirm() {
-    if (!selectedSquares.font && !selectedSquares.sticker) {
+    if (!selectedSquares) {
       setShowLoading(true);
       setEditStatus("done");
 
