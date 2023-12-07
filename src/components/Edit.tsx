@@ -39,13 +39,23 @@ function Edit() {
   }, []);
 
   useEffect(() => {
+    updateDimensions();
+
+    window.addEventListener("resize", updateDimensions);
+
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+
+  function updateDimensions() {
     if (videoRef.current) {
       const videoRect = videoRef.current.getBoundingClientRect();
       setVideoRect(videoRect);
     }
-  }, [videoRef.current]);
+  };
 
-  function handleMouseUp () {
+  function handleMouseUp() {
     setIsDragging(null);
   }
 
