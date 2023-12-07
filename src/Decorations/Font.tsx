@@ -7,7 +7,6 @@ import isEnglishLetter from "../util/isEnglishLetter";
 function Font() {
   const {
     selectedSquares,
-    fontCoord,
     fontColor,
     fontBg,
     fontWidth,
@@ -49,8 +48,8 @@ function Font() {
         id="selected font"
         className={`peer absolute pt-1 z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
         style={{
-          left: `${fontCoord.fontX}px`,
-          top: `${fontCoord.fontY}px`,
+          left: `${selectedSquares["font"].X}px`,
+          top: `${selectedSquares["font"].Y}px`,
           color: `${fontColor}`,
           background: `${fontBg}`,
           width: `${fontWidth}px`,

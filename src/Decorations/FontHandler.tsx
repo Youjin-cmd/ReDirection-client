@@ -8,12 +8,12 @@ interface FontHandlerProps {
 }
 
 function FontHandler({ setElementScale } : FontHandlerProps) {
-  const { fontCoord, setIsDragging } = useEditStore();
+  const { selectedSquares, setIsDragging } = useEditStore();
   return (
     <>
       <GrabPointToDrag
-        coordX={fontCoord.fontX}
-        coordY={fontCoord.fontY}
+        coordX={selectedSquares["font"].X}
+        coordY={selectedSquares["font"].Y}
         elementType="font"
         setIsDragging={setIsDragging}
         setElementScale={setElementScale}

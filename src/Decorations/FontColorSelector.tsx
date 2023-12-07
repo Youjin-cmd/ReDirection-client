@@ -8,7 +8,7 @@ const colorOptions = [
 ];
 
 function FontColorSelector() {
-  const { fontCoord, fontWidth, setFontColor } = useEditStore();
+  const { selectedSquares, fontWidth, setFontColor } = useEditStore();
 
   function handleClickColor(event: React.MouseEvent<HTMLDivElement>) {
     const { id } = event.target as HTMLDivElement;
@@ -21,8 +21,8 @@ function FontColorSelector() {
       <div
         className="absolute justify-center w-[150px] h-10 z-10 hidden hover:flex peer-focus:flex"
         style={{
-          left: `${fontCoord.fontX - 75 + fontWidth / 2}px`,
-          top: `${fontCoord.fontY - 40}px`,
+          left: `${selectedSquares["font"].X - 75 + fontWidth / 2}px`,
+          top: `${selectedSquares["font"].Y - 40}px`,
         }}
       >
         {colorOptions.map(option => {

@@ -5,7 +5,6 @@ import GrabPointToDrag from "./GrabPointToDrag";
 function Sticker() {
   const {
     selectedSquares,
-    stickerCoord,
     setIsDragging,
     setTargetElementScale,
   } = useEditStore();
@@ -29,16 +28,16 @@ function Sticker() {
         alt="selected sticker"
         className={`peer absolute w-[150px] z-10 select-none`}
         style={{
-          left: `${stickerCoord.stickerX}px`,
-          top: `${stickerCoord.stickerY}px`,
+          left: `${selectedSquares["sticker"].X}px`,
+          top: `${selectedSquares["sticker"].Y}px`,
         }}
         src={selectedSquares["sticker"].url}
         draggable={false}
         ref={stickerRef}
       />
       <GrabPointToDrag
-        coordX={stickerCoord.stickerX}
-        coordY={stickerCoord.stickerY}
+        coordX={selectedSquares["sticker"].X}
+        coordY={selectedSquares["sticker"].Y}
         elementType="sticker"
         setIsDragging={setIsDragging}
         setElementScale={setElementScale}

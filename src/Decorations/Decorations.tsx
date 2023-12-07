@@ -13,20 +13,12 @@ function Decorations({ handleMouseUp, videoRect }: Decorations) {
   const {
     selectedSquares,
     isDragging,
-    setFontCoord,
-    setStickerCoord,
+    setCoord,
     targetElementScale,
   } = useEditStore();
 
   function handleMouseMove(event: React.MouseEvent) {
-    switch (isDragging) {
-      case "sticker":
-        moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
-        break;
-      case "font":
-        moveDecoElement(videoRect, event, setFontCoord, targetElementScale);
-        break;
-    }
+    moveDecoElement(isDragging, videoRect, event, setCoord, targetElementScale);
   }
 
   return (

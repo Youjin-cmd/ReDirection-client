@@ -2,9 +2,10 @@ import CONSTANT from "../constants/constant";
 const { EDIT_VID_WIDTH, EDIT_VID_HEIGHT } = CONSTANT;
 
 function moveDecoElement(
+  type: string,
   videoRect: DOMRect,
   event: React.MouseEvent,
-  setElementCoord: (argument1: number, argument2: number) => void,
+  setCoord: (argument1: string, argument2: number, argument3: number) => void,
   targetElementScale: { width: number, height: number },
 ) {
   const videoTopEdge = videoRect.top;
@@ -24,22 +25,23 @@ function moveDecoElement(
     currentYBasedOnVideoArea > EDIT_VID_HEIGHT - targetElementHeight;
 
   if (isAboveVideo && isLeftOfVideo) {
-    setElementCoord(0, 0);
+    setCoord(type, 0, 0);
     return;
   }
 
   if (isAboveVideo && isRightOfVideo) {
-    setElementCoord(EDIT_VID_WIDTH - targetElementWidth, 0);
+    setCoord(type, EDIT_VID_WIDTH - targetElementWidth, 0);
     return;
   }
 
   if (isBelowVideo && isLeftOfVideo) {
-    setElementCoord(0, EDIT_VID_HEIGHT - targetElementHeight);
+    setCoord(type, 0, EDIT_VID_HEIGHT - targetElementHeight);
     return;
   }
 
   if (isBelowVideo && isRightOfVideo) {
-    setElementCoord(
+    setCoord(
+      type,
       EDIT_VID_WIDTH - targetElementWidth,
       EDIT_VID_HEIGHT - targetElementHeight,
     );
@@ -48,7 +50,8 @@ function moveDecoElement(
   }
 
   if (isAboveVideo || isLeftOfVideo || isRightOfVideo || isBelowVideo) {
-    setElementCoord(
+    setCoord(
+      type,
       Math.max(
         0,
         Math.min(currentXBasedOnVideoArea, EDIT_VID_WIDTH - targetElementWidth),
@@ -65,7 +68,7 @@ function moveDecoElement(
     return;
   }
 
-  setElementCoord(currentXBasedOnVideoArea, currentYBasedOnVideoArea);
+  setCoord(type, currentXBasedOnVideoArea, currentYBasedOnVideoArea);
 }
 
 export default moveDecoElement;
