@@ -9,6 +9,7 @@ interface FontHandlerProps {
 
 function FontHandler({ setElementScale } : FontHandlerProps) {
   const { selectedDecos, setIsDragging } = useEditStore();
+
   return (
     <>
       <GrabPointToDrag

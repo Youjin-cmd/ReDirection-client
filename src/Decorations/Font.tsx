@@ -7,10 +7,6 @@ import isEnglishLetter from "../util/isEnglishLetter";
 function Font() {
   const {
     selectedDecos,
-    fontColor,
-    fontBg,
-    fontWidth,
-    fontContent,
     setFontWidth,
     setFontContent,
     setTargetElementScale,
@@ -23,10 +19,10 @@ function Font() {
       const spanWidth = spanRef.current.getBoundingClientRect().width;
       setFontWidth(spanWidth);
     }
-  }, [fontContent, selectedDecos["font"].name]);
+  }, [selectedDecos["font"].fontContent, selectedDecos["font"].name]);
 
   function setElementScale() {
-    setTargetElementScale(fontWidth, 40);
+    setTargetElementScale(selectedDecos["font"].fontWidth, 40);
   }
 
   function handleChangeText(event: React.ChangeEvent<HTMLInputElement>) {
@@ -50,13 +46,13 @@ function Font() {
         style={{
           left: `${selectedDecos["font"].X}px`,
           top: `${selectedDecos["font"].Y}px`,
-          color: `${fontColor}`,
-          background: `${fontBg}`,
-          width: `${fontWidth}px`,
+          color: `${selectedDecos["font"].fontColor}`,
+          background: `${selectedDecos["font"].fontBg}`,
+          width: `${selectedDecos["font"].fontWidth}px`,
           fontFamily: selectedDecos["font"].name,
         }}
         draggable={false}
-        value={fontContent}
+        value={selectedDecos["font"].fontContent}
         onChange={handleChangeText}
         autoComplete="off"
       />
@@ -67,7 +63,7 @@ function Font() {
           fontFamily: selectedDecos["font"].name,
         }}
       >
-        {fontContent}
+        {selectedDecos["font"].fontContent}
       </span>
       <FontHandler setElementScale={setElementScale} />
     </div>

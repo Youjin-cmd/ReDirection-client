@@ -7,7 +7,7 @@ const colorOptions = [
 ];
 
 function FontBgColorSelector() {
-  const { selectedDecos, setFontBg, fontWidth } = useEditStore();
+  const { selectedDecos, setFontBg } = useEditStore();
 
   function handleClickBgColor(event: React.MouseEvent<HTMLDivElement>) {
     const { id } = event.target as HTMLDivElement;
@@ -19,7 +19,7 @@ function FontBgColorSelector() {
     <div
       className="absolute justify-center w-[150px] h-10 z-10 hidden hover:flex peer-focus:flex"
       style={{
-        left: `${selectedDecos["font"].X - 75 + fontWidth / 2}px`,
+        left: `${selectedDecos["font"].X - 75 + selectedDecos["font"].fontWidth / 2}px`,
         top: `${selectedDecos["font"].Y + 50}px`,
       }}
     >
