@@ -53,10 +53,6 @@ const initialState = {
   ],
   selectedDecos: {},
   isDragging: null,
-  fontColor: "#000000",
-  fontBg: "#FFFFFF",
-  fontWidth: 100,
-  fontContent: "TEXT",
   targetElementScale: {
     width: null,
     height: null,
@@ -68,26 +64,120 @@ const useEditStore = create(set => ({
   setFontArray: newArray => set({ fontArray: newArray }),
   setStickerArray: newArray => set({ stickerArray: newArray }),
   setSelectedDecos: (type, name, url) => {
-    set(state => {
-      if (!name) {
+    if (!name) {
+      set(state => {
         const { [type]: _, ...updatedSelectedDecos } = state.selectedDecos;
+
         return {
           selectedDecos: updatedSelectedDecos,
         };
-      }
+      });
+    }
 
-      return {
-        selectedDecos: {
-          ...state.selectedDecos,
-          [type]: {
-            name,
-            url,
-            X: 0,
-            Y: 0,
-          },
+    if (name) {
+      switch (type) {
+        case "sticker":
+          set(state => {
+            const existingSticker = state.selectedDecos.sticker;
+
+            const updatedSticker = existingSticker
+              ? {
+                  ...existingSticker,
+                  name,
+                  url,
+                }
+              : {
+                  name,
+                  url,
+                  X: 0,
+                  Y: 0,
+                };
+
+            return {
+              selectedDecos: {
+                ...state.selectedDecos,
+                sticker: updatedSticker,
+              },
+            };
+          });
+
+          break;
+        case "font":
+          set(state => {
+            const existingFont = state.selectedDecos.font;
+
+            const updatedFont = existingFont
+              ? {
+                  ...existingFont,
+                  name,
+                  url,
+                }
+              : {
+                  name,
+                  url,
+                  X: 0,
+                  Y: 0,
+                  fontColor: "#000000",
+                  fontBg: "#FFFFFF",
+                  fontWidth: 100,
+                  fontContent: "TEXT",
+                };
+
+            return {
+              selectedDecos: {
+                ...state.selectedDecos,
+                font: updatedFont,
+              },
+            };
+          });
+
+          break;
+      }
+    }
+  },
+  setFontColor: newColor => {
+    set(state => ({
+      selectedDecos: {
+        ...state.selectedDecos,
+        font: {
+          ...state.selectedDecos.font,
+          fontColor: newColor,
         },
-      };
-    });
+      },
+    }));
+  },
+  setFontBg: newColor => {
+    set(state => ({
+      selectedDecos: {
+        ...state.selectedDecos,
+        font: {
+          ...state.selectedDecos.font,
+          fontBg: newColor,
+        },
+      },
+    }));
+  },
+  setFontWidth: newWidth => {
+    set(state => ({
+      selectedDecos: {
+        ...state.selectedDecos,
+        font: {
+          ...state.selectedDecos.font,
+          fontWidth: newWidth,
+        },
+      },
+    }));
+  },
+  setFontContent: newContent => {
+    set(state => ({
+      selectedDecos: {
+        ...state.selectedDecos,
+        font: {
+          ...state.selectedDecos.font,
+          fontContent: newContent,
+        },
+      },
+    }));
   },
   setIsDragging: elementType => set({ isDragging: elementType }),
   setCoord: (type, newX, newY) => {
@@ -105,10 +195,6 @@ const useEditStore = create(set => ({
       };
     });
   },
-  setFontColor: newColor => set({ fontColor: newColor }),
-  setFontBg: newColor => set({ fontBg: newColor }),
-  setFontWidth: newWidth => set({ fontWidth: newWidth }),
-  setFontContent: newContent => set({ fontContent: newContent }),
   setTargetElementScale: (newWidth, newHeight) => {
     set({
       targetElementScale: {
