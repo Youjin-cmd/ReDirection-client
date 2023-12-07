@@ -18,8 +18,6 @@ interface CustomError extends Error {
 function usePostEditRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setEditStatus, resetAllStatus } = useProgressStore();
-  const { fontColor, fontBg, fontWidth, fontContent } =
-    useEditStore();
 
   async function postEditRequest(selectedDecos: any) {
     try {
@@ -28,10 +26,6 @@ function usePostEditRequest() {
 
       const response = await axios.post(`${baseURL}/video/edit`, {
         selectedDecos,
-        fontContent,
-        fontWidth,
-        fontColor,
-        fontBg,
       });
 
       if (response.data.success) {
