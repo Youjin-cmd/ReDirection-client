@@ -53,18 +53,10 @@ const initialState = {
   ],
   selectedSquares: {},
   isDragging: null,
-  fontCoord: {
-    fontX: 150,
-    fontY: 340,
-  },
   fontColor: "#000000",
   fontBg: "#FFFFFF",
   fontWidth: 100,
   fontContent: "TEXT",
-  stickerCoord: {
-    stickerX: 0,
-    stickerY: 0,
-  },
   targetElementScale: {
     width: null,
     height: null,
@@ -90,32 +82,33 @@ const useEditStore = create(set => ({
           [type]: {
             name,
             url,
+            X: 0,
+            Y: 0,
           },
         },
       };
     });
   },
   setIsDragging: elementType => set({ isDragging: elementType }),
-  setFontCoord: (newX, newY) => {
-    set({
-      fontCoord: {
-        fontX: newX,
-        fontY: newY,
-      },
+  setCoord: (type, newX, newY) => {
+    set(state => {
+      const updatedSelectedSquares = state.selectedSquares;
+
+      updatedSelectedSquares[type] = {
+        ...updatedSelectedSquares[type],
+        X: newX,
+        Y: newY,
+      };
+
+      return {
+        selectedSquares: updatedSelectedSquares,
+      };
     });
   },
   setFontColor: newColor => set({ fontColor: newColor }),
   setFontBg: newColor => set({ fontBg: newColor }),
   setFontWidth: newWidth => set({ fontWidth: newWidth }),
   setFontContent: newContent => set({ fontContent: newContent }),
-  setStickerCoord: (newX, newY) => {
-    set({
-      stickerCoord: {
-        stickerX: newX,
-        stickerY: newY,
-      },
-    });
-  },
   setTargetElementScale: (newWidth, newHeight) => {
     set({
       targetElementScale: {
