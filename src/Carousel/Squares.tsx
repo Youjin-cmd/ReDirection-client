@@ -12,16 +12,16 @@ interface SquaresProps {
 }
 
 function Squares({ type, itemsList }: SquaresProps) {
-  const { selectedSquares, setSelectedSquares } = useEditStore();
+  const { selectedDecos, setSelectedDecos } = useEditStore();
 
   function clickHandleSquare(item: Itemslist) {
-    setSelectedSquares(type, item.name, item.url);
+    setSelectedDecos(type, item.name, item.url);
   }
 
   return itemsList.map(item => {
     return (
       <div key={crypto.randomUUID()}>
-        {selectedSquares[type]?.name === item.name || (!selectedSquares[type] && !item.name) ? (
+        {selectedDecos[type]?.name === item.name || (!selectedDecos[type] && !item.name) ? (
           <Square
             clickHandleSquare={() => clickHandleSquare(item)}
             active={true}

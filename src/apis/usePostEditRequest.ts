@@ -21,13 +21,13 @@ function usePostEditRequest() {
   const { fontColor, fontBg, fontWidth, fontContent } =
     useEditStore();
 
-  async function postEditRequest(selectedSquares: any) {
+  async function postEditRequest(selectedDecos: any) {
     try {
       setShowLoading(true);
       setEditStatus("in progress");
 
       const response = await axios.post(`${baseURL}/video/edit`, {
-        selectedSquares,
+        selectedDecos,
         fontContent,
         fontWidth,
         fontColor,

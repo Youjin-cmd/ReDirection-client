@@ -6,7 +6,7 @@ import isEnglishLetter from "../util/isEnglishLetter";
 
 function Font() {
   const {
-    selectedSquares,
+    selectedDecos,
     fontColor,
     fontBg,
     fontWidth,
@@ -23,7 +23,7 @@ function Font() {
       const spanWidth = spanRef.current.getBoundingClientRect().width;
       setFontWidth(spanWidth);
     }
-  }, [fontContent, selectedSquares["font"].name]);
+  }, [fontContent, selectedDecos["font"].name]);
 
   function setElementScale() {
     setTargetElementScale(fontWidth, 40);
@@ -48,12 +48,12 @@ function Font() {
         id="selected font"
         className={`peer absolute pt-1 z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
         style={{
-          left: `${selectedSquares["font"].X}px`,
-          top: `${selectedSquares["font"].Y}px`,
+          left: `${selectedDecos["font"].X}px`,
+          top: `${selectedDecos["font"].Y}px`,
           color: `${fontColor}`,
           background: `${fontBg}`,
           width: `${fontWidth}px`,
-          fontFamily: selectedSquares["font"].name,
+          fontFamily: selectedDecos["font"].name,
         }}
         draggable={false}
         value={fontContent}
@@ -64,7 +64,7 @@ function Font() {
         ref={spanRef}
         className="px-3 text-3xl bg-red opacity-0"
         style={{
-          fontFamily: selectedSquares["font"].name,
+          fontFamily: selectedDecos["font"].name,
         }}
       >
         {fontContent}

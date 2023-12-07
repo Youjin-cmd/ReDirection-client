@@ -11,7 +11,7 @@ interface Decorations {
 
 function Decorations({ handleMouseUp, videoRect }: Decorations) {
   const {
-    selectedSquares,
+    selectedDecos,
     isDragging,
     setCoord,
     targetElementScale,
@@ -27,8 +27,8 @@ function Decorations({ handleMouseUp, videoRect }: Decorations) {
       className={`absolute top-${videoRect.top} left-${videoRect.left} w-[406px] h-[720px] z-10`}
       onMouseMove={isDragging ? e => handleMouseMove(e) : undefined}
     >
-      {selectedSquares.font && <Font />}
-      {selectedSquares.sticker && <Sticker />}
+      {selectedDecos.font && <Font />}
+      {selectedDecos.sticker && <Sticker />}
     </div>
   );
 }

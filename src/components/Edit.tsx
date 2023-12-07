@@ -23,7 +23,7 @@ function Edit() {
   const { showLoading, setShowLoading, setEditStatus, resetAllStatus } =
     useProgressStore();
   const {
-    selectedSquares,
+    selectedDecos,
     fontArray,
     setFontArray,
     stickerArray,
@@ -54,7 +54,7 @@ function Edit() {
   }
 
   async function handleClickConfirm() {
-    if (!selectedSquares) {
+    if (!selectedDecos) {
       setShowLoading(true);
       setEditStatus("done");
 
@@ -71,7 +71,7 @@ function Edit() {
       return;
     }
 
-    await postEditReuqest(selectedSquares);
+    await postEditReuqest(selectedDecos);
   }
 
   return (

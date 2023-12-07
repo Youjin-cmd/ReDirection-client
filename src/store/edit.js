@@ -51,7 +51,7 @@ const initialState = {
       url: "https://re-direction-bucket.s3.ap-northeast-2.amazonaws.com/stickers/monitor.svg",
     },
   ],
-  selectedSquares: {},
+  selectedDecos: {},
   isDragging: null,
   fontColor: "#000000",
   fontBg: "#FFFFFF",
@@ -67,18 +67,18 @@ const useEditStore = create(set => ({
   ...initialState,
   setFontArray: newArray => set({ fontArray: newArray }),
   setStickerArray: newArray => set({ stickerArray: newArray }),
-  setSelectedSquares: (type, name, url) => {
+  setSelectedDecos: (type, name, url) => {
     set(state => {
       if (!name) {
-        const { [type]: _, ...updatedSelectedSquares } = state.selectedSquares;
+        const { [type]: _, ...updatedSelectedDecos } = state.selectedDecos;
         return {
-          selectedSquares: updatedSelectedSquares,
+          selectedDecos: updatedSelectedDecos,
         };
       }
 
       return {
-        selectedSquares: {
-          ...state.selectedSquares,
+        selectedDecos: {
+          ...state.selectedDecos,
           [type]: {
             name,
             url,
@@ -92,16 +92,16 @@ const useEditStore = create(set => ({
   setIsDragging: elementType => set({ isDragging: elementType }),
   setCoord: (type, newX, newY) => {
     set(state => {
-      const updatedSelectedSquares = state.selectedSquares;
+      const updatedSelectedDecos = state.selectedDecos;
 
-      updatedSelectedSquares[type] = {
-        ...updatedSelectedSquares[type],
+      updatedSelectedDecos[type] = {
+        ...updatedSelectedDecos[type],
         X: newX,
         Y: newY,
       };
 
       return {
-        selectedSquares: updatedSelectedSquares,
+        selectedDecos: updatedSelectedDecos,
       };
     });
   },
