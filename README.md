@@ -40,6 +40,7 @@
   - [4. 글귀와 스티커를 어떻게 영상에 삽입할까?](#4-글귀와-스티커를-어떻게-영상에-삽입할까)
     - [4-1. 간편한 꾸미기 인터페이스 제공하기](#4-1-간편한-꾸미기-인터페이스-제공하기)
     - [4-2. 요청과 정확히 일치하는 결과물 반환](#4-2-요청과-정확히-일치하는-결과물-반환)
+  - [5. 구조를 최적화하여 유지보수성을 향상시키기](#5-구조를-최적화하여-유지보수성을-향상시키기)
 - [🗓 Schedule](#-schedule)
 - [📒프로젝트 소감](#-프로젝트-소감)
 
@@ -314,60 +315,32 @@ Re-Direction은 얼굴이나 사물인식과같은 AI기술을 쓰지 않는 프
 상하좌우변과 사방의 꼭지점을 벗어나는 조건들의 경우 각종 숫자와 부등호들로 표현되기 때문에 주석의 도움 없이는 가독성이 매우 떨어지는 문제가 있었습니다. <br>
 따라서 위 이미지처럼 각 예외상황들을 변수화하고 각종 매직넘버들을 모두 상수처리하는 리팩터링을 수행하여 가독성을 향상시켰습니다.
 
-#### 3. 유지보수성 강화
+#### 3. 타겟의 스케일에 반응하도록 발전시키기
 
-초기에는 드래그 대상 항목이 단 두개이므로 각 항목별로 드래그여부를 state에 저장해주었었습니다. 그러나 향후 새로운 디자인 요소가 추가된다면 그에 따른 상태(state)가 증가하면서 개방폐쇄원칙에 어긋나고 중복코드가 증가할 것이 예상되었습니다.
+꾸미기 요소의 경우 사이즈가 종류별로 제각각이며 글귀 input 또한 내용에 따라 크기가 동적으로 변합니다.
+따라서 타겟의 크기가 커지거나 작아지더라도 반응형으로 영역제한을 해줄 수 있도록 개선시켜주었습니다.
+이를 위해서 useRef를 이용하여 해당 요소의 DOM노드 데이터를 읽어들여 활용하였습니다.
 
-```
-isStickerDragging,
-setIsStickerDragging,
-isFontDragging,
-setIsFontDragging,
-isNewDecorationDragging,
-setIsNewDecorationDragging
-...
-..
-.
+- 스티커 컴포넌트 예시
 
-```
+```javascript
+  const stickerRef = useRef<HTMLImageElement>(null);
 
-따라서 확장성과 유지보수성이 더 나은 설계는 없을까 고민한 결과 한개의 isDragging state를 true/false로 토글하는 것이 아니라 타겟명을 직접 담도록 하여, 항목의 개수와 상관없이 한 쌍의 state와 세터만으로 DnD 운용이 되도록 개선하였습니다.
-
-```
-setIsDragging, // 드래그시작시에 항목명을 저장, 드래그종료시 null로 비움.
-isDragging
-```
-
-이에 맞추어 좌표갱신을 담당하는 공용 DnD 함수에 분기별로 다른 파라미터를 주도록 했습니다.
-공용 DnD 함수가 타겟의 항목에 관한 정보를 몰라도 동작할 수 있도록 하여 중복코드가 감소하고, 외부요소에 대한 의존성을 감소시킬 수 있었습니다.
-
-```
-  function handleMouseMove(event) {
-    switch (isDragging) {
-      case "sticker":
-        moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
-        break;
-      case "font":
-        moveDecoElement(videoRect, event, setFontCoord, targetElementScale);
-        break;
+  function setElementScale() {
+    if (stickerRef.current) {
+      setTargetElementScale(stickerRef.current.width, stickerRef.current.height);
     }
   }
+
+  // ...
+
+  <img
+    // 각종 어트리뷰트
+    ref={stickerRef}
+  />
 ```
 
-#### 4. 타겟의 스케일에 반응하도록 발전시키기
-
-스티커의 경우 사이즈가 종류별로 제각각이며 글귀 input 또한 내용에 따라 크기가 동적으로 변합니다.
-따라서 타겟의 크기가 커지거나 작아지더라도 반응형으로 영역제한을 해줄 수 있도록 개선시켜주었습니다.
-
-```
-  //mouseDown 핸들러내부
-
-  const stickerImg = document.getElementById("selected sticker");
-  // 스티커를 불러온 후
-
-  setTargetElementScale(stickerImg.height, stickerImg.width)
-  // 스케일을 state에 담아주어, DnD 로직이 스티커의 크기를 파악하는데에 활용
-```
+이어서 유저가 요소를 드래그하기 위해 클릭했을 시 setElementScale 함수가 작동되어, targertElementScale에 타겟 스티커의 크기 데이터가 담기도록 했습니다. 이 데이터는 이어서 드래그앤드랍을 담당하는 함수내부에서 드래그 영역제한 해주는데 사용되게 됩니다.
 
 ### 4-2. 요청과 정확히 일치하는 결과물 반환
 
@@ -380,29 +353,12 @@ isDragging
 - 영상에 삽입할 폰트와 이미지 파일은 local path에서 불러와야하며, S3 url을 직접 사용할 수 없다.
 - 이미지 삽입기능에서 .svg확장자는 지원하지 않는다.
 
-위를 참고하여, 클라이언트 측에서는 FFmpeg의 커맨드의 파라미터가 될 데이터를 간추리고, 다음과 같이 서버에 전송하였습니다.
-
-```jsx
-const {
-    typeface, // 적용하는 폰트명
-    fontContent, // 글귀의 내용
-    fontX, // 글귀의 X좌표
-    fontY, // 글귀의 Y좌표
-    fontWidth, // 글귀(input전체)의 길이
-    fontColor, // 글귀의 색상
-    fontBg, // 글귀(input전체)의 배경색상
-    stickerName, // 적용하는 스티커명
-    stickerX, // 스티커의 X좌표
-    stickerY, // 스티커의 Y좌표
-  } = object;
-```
-🔺 사용자로부터 제출받은 글귀와 스티커에 관한 다양한 속성들.
-
+위를 참고하여, 클라이언트 측에서 FFmpeg의 커맨드의 파라미터가 될 데이터를 간추려 서버에 전송하였습니다.
 또한, .ttf파일과 .png파일을 모두 S3에 업로드하고, edit 요청이 들어올 경우 FFmpeg의 작업을 들어가기 전에 필요한 파일들을 내려받도록 했습니다.
 
 작업을 위한 재료들의 다운로드가 모두 완료되면, 글귀와 스티커의 유무에 따라 FFmpeg 커맨드에 Argument를 추가해줍니다.
 
-```js
+```javascript
 "-i",
 path.join(SAVING_DIR_RESULT, "result_video.mp4"),
 // 0번째 미디어: 비디오
@@ -428,6 +384,80 @@ HTML관련 속성값들을 FFmpeg가 지원하는 형식에 걸맞게 바꿔주�
 긴 시간동안의 시행착오 끝에 올바른 커맨드문법을 적용하여 결과적으로 클라이언트단에서 유저가 설정한 모습이 똑같이 영상에 삽입된 것을 보았을 때는 크나큰 보람을 느낄 수 있었습니다.
 
 <br>
+
+## 5. 구조를 최적화하여 유지보수성을 향상시키기
+
+초기에는 꾸미기 요소의 항목이 폰트와 스티커, 단 두가지임에 따라 각종 state 및 로직들의 짜임새와 두 요소 사이의 결합도가 매우 높은 상태였습니다.
+
+그러나 시간이 지남에 따라 GIF나 그리기, 필터 등 다른 새로운 꾸미기 요소가 추가하게 될 때, 수많은 곳에서 수정이 일어나야 한다면 개방폐쇄원칙에 어긋나고 중복코드가 증가할 것이 예상되었습니다. 따라서 확장성과 유지보수성이 더 나은 설계는 없을까 고민한 결과 다음과 같이 구조를 변경하게 되었습니다.
+
+### 요소 별 state가 생기는 구조를 리팩터링
+
+첫번째로, 각 요소 별로 셋업해주었던 드래그 유무, 좌표 등의 스테이트를 제거하고 공용스테이트가 요소의 종류나 개수와 관계없이 동작하도록 구조를 리팩터링해주었습니다.
+
+- 변경 전
+
+<img width="450" alt="スクリーンショット 2023-12-07 22 21 53" src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/d61de142-d45a-4065-8744-40b290417cd4">
+<br>
+🔺 기존 구조를 도식으로 표현. 중복 코드가 요소의 개수별에 비례하여 발생.
+
+<br>
+
+- 변경 후
+
+<img width="450" alt="スクリーンショット 2023-12-07 22 22 11" src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/52a31422-ef8d-4200-b77a-f9878e28c338">
+
+이로써 각 요소의 isDragging이 true/false로 토글하는 것이 아니라 타겟명이 isDragging에 직접 담기도록 해, 항목의 개수와 상관없이 한 쌍의 state와 세터만으로 DnD가 작동하도록 하였습니다.
+
+### 비슷한 관심사의 데이터를 한 곳에 모으기
+
+두번째로, 각 요소에 관련된 데이터가 여러 state들에 흩어져있기에 한 객체에 깔끔하게 모았습니다. 그리고 유저가 어떤 요소를 선택하면 관련 객체가 selectedDecos객체에 동적으로 추가 / 제거되도록 리팩터링하였습니다.
+
+- 변경 전
+
+<img width="450" alt="スクリーンショット 2023-12-07 22 22 20" src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/ddd472ac-51c9-4af6-845a-f6f377af1fc1">
+<br>
+🔺 기존 구조를 도식으로 표현. 새 꾸미기 요소가 추가되야할 경우 관련 state를 별도로 새로 작성하고 selectedDecos내부에 name과 url 프로퍼티를 추가하는 등 복잡한 수정이 필요하게 됩니다.
+
+- 변경 후
+
+<img width="450" alt="スクリーンショット 2023-12-07 22 22 28" src="https://github.com/Youjin-cmd/ReDirection-client/assets/83858724/b2c9b74c-9a74-435f-9e3e-d894e509d654">
+
+새 요소가 추가되더라도 selectedDecos의 내부구조를 변경할 필요가 없으며, 선택된 요소의 데이터 객체가 담긴 selectedDecos가 그대로 백엔드 요청시에 페이로드에 사용됩니다. 이 업데이트를 통해 api리퀘스트 시 보내는 객체 내부를 수정해야하는 번거로움이 해소되었습니다.
+
+### 요소 별 분기 로직 제거
+
+마지막으로, 디자인 요소 별 좌표 데이터가 각각의 coord state가 아닌, selectedDecos의 하위객체 내부에 저장되도록 변경됨에 따라 handleMouseMove에서도 개선이 이루어졌습니다.
+
+- 기존 코드
+
+```javascript
+ function handleMouseMove(event) {
+    switch (isDragging) {
+      case "sticker":
+        moveDecoElement(videoRect, event, setStickerCoord, targetElementScale);
+        break;
+      case "font":
+        moveDecoElement(videoRect, event, setFontCoord, targetElementScale);
+        break;
+    }
+  }
+```
+기존에는 요소별로 좌표 state가 따로 존재했기에 setStickerCoord, setFontCoord과 같은 알맞은 setter를 인자로 전달하기 위해 swtich문을 활용했었습니다.
+
+- 개선 후
+
+```javascript
+  function handleMouseMove(event) {
+    moveDecoElement(isDragging, videoRect, event, setCoord, targetElementScale);
+  }
+```
+
+타겟정보가 담긴 isDragging을 인자로 받아, 해당 타겟의 객체 내부 좌표를 변경해줍니다.
+따라서 새 요소의 추가에 맞추어 switch문에 케이스를 추가하는 등의 번거로움이 없어지게 되었습니다.
+
+구조를 최적화하는 리팩터링을 진행하면서 무작정 구현에 돌입하기 이전에 디자인패턴에 기초지식을 토대로 적절한 초기 계획을 수립하는 것이 얼마나 중요한지를 명확히 깨달았습니다.
+앞으로도 효율적인 패턴에 대한 공부와 실습을 계속하여 제품의 확장성을 높이고, 미래의 디자인 변경에 대비할 수 있는 힘을 길러나가고자 합니다.
 
 # **🗓 Schedule**
 
