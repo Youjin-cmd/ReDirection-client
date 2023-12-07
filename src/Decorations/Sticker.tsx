@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import useEditStore from "../store/edit";
 import GrabPointToDrag from "./GrabPointToDrag";
 
@@ -16,10 +16,6 @@ function Sticker() {
       setTargetElementScale(stickerRef.current.width, stickerRef.current.height);
     }
   }
-
-  useEffect(() => {
-    setElementScale();
-  }, [selectedDecos["sticker"].url]);
 
   return (
     <div>
