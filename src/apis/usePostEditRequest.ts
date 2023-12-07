@@ -15,41 +15,23 @@ interface CustomError extends Error {
   };
 }
 
-type Font = {
-  name: string;
-}
-
-type Sticker = {
-  name: string;
-}
-
-interface SelectedSquares {
-  font?: Font;
-  sticker?: Sticker;
-}
-
 function usePostEditRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setEditStatus, resetAllStatus } = useProgressStore();
-  const { fontCoord, stickerCoord, fontColor, fontBg, fontWidth, fontContent } =
+  const { fontColor, fontBg, fontWidth, fontContent } =
     useEditStore();
 
-  async function postEditRequest(selectedSquares: SelectedSquares) {
+  async function postEditRequest(selectedSquares: any) {
     try {
       setShowLoading(true);
       setEditStatus("in progress");
 
       const response = await axios.post(`${baseURL}/video/edit`, {
-        typeface: selectedSquares["font"]?.name,
+        selectedSquares,
         fontContent,
-        fontX: Math.round(fontCoord.fontX),
-        fontY: Math.round(fontCoord.fontY),
         fontWidth,
         fontColor,
         fontBg,
-        stickerName: selectedSquares["sticker"]?.name,
-        stickerX: Math.round(stickerCoord.stickerX),
-        stickerY: Math.round(stickerCoord.stickerY),
       });
 
       if (response.data.success) {
