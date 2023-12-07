@@ -64,7 +64,7 @@ function Edit() {
   }
 
   async function handleClickConfirm() {
-    if (!selectedDecos) {
+    if (!Object.keys(selectedDecos).length) {
       setShowLoading(true);
       setEditStatus("done");
 
