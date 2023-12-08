@@ -72,27 +72,15 @@ describe("usePostEditRequest", () => {
     await waitFor(
       () => {
         postEditRequest({
-          font: {
-            name: "test"
-          },
-          sticker: {
-            name: "test"
-          },
+          property: "test"
         });
 
         expect(axios.post).toHaveBeenCalledWith(
           "http://localhost:3000/video/edit",
           {
-            fontX: 0,
-            fontY: 0,
-            stickerName: "test",
-            stickerX: 0,
-            stickerY: 0,
-            typeface: "test",
-            fontContent: "test",
-            fontWidth: "test",
-            fontColor: "test",
-            fontBg: "test",
+            selectedDecos: {
+              property: "test"
+            }
           }
         );
 

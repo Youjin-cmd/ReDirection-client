@@ -8,21 +8,22 @@ describe("useEditStore", () => {
     useEditStore.setState(initialState);
   });
 
-  it("should update selectedSquares state when calling setSelectedSquares", () => {
-    const { setSelectedSquares } = useEditStore.getState();
-
-    setSelectedSquares(
-      "type",
+  it("should update selectedSquares state when calling setSelectedDecos", () => {
+    const { setSelectedDecos } = useEditStore.getState();
+    setSelectedDecos(
+      "sticker",
       "awesomeFont",
       "test/awesomeFont.svg",
     );
 
-    const { selectedSquares } = useEditStore.getState();
+    const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedSquares).toEqual({
-      type: {
+    expect(selectedDecos).toEqual({
+      sticker: {
         name: "awesomeFont",
         url: "test/awesomeFont.svg",
+        X: 0,
+        Y: 0,
       }
     });
   });
