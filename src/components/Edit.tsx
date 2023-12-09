@@ -56,7 +56,7 @@ function Edit() {
   };
 
   function handleMouseUp() {
-    setIsDragging(null);
+    setIsDragging("");
   }
 
   function handleToggleMute() {
@@ -87,7 +87,7 @@ function Edit() {
   return (
     <div
       className="flex flex-col items-center h-full p-5"
-      onMouseUp={() => setIsDragging(null)}
+      onMouseUp={() => setIsDragging("")}
     >
       <div className="flex justify-center items-center w-[1300px] mb-5">
         <Carousel type="font" itemsList={fontArray} setItemsList={setFontArray} />

@@ -3,15 +3,15 @@ import Button from "../shared/Button";
 import CarouselContainer from "./CarouselContainer";
 import SquaresContainer from "./SquaresContainer";
 
-interface Itemslist {
-  name: string;
-  url: string;
+interface DecoElement {
+  name: string | null;
+  url: string | null;
 }
 
 interface CarouselProps {
   type: string;
-  itemsList: Itemslist[];
-  setItemsList: (updatedArray: Itemslist[]) => void;
+  itemsList: DecoElement[];
+  setItemsList: (updatedArray: DecoElement[]) => void;
 }
 
 function Carousel({ type, itemsList, setItemsList }: CarouselProps) {

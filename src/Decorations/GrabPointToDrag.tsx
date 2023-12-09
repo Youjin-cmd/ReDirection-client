@@ -1,8 +1,8 @@
 interface GrabPointToDragProps {
-  coordX: number;
-  coordY: number;
+  coordX: number | undefined;
+  coordY: number | undefined;
   elementType: string;
-  setIsDragging: (elementType: string | null) => void;
+  setIsDragging: (elementType: string) => void;
   setElementScale: () => void;
 }
 
@@ -17,14 +17,14 @@ function GrabPointToDrag({
     <div
       className="absolute justify-center items-center w-6 h-6 z-10 rounded-full bg-white hidden select-none hover:flex peer-hover:flex hover:cursor-move"
       style={{
-        left: `${coordX - 10}px`,
-        top: `${coordY - 10}px`,
+        left: `${coordX! - 10}px`,
+        top: `${coordY! - 10}px`,
       }}
       onMouseDown={() => {
         setIsDragging(elementType);
         setElementScale();
       }}
-      onMouseUp={() => setIsDragging(null)}
+      onMouseUp={() => setIsDragging("")}
       draggable={false}
     >
       <img

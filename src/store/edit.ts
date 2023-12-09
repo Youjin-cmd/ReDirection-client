@@ -1,6 +1,58 @@
 import { create } from "zustand";
 
-const initialState = {
+interface DecoElement {
+  name: string | null;
+  url: string | null;
+}
+
+interface DefaultDecotypes {
+  name?: string;
+  url?: string;
+  X?: number;
+  Y?: number;
+}
+
+interface FontTypes extends DefaultDecotypes {
+  fontColor?: string;
+  fontBg?: string;
+  fontWidth?: number;
+  fontContent?: string;
+}
+
+interface SelectedDecos {
+  font?: FontTypes;
+  sticker?: DefaultDecotypes;
+  [key: string]: DefaultDecotypes | FontTypes | undefined;
+}
+
+interface TargetElementScale {
+  width: number;
+  height: number;
+}
+
+interface EditStates {
+  fontArray: DecoElement[];
+  stickerArray: DecoElement[];
+  selectedDecos: SelectedDecos;
+  isDragging: string;
+  targetElementScale: TargetElementScale;
+}
+
+interface EditSetters {
+  setFontArray: (newArray: DecoElement[]) => void;
+  setStickerArray: (newArray: DecoElement[]) => void;
+  setSelectedDecos: (type: string, name: string | null, url: string | null) => void;
+  setFontColor: (newFont: string) => void;
+  setFontBg: (newColor: string) => void;
+  setFontWidth: (newWidth: number) => void;
+  setFontContent: (newContent: string) => void;
+  setIsDragging: (elementType: string) => void;
+  setCoord: (type: string, newX: number, newY: number) => void;
+  setTargetElementScale: (newWidth: number, newHeight: number) => void;
+  resetEditData: () => void,
+}
+
+const initialState: EditStates = {
   fontArray: [
     { name: null, url: null },
     { name: "bebasNeue", url: "/assets/bebasNeue.svg" },
@@ -52,20 +104,20 @@ const initialState = {
     },
   ],
   selectedDecos: {},
-  isDragging: null,
+  isDragging: "",
   targetElementScale: {
-    width: null,
-    height: null,
+    width: 0,
+    height: 0,
   },
 };
 
-const useEditStore = create(set => ({
+const useEditStore = create<EditStates & EditSetters>(set => ({
   ...initialState,
-  setFontArray: newArray => set({ fontArray: newArray }),
-  setStickerArray: newArray => set({ stickerArray: newArray }),
+  setFontArray: (newArray) => set({ fontArray: newArray }),
+  setStickerArray: (newArray) => set({ stickerArray: newArray }),
   setSelectedDecos: (type, name, url) => {
-    if (!name) {
-      set(state => {
+    if (!name && !url) {
+      set((state) => {
         const { [type]: _, ...updatedSelectedDecos } = state.selectedDecos;
 
         return {
@@ -74,10 +126,10 @@ const useEditStore = create(set => ({
       });
     }
 
-    if (name) {
+    if (name && url) {
       switch (type) {
         case "sticker":
-          set(state => {
+          set((state) => {
             const existingSticker = state.selectedDecos.sticker;
 
             const updatedSticker = existingSticker
@@ -103,7 +155,7 @@ const useEditStore = create(set => ({
 
           break;
         case "font":
-          set(state => {
+          set((state) => {
             const existingFont = state.selectedDecos.font;
 
             const updatedFont = existingFont
@@ -135,8 +187,8 @@ const useEditStore = create(set => ({
       }
     }
   },
-  setFontColor: newColor => {
-    set(state => ({
+  setFontColor: (newColor) => {
+    set((state) => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -146,8 +198,8 @@ const useEditStore = create(set => ({
       },
     }));
   },
-  setFontBg: newColor => {
-    set(state => ({
+  setFontBg: (newColor) => {
+    set((state) => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -157,8 +209,8 @@ const useEditStore = create(set => ({
       },
     }));
   },
-  setFontWidth: newWidth => {
-    set(state => ({
+  setFontWidth: (newWidth) => {
+    set((state) => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -168,8 +220,8 @@ const useEditStore = create(set => ({
       },
     }));
   },
-  setFontContent: newContent => {
-    set(state => ({
+  setFontContent: (newContent) => {
+    set((state) => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -179,9 +231,9 @@ const useEditStore = create(set => ({
       },
     }));
   },
-  setIsDragging: elementType => set({ isDragging: elementType }),
+  setIsDragging: (elementType) => set({ isDragging: elementType }),
   setCoord: (type, newX, newY) => {
-    set(state => {
+    set((state) => {
       const updatedSelectedDecos = state.selectedDecos;
 
       updatedSelectedDecos[type] = {

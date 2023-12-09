@@ -25,7 +25,7 @@ function Decorations({ handleMouseUp, videoRect }: Decorations) {
     <div
       onMouseUp={handleMouseUp}
       className={`absolute top-${videoRect.top} left-${videoRect.left} w-[406px] h-[720px] z-10`}
-      onMouseMove={isDragging ? e => handleMouseMove(e) : undefined}
+      onMouseMove={isDragging !== "" ? e => handleMouseMove(e) : undefined}
     >
       {selectedDecos.font && <Font />}
       {selectedDecos.sticker && <Sticker />}

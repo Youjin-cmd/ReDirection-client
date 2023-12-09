@@ -24,16 +24,16 @@ function Sticker() {
         alt="selected sticker"
         className={`peer absolute w-[150px] z-10 select-none`}
         style={{
-          left: `${selectedDecos["sticker"].X}px`,
-          top: `${selectedDecos["sticker"].Y}px`,
+          left: `${selectedDecos["sticker"]!.X}px`,
+          top: `${selectedDecos["sticker"]!.Y}px`,
         }}
-        src={selectedDecos["sticker"].url}
+        src={selectedDecos["sticker"]!.url}
         draggable={false}
         ref={stickerRef}
       />
       <GrabPointToDrag
-        coordX={selectedDecos["sticker"].X}
-        coordY={selectedDecos["sticker"].Y}
+        coordX={selectedDecos["sticker"]!.X}
+        coordY={selectedDecos["sticker"]!.Y}
         elementType="sticker"
         setIsDragging={setIsDragging}
         setElementScale={setElementScale}
