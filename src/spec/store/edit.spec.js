@@ -48,7 +48,7 @@ describe("useEditStore", () => {
       isDragging: stateAfterReset
     } = useEditStore.getState();
 
-    expect(stateAfterReset).toBe(null);
+    expect(stateAfterReset).toBe("");
 
   });
 });
