@@ -6,7 +6,26 @@ import CONSTANT from "../constants/constant";
 const { ONE_SECOND } = CONSTANT;
 
 import useProgressStore from "../store/progress";
-import useEditStore from "../store/edit";
+
+interface DefaultDecotypes {
+  name?: string;
+  url?: string;
+  X?: number;
+  Y?: number;
+}
+
+interface FontTypes extends DefaultDecotypes {
+  fontColor?: string;
+  fontBg?: string;
+  fontWidth?: number;
+  fontContent?: string;
+}
+
+interface SelectedDecos {
+  font?: FontTypes;
+  sticker?: DefaultDecotypes;
+  [key: string]: DefaultDecotypes | FontTypes | undefined;
+}
 
 interface CustomError extends Error {
   response?: {
@@ -19,7 +38,7 @@ function usePostEditRequest() {
   const navigate = useNavigate();
   const { setShowLoading, setEditStatus, resetAllStatus } = useProgressStore();
 
-  async function postEditRequest(selectedDecos: any) {
+  async function postEditRequest(selectedDecos: SelectedDecos) {
     try {
       setShowLoading(true);
       setEditStatus("in progress");

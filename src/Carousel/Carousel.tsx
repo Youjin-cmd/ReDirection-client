@@ -17,7 +17,10 @@ interface CarouselProps {
 function Carousel({ type, itemsList, setItemsList }: CarouselProps) {
   function handleClickUp(event: React.MouseEvent) {
     const lastItem = itemsList[itemsList.length - 1];
-    const updatedArray = [lastItem, ...itemsList.slice(0, itemsList.length - 1)];
+    const updatedArray = [
+      lastItem,
+      ...itemsList.slice(0, itemsList.length - 1),
+    ];
 
     event.stopPropagation();
     setItemsList(updatedArray);

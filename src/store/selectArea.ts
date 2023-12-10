@@ -27,14 +27,16 @@ const initialState = {
   sensitivity: 15,
 };
 
-const useSelectAreaStore = create<SelectAreaStates & SelectAreaSetters>(set => ({
-  ...initialState,
-  setIsDragging: bool => set({ isDragging: bool }),
-  setSelectorLeft: newLeftCorner => set({ selectorLeft: newLeftCorner }),
-  setSelectorWidth: newRightCorner => set({ selectorWidth: newRightCorner }),
-  setIsFixed: bool => set({ isFixed: bool }),
-  setSensitivity: newNumber => set({ sensitivity: newNumber }),
-  resetArea: () => set(initialState),
-}));
+const useSelectAreaStore = create<SelectAreaStates & SelectAreaSetters>(
+  set => ({
+    ...initialState,
+    setIsDragging: bool => set({ isDragging: bool }),
+    setSelectorLeft: newLeftCorner => set({ selectorLeft: newLeftCorner }),
+    setSelectorWidth: newRightCorner => set({ selectorWidth: newRightCorner }),
+    setIsFixed: bool => set({ isFixed: bool }),
+    setSensitivity: newNumber => set({ sensitivity: newNumber }),
+    resetArea: () => set(initialState),
+  }),
+);
 
 export default useSelectAreaStore;

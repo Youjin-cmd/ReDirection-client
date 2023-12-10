@@ -7,7 +7,7 @@ interface FontHandlerProps {
   setElementScale: () => void;
 }
 
-function FontHandler({ setElementScale } : FontHandlerProps) {
+function FontHandler({ setElementScale }: FontHandlerProps) {
   const { selectedDecos, setIsDragging } = useEditStore();
 
   return (

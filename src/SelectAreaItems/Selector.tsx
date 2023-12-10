@@ -1,12 +1,8 @@
 import useSelectAreaStore from "../store/selectArea";
 
 function Selector() {
-  const {
-    selectorLeft,
-    selectorWidth,
-    isFixed,
-  } = useSelectAreaStore();
-  return(
+  const { selectorLeft, selectorWidth, isFixed } = useSelectAreaStore();
+  return (
     <div
       id="selector"
       className="absolute ring-8 ring-red bg-red opacity-30"

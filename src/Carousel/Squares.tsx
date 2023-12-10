@@ -21,7 +21,8 @@ function Squares({ type, itemsList }: SquaresProps) {
   return itemsList.map(item => {
     return (
       <div key={crypto.randomUUID()}>
-        {selectedDecos[type]?.name === item.name || (!selectedDecos[type] && !item.name) ? (
+        {selectedDecos[type]?.name === item.name ||
+        (!selectedDecos[type] && !item.name) ? (
           <Square
             clickHandleSquare={() => clickHandleSquare(item)}
             active={true}
@@ -46,7 +47,7 @@ function Squares({ type, itemsList }: SquaresProps) {
             <img
               className="w-24 opacity-20 select-none"
               src={item.url ?? undefined}
-              alt={item.url ? `none selected ${item.name}`: undefined}
+              alt={item.url ? `none selected ${item.name}` : undefined}
             />
           </Square>
         )}

@@ -4,7 +4,7 @@ import useProgressStore from "../store/progress";
 import Button from "../shared/Button";
 
 interface ModalProps {
-  children: React.ReactNode,
+  children: React.ReactNode;
   onClick: () => void;
 }
 

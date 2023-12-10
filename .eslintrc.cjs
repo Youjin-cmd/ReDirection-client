@@ -6,13 +6,16 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:import/recommended",
     "plugin:react-hooks/recommended",
     "plugin:prettier/recommended",
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs", "*.spec.jsx", "*.spec.js"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "react-refresh", "prettier", "import"],
+  ignorePatterns: ["dist", ".eslintrc.cjs", "*.spec.tsx", "*.spec.ts"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module"
@@ -20,18 +23,19 @@ module.exports = {
   settings: {
     react: { version: "18.2" },
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx"]
+      typescript: {},
+      node: {
+        "extensions": [".ts", ".tsx"]
       },
     },
   },
-  plugins: ["react-refresh", "prettier", "import"],
   rules: {
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
     ],
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
     "no-console": "warn",
     "import/prefer-default-export": "warn",
   },

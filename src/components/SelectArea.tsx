@@ -43,7 +43,7 @@ function SelectArea() {
     resetArea();
 
     if (!url) {
-      navigate("/")
+      navigate("/");
     }
   }, []);
 

@@ -7,7 +7,7 @@ interface PageStore {
 
 const usePageStore = create<PageStore>(set => ({
   currentPage: "",
-  setCurrentPage: (newPage) => set({ currentPage: newPage }),
+  setCurrentPage: newPage => set({ currentPage: newPage }),
 }));
 
 export default usePageStore;

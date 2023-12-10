@@ -1,10 +1,10 @@
 import useEditStore from "../store/edit";
 
 const colorOptions = [
-  { backgroundHex: "#C32F2F"},
-  { backgroundHex: "#FFFFFF"},
-  { backgroundHex: "#4287f5"},
-  { backgroundHex: "#000000"},
+  { backgroundHex: "#C32F2F" },
+  { backgroundHex: "#FFFFFF" },
+  { backgroundHex: "#4287f5" },
+  { backgroundHex: "#000000" },
 ];
 
 function FontColorSelector() {
@@ -21,7 +21,9 @@ function FontColorSelector() {
       <div
         className="absolute justify-center w-[150px] h-10 z-10 hidden hover:flex peer-focus:flex"
         style={{
-          left: `${selectedDecos.font!.X! - 75 + selectedDecos.font!.fontWidth! / 2}px`,
+          left: `${
+            selectedDecos.font!.X! - 75 + selectedDecos.font!.fontWidth! / 2
+          }px`,
           top: `${selectedDecos.font!.Y! - 40}px`,
         }}
       >

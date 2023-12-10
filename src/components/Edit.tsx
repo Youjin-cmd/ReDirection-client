@@ -53,7 +53,7 @@ function Edit() {
       const videoRect = videoRef.current.getBoundingClientRect();
       setVideoRect(videoRect);
     }
-  };
+  }
 
   function handleMouseUp() {
     setIsDragging("");
@@ -90,9 +90,15 @@ function Edit() {
       onMouseUp={() => setIsDragging("")}
     >
       <div className="flex justify-center items-center w-[1300px] mb-5">
-        <Carousel type="font" itemsList={fontArray} setItemsList={setFontArray} />
+        <Carousel
+          type="font"
+          itemsList={fontArray}
+          setItemsList={setFontArray}
+        />
         <div className="relative flex justify-center w-[406px] h-[720px]">
-          {videoRect && <Decorations handleMouseUp={handleMouseUp} videoRect={videoRect} />}
+          {videoRect && (
+            <Decorations handleMouseUp={handleMouseUp} videoRect={videoRect} />
+          )}
           <Button
             className="absolute top-5 right-4 z-10"
             onClick={handleToggleMute}

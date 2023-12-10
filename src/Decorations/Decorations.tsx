@@ -10,12 +10,8 @@ interface Decorations {
 }
 
 function Decorations({ handleMouseUp, videoRect }: Decorations) {
-  const {
-    selectedDecos,
-    isDragging,
-    setCoord,
-    targetElementScale,
-  } = useEditStore();
+  const { selectedDecos, isDragging, setCoord, targetElementScale } =
+    useEditStore();
 
   function handleMouseMove(event: React.MouseEvent) {
     moveDecoElement(isDragging, videoRect, event, setCoord, targetElementScale);

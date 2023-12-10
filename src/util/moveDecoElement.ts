@@ -6,7 +6,7 @@ function moveDecoElement(
   videoRect: DOMRect,
   event: React.MouseEvent,
   setCoord: (argument1: string, argument2: number, argument3: number) => void,
-  targetElementScale: { width: number, height: number },
+  targetElementScale: { width: number; height: number },
 ) {
   const videoTopEdge = videoRect.top;
   const videoLeftEdge = videoRect.left;

@@ -41,7 +41,11 @@ interface EditStates {
 interface EditSetters {
   setFontArray: (newArray: DecoElement[]) => void;
   setStickerArray: (newArray: DecoElement[]) => void;
-  setSelectedDecos: (type: string, name: string | null, url: string | null) => void;
+  setSelectedDecos: (
+    type: string,
+    name: string | null,
+    url: string | null,
+  ) => void;
   setFontColor: (newFont: string) => void;
   setFontBg: (newColor: string) => void;
   setFontWidth: (newWidth: number) => void;
@@ -49,7 +53,7 @@ interface EditSetters {
   setIsDragging: (elementType: string) => void;
   setCoord: (type: string, newX: number, newY: number) => void;
   setTargetElementScale: (newWidth: number, newHeight: number) => void;
-  resetEditData: () => void,
+  resetEditData: () => void;
 }
 
 const initialState: EditStates = {
@@ -113,12 +117,13 @@ const initialState: EditStates = {
 
 const useEditStore = create<EditStates & EditSetters>(set => ({
   ...initialState,
-  setFontArray: (newArray) => set({ fontArray: newArray }),
-  setStickerArray: (newArray) => set({ stickerArray: newArray }),
+  setFontArray: newArray => set({ fontArray: newArray }),
+  setStickerArray: newArray => set({ stickerArray: newArray }),
   setSelectedDecos: (type, name, url) => {
     if (!name && !url) {
-      set((state) => {
-        const { [type]: _, ...updatedSelectedDecos } = state.selectedDecos;
+      set(state => {
+        const updatedSelectedDecos = { ...state.selectedDecos };
+        delete updatedSelectedDecos[type];
 
         return {
           selectedDecos: updatedSelectedDecos,
@@ -129,7 +134,7 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
     if (name && url) {
       switch (type) {
         case "sticker":
-          set((state) => {
+          set(state => {
             const existingSticker = state.selectedDecos.sticker;
 
             const updatedSticker = existingSticker
@@ -155,7 +160,7 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
 
           break;
         case "font":
-          set((state) => {
+          set(state => {
             const existingFont = state.selectedDecos.font;
 
             const updatedFont = existingFont
@@ -187,8 +192,8 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
       }
     }
   },
-  setFontColor: (newColor) => {
-    set((state) => ({
+  setFontColor: newColor => {
+    set(state => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -198,8 +203,8 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
       },
     }));
   },
-  setFontBg: (newColor) => {
-    set((state) => ({
+  setFontBg: newColor => {
+    set(state => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -209,8 +214,8 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
       },
     }));
   },
-  setFontWidth: (newWidth) => {
-    set((state) => ({
+  setFontWidth: newWidth => {
+    set(state => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -220,8 +225,8 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
       },
     }));
   },
-  setFontContent: (newContent) => {
-    set((state) => ({
+  setFontContent: newContent => {
+    set(state => ({
       selectedDecos: {
         ...state.selectedDecos,
         font: {
@@ -231,9 +236,9 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
       },
     }));
   },
-  setIsDragging: (elementType) => set({ isDragging: elementType }),
+  setIsDragging: elementType => set({ isDragging: elementType }),
   setCoord: (type, newX, newY) => {
-    set((state) => {
+    set(state => {
       const updatedSelectedDecos = state.selectedDecos;
 
       updatedSelectedDecos[type] = {

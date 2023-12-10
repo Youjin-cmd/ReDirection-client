@@ -5,12 +5,8 @@ import FontHandler from "./FontHandler";
 import isEnglishLetter from "../util/isEnglishLetter";
 
 function Font() {
-  const {
-    selectedDecos,
-    setFontWidth,
-    setFontContent,
-    setTargetElementScale,
-  } = useEditStore();
+  const { selectedDecos, setFontWidth, setFontContent, setTargetElementScale } =
+    useEditStore();
   const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {

@@ -3,17 +3,17 @@ import useEditStore from "../store/edit";
 import GrabPointToDrag from "./GrabPointToDrag";
 
 function Sticker() {
-  const {
-    selectedDecos,
-    setIsDragging,
-    setTargetElementScale,
-  } = useEditStore();
+  const { selectedDecos, setIsDragging, setTargetElementScale } =
+    useEditStore();
 
   const stickerRef = useRef<HTMLImageElement>(null);
 
   function setElementScale() {
     if (stickerRef.current) {
-      setTargetElementScale(stickerRef.current.width, stickerRef.current.height);
+      setTargetElementScale(
+        stickerRef.current.width,
+        stickerRef.current.height,
+      );
     }
   }
 
