@@ -1,8 +1,8 @@
 import axios from "axios";
-import usePostEditRequest from "../../apis/usePostEditRequest";
+import usePostCropRequest from "../../apis/usePostCropRequest";
 
 import useProgressStore from "../../store/progress";
-import useEditStore from "../../store/edit";
+import useSelectAreaStore from "../../store/selectArea";
 
 import { waitFor } from "@testing-library/react";
 
@@ -16,7 +16,7 @@ vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
 
   return {
-    ...actual,
+    ...actual as object,
     useNavigate: () => mocks.navigate,
   };
 });
@@ -26,38 +26,28 @@ vi.mock("../../store/progress", () => ({
   useProgressStore: vi.fn(),
 }));
 
-vi.mock("../../store/edit", () => ({
+vi.mock("../../store/selectArea", () => ({
   default: vi.fn(),
-  useEditStore: vi.fn(),
+  useSelectAreaStore: vi.fn(),
 }));
 
-useProgressStore.mockReturnValue({
+(useProgressStore as jest.MockedFunction<typeof useProgressStore>).mockReturnValue({
   setShowLoading: vi.fn(),
-  setEditStatus: vi.fn(),
+  setCropStatus: vi.fn(),
   resetAllStatus: vi.fn(),
 });
 
-useEditStore.mockReturnValue({
-  fontCoord: {
-    fontX: 0,
-    fontY: 0,
-  },
-  stickerCoord: {
-    stickerX: 0,
-    stickerY: 0,
-  },
-  fontColor: "test",
-  fontBg: "test",
-  fontWidth: "test",
-  fontContent: "test",
+(useSelectAreaStore as jest.MockedFunction<typeof useSelectAreaStore>).mockReturnValue({
+  selectorLeft: 0,
+  selectorWidth: 20,
 });
 
-describe("usePostEditRequest", () => {
+describe("usePostCropRequest", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
-  it("handles successful postEditRequest", async () => {
+  it("handles successful postCropRequest", async () => {
     const mockedResponse = {
       data: {
         success: true,
@@ -65,26 +55,30 @@ describe("usePostEditRequest", () => {
       },
     };
 
-    axios.post.mockResolvedValue(mockedResponse);
+    (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValue(mockedResponse);
 
-    const postEditRequest = usePostEditRequest();
+    const postCropRequest = usePostCropRequest();
 
     await waitFor(
       () => {
-        postEditRequest({
-          property: "test"
+        postCropRequest(false, 10);
+        expect(mocks.navigate).toHaveBeenCalledWith("/edit", {
+          state: {
+            url: "mockedURL",
+          },
         });
 
         expect(axios.post).toHaveBeenCalledWith(
-          "http://localhost:3000/video/edit",
+          "http://localhost:3000/video/crop",
           {
-            selectedDecos: {
-              property: "test"
-            }
+            isFixed: false,
+            leftEdge: 0,
+            rightEdge: 2,
+            sensitivity: 10,
           }
         );
 
-        expect(mocks.navigate).toHaveBeenCalledWith("/result", {
+        expect(mocks.navigate).toHaveBeenCalledWith("/edit", {
           state: {
             url: "mockedURL",
           },
@@ -104,13 +98,13 @@ describe("usePostEditRequest", () => {
       },
     };
 
-    axios.post.mockRejectedValue(mockedError);
+    (axios.post as jest.MockedFunction<typeof axios.post>).mockRejectedValue(mockedError);
 
-    const postEditRequest = usePostEditRequest();
+    const postCropRequest = usePostCropRequest();
 
     await waitFor(
       () => {
-        postEditRequest("test");
+        postCropRequest(false, 10);
 
         expect(mocks.navigate).toHaveBeenCalledWith("/error", {
           state: {

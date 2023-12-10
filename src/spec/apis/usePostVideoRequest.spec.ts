@@ -15,7 +15,7 @@ vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
 
   return {
-    ...actual,
+    ...actual as object,
     useNavigate: () => mocks.navigate,
   };
 });
@@ -25,7 +25,7 @@ vi.mock("../../store/progress", () => ({
   useProgressStore: vi.fn(),
 }));
 
-useProgressStore.mockReturnValue({
+(useProgressStore as jest.MockedFunction<typeof useProgressStore>).mockReturnValue({
   setShowLoading: vi.fn(),
   setAnalysisStatus: vi.fn(),
   resetAllStatus: vi.fn(),
@@ -44,7 +44,7 @@ describe("usePostVideoRequest", () => {
       },
     };
 
-    axios.post.mockResolvedValue(mockedResponse);
+    (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValue(mockedResponse);
 
     const postVideoRequest = usePostVideoRequest();
 
@@ -83,7 +83,7 @@ describe("usePostVideoRequest", () => {
       },
     };
 
-    axios.post.mockRejectedValue(mockedError);
+    (axios.post as jest.MockedFunction<typeof axios.post>).mockRejectedValue(mockedError);
 
     const postVideoRequest = usePostVideoRequest();
 

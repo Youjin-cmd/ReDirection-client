@@ -21,11 +21,11 @@ describe("useProgressStore", () => {
   it("should set uploadStatus to 'done'", () => {
     const { setUploadStatus } = useProgressStore.getState();
 
-    setUploadStatus("done");
+    setUploadStatus(100);
 
     const { uploadStatus } = useProgressStore.getState();
 
-    expect(uploadStatus).toBe("done");
+    expect(uploadStatus).toBe(100);
   });
 
   it("should set analysisStatus to 'done'", () => {
@@ -63,14 +63,14 @@ describe("useProgressStore", () => {
       setShowLoading
     } = useProgressStore.getState();
 
-    setShowLoading("test");
+    setShowLoading(true);
 
     const {
       showLoading: stateBeforeReset,
       resetAllStatus,
     } = useProgressStore.getState();
 
-    expect(stateBeforeReset).toBe("test");
+    expect(stateBeforeReset).toBe(true);
 
     resetAllStatus();
 

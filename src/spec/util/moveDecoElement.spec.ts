@@ -15,21 +15,24 @@ describe("moveDecoElement", () => {
   it("updates fonts coords correctly in normal pattern", () => {
     const { setCoord } = useEditStore.getState();
     const mockVideoRect = { top: 145.15625, left: 257.001953125 };
-    const mockEvent = { clientX: 332, clientY: 244 };
+    const mockEvent = {
+      clientX: 332,
+      clientY: 244,
+    };
     const mockScale = { width: 100, height: 40 };
 
     moveDecoElement(
       "font",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.font.X).toBe(74.998046875);
-    expect(selectedDecos.font.Y).toBe(98.84375);
+    expect(selectedDecos.font!.X).toBe(74.998046875);
+    expect(selectedDecos.font!.Y).toBe(98.84375);
   });
 
   it("updates stickers coords correctly in normal pattern", () => {
@@ -40,16 +43,16 @@ describe("moveDecoElement", () => {
 
     moveDecoElement(
       "sticker",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.sticker.X).toBe(74.998046875);
-    expect(selectedDecos.sticker.Y).toBe(98.84375);
+    expect(selectedDecos.sticker!.X).toBe(74.998046875);
+    expect(selectedDecos.sticker!.Y).toBe(98.84375);
   });
 
   it("limits left side when element is dragged to outside", () => {
@@ -60,16 +63,16 @@ describe("moveDecoElement", () => {
 
     moveDecoElement(
       "sticker",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.sticker.X).toBe(0);
-    expect(selectedDecos.sticker.Y).toBe(98.84375);
+    expect(selectedDecos.sticker!.X).toBe(0);
+    expect(selectedDecos.sticker!.Y).toBe(98.84375);
   });
 
   it("limits right side when element is dragged to outside", () => {
@@ -80,16 +83,16 @@ describe("moveDecoElement", () => {
 
     moveDecoElement(
       "sticker",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.sticker.X).toBe(EDIT_VID_WIDTH - 150);
-    expect(selectedDecos.sticker.Y).toBe(98.84375);
+    expect(selectedDecos.sticker!.X).toBe(EDIT_VID_WIDTH - 150);
+    expect(selectedDecos.sticker!.Y).toBe(98.84375);
   });
 
   it("limits top when element is dragged to outside", () => {
@@ -100,16 +103,16 @@ describe("moveDecoElement", () => {
 
     moveDecoElement(
       "sticker",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.sticker.X).toBe(74.998046875);
-    expect(selectedDecos.sticker.Y).toBe(0);
+    expect(selectedDecos.sticker!.X).toBe(74.998046875);
+    expect(selectedDecos.sticker!.Y).toBe(0);
   });
 
   it("limits bottom when element is dragged to outside", () => {
@@ -120,16 +123,16 @@ describe("moveDecoElement", () => {
 
     moveDecoElement(
       "sticker",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.sticker.X).toBe(74.998046875);
-    expect(selectedDecos.sticker.Y).toBe(EDIT_VID_HEIGHT - 96);
+    expect(selectedDecos.sticker!.X).toBe(74.998046875);
+    expect(selectedDecos.sticker!.Y).toBe(EDIT_VID_HEIGHT - 96);
   });
 
   it("limits right bottom side of corner when element is dragged to outside", () => {
@@ -140,15 +143,15 @@ describe("moveDecoElement", () => {
 
     moveDecoElement(
       "sticker",
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       setCoord,
       mockScale,
     );
 
     const { selectedDecos } = useEditStore.getState();
 
-    expect(selectedDecos.sticker.X).toBe(EDIT_VID_WIDTH - 150);
-    expect(selectedDecos.sticker.Y).toBe(EDIT_VID_HEIGHT - 96);
+    expect(selectedDecos.sticker!.X).toBe(EDIT_VID_WIDTH - 150);
+    expect(selectedDecos.sticker!.Y).toBe(EDIT_VID_HEIGHT - 96);
   });
 });

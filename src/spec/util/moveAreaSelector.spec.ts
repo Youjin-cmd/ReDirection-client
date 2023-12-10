@@ -21,8 +21,8 @@ describe("moveAreaSelector", () => {
     setSelectorWidth(497);
 
     moveAreaSelector(
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       useSelectAreaStore.getState().selectorLeft,
       useSelectAreaStore.getState().selectorWidth,
       setSelectorLeft,
@@ -44,8 +44,8 @@ describe("moveAreaSelector", () => {
     setSelectorWidth(497);
 
     moveAreaSelector(
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       useSelectAreaStore.getState().selectorLeft,
       useSelectAreaStore.getState().selectorWidth,
       setSelectorLeft,
@@ -66,8 +66,8 @@ describe("moveAreaSelector", () => {
     setSelectorWidth(497);
 
     moveAreaSelector(
-      mockVideoRect,
-      mockEvent,
+      mockVideoRect as DOMRect,
+      mockEvent as React.MouseEvent,
       useSelectAreaStore.getState().selectorLeft,
       useSelectAreaStore.getState().selectorWidth,
       setSelectorLeft,

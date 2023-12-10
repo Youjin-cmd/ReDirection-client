@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, rerender } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Carousel from "../../Carousel/Carousel";
 
 import useEditStore from "../../store/edit";

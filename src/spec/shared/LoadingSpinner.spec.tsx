@@ -5,6 +5,6 @@ describe("LoadingSpinner", () => {
   it("renders well", () => {
     const { container } = render(<LoadingSpinner />);
     const svgEl = container.querySelector("[data-icon='spinner']");
-    expect(svgEl.classList.toString()).toContain("text-gray");
+    expect(svgEl?.classList.toString()).toContain("text-gray");
   });
 });
