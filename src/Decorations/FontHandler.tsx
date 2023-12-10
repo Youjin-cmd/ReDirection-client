@@ -13,8 +13,8 @@ function FontHandler({ setElementScale } : FontHandlerProps) {
   return (
     <>
       <GrabPointToDrag
-        coordX={selectedDecos["font"]!.X}
-        coordY={selectedDecos["font"]!.Y}
+        coordX={selectedDecos.font!.X}
+        coordY={selectedDecos.font!.Y}
         elementType="font"
         setIsDragging={setIsDragging}
         setElementScale={setElementScale}

@@ -21,8 +21,8 @@ function FontColorSelector() {
       <div
         className="absolute justify-center w-[150px] h-10 z-10 hidden hover:flex peer-focus:flex"
         style={{
-          left: `${selectedDecos["font"]!.X! - 75 + selectedDecos["font"]!.fontWidth! / 2}px`,
-          top: `${selectedDecos["font"]!.Y! - 40}px`,
+          left: `${selectedDecos.font!.X! - 75 + selectedDecos.font!.fontWidth! / 2}px`,
+          top: `${selectedDecos.font!.Y! - 40}px`,
         }}
       >
         {colorOptions.map(option => {

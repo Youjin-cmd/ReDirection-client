@@ -18,10 +18,10 @@ function Font() {
       const spanWidth = spanRef.current.getBoundingClientRect().width;
       setFontWidth(spanWidth);
     }
-  }, [selectedDecos["font"]!.fontContent, selectedDecos["font"]!.name]);
+  }, [selectedDecos.font!.fontContent, selectedDecos.font!.name]);
 
   function setElementScale() {
-    setTargetElementScale(selectedDecos["font"]!.fontWidth!, 40);
+    setTargetElementScale(selectedDecos.font!.fontWidth!, 40);
   }
 
   function handleChangeText(event: React.ChangeEvent<HTMLInputElement>) {
@@ -43,15 +43,15 @@ function Font() {
         id="selected font"
         className={`peer absolute pt-1 z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
         style={{
-          left: `${selectedDecos["font"]!.X}px`,
-          top: `${selectedDecos["font"]!.Y}px`,
-          color: `${selectedDecos["font"]!.fontColor}`,
-          background: `${selectedDecos["font"]!.fontBg}`,
-          width: `${selectedDecos["font"]!.fontWidth}px`,
-          fontFamily: selectedDecos["font"]!.name,
+          left: `${selectedDecos.font!.X}px`,
+          top: `${selectedDecos.font!.Y}px`,
+          color: `${selectedDecos.font!.fontColor}`,
+          background: `${selectedDecos.font!.fontBg}`,
+          width: `${selectedDecos.font!.fontWidth}px`,
+          fontFamily: selectedDecos.font!.name,
         }}
         draggable={false}
-        value={selectedDecos["font"]!.fontContent}
+        value={selectedDecos.font!.fontContent}
         onChange={handleChangeText}
         autoComplete="off"
       />
@@ -59,10 +59,10 @@ function Font() {
         ref={spanRef}
         className="px-3 text-3xl bg-red opacity-0"
         style={{
-          fontFamily: selectedDecos["font"]!.name,
+          fontFamily: selectedDecos.font!.name,
         }}
       >
-        {selectedDecos["font"]!.fontContent}
+        {selectedDecos.font!.fontContent}
       </span>
       <FontHandler setElementScale={setElementScale} />
     </div>
