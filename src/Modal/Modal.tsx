@@ -12,9 +12,9 @@ function Modal({ children, onClick }: ModalProps) {
   const { showLoading } = useProgressStore();
 
   return createPortal(
-    <div className="fixed flex justify-center items-center left-0 right-0 top-0 bottom-0 bg-black bg-opacity-50 z-10">
+    <div className="fixed flex justify-center items-center left-0 right-0 top-0 bottom-0 bg-black bg-opacity-50 z-30 overflow-y-scroll">
       <div
-        className="flex justify-center items-center relative h-auto w-auto px-14 py-9 rounded-lg bg-white shadow-lg overflow-auto animate-appearFromBelowToTop"
+        className="flex justify-center items-center relative h-auto w-auto py-10 rounded-lg bg-white shadow-lg overflow-auto animate-appearFromBelowToTop"
         onClick={event => event.stopPropagation()}
       >
         <Button

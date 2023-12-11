@@ -26,32 +26,32 @@ function TrialModal() {
   return (
     <Modal onClick={() => setShowTrialModal(false)}>
       <div className="flex flex-col items-center">
-        <h1 className="text-2xl mb-10">Choose a trial video</h1>
+        <h1 className="text-2xl mb-5">Choose a trial video</h1>
         <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center md:flex-row mb-5">
+          <div className="flex flex-col items-center mb-5 md:px-10 md:flex-row">
             <Button
-              className={`group p-1 mb-5 md:mr-5
+              className={`group p-1 mb-2 md:mr-5
                 ${selectedTrialVideo === "cover" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("cover")}
               disabled={showLoading}
             >
-              <div className="w-[300px] md:w-[400px]">
+              <div className="w-[230px] md:w-[400px]">
                 <img
-                  className="absolute w-[300px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
+                  className="absolute w-[230px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
                   src="/assets/trial_cover.png"
                 />
                 <img src="/assets/trial_cover.gif" />
               </div>
             </Button>
             <Button
-              className={`group p-1 mb-5 md:mr-5
+              className={`group p-1 mb-2 md:mr-5
                 ${selectedTrialVideo === "stage" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("stage")}
               disabled={showLoading}
             >
-              <div className="w-[300px] md:w-[400px]">
+              <div className="w-[230px] md:w-[400px]">
                 <img
-                  className="absolute w-[300px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
+                  className="absolute w-[230px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
                   width="auto"
                   src="/assets/trial_stage.png"
                 />
@@ -59,14 +59,14 @@ function TrialModal() {
               </div>
             </Button>
             <Button
-              className={`group p-1 mb-5
+              className={`group p-1 mb-2
                 ${selectedTrialVideo === "wedding" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("wedding")}
               disabled={showLoading}
             >
-              <div className="w-[300px] md:w-[400px] bg-red">
+              <div className="w-[230px] md:w-[400px] bg-red">
                 <img
-                  className="absolute w-[300px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
+                  className="absolute w-[230px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
                   width="400px"
                   src="/assets/trial_wedding.png"
                 />
@@ -74,7 +74,7 @@ function TrialModal() {
               </div>
             </Button>
           </div>
-          <div className="relative h-16 w-80">
+          <div className=" flex justify-center relative h-16 w-80">
             {showLoading && (
               <LoadingArea
                 className={
@@ -83,7 +83,7 @@ function TrialModal() {
               />
             )}
             <Button
-              className="h-16 w-80 rounded-xl bg-blue text-xl text-white hover:bg-blueHover"
+              className="h-16 w-60 md:w-80 rounded-xl bg-blue text-xl text-white hover:bg-blueHover"
               onClick={handleClickSubmit}
             >
               confirm
