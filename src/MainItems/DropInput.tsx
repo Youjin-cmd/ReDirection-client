@@ -31,21 +31,21 @@ function DropInput() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className="flex flex-col justify-center items-center py-10">
+    <div className="flex flex-col justify-center items-center py-10 my-5">
       <div
-        className="flex flex-col justify-center items-center w-[600px] h-[180px] mb-5 rounded-xl border-dashed border-2 transition ease-in-out border-red bg-lightRed hover:bg-white"
+        className="flex flex-col justify-center items-center w-[300px] md:w-[600px] h-[180px] mb-10 rounded-xl border-dashed border-2 transition ease-in-out border-red bg-lightRed hover:bg-white"
         {...getRootProps()}
       >
         {showLoading && (
           <LoadingArea
             className={
-              "absolute flex flex-col justify-center items-center w-[600px] h-[180px] rounded-md bg-white opacity-90"
+              "absolute flex flex-col justify-center items-center w-[300px] md:w-[600px] h-[180px] rounded-md bg-white opacity-90"
             }
           />
         )}
-        <div className="flex">
+        <div className="flex flex-col items-center md:flex-row text-center">
           <img
-            className="w-12 mr-3"
+            className="w-12 mr-3 mb-2 md:mb-0"
             src="/assets/cloud_icon.png"
             alt="cloud icon"
           />
@@ -53,7 +53,7 @@ function DropInput() {
           {isDragActive ? (
             <h2 className="text-3xl">Drop your video here</h2>
           ) : (
-            <h2 className="text-2xl">Click here to upload your video</h2>
+            <h2 className="text-2xl">Upload your video</h2>
           )}
         </div>
       </div>

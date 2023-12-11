@@ -36,6 +36,10 @@ export default {
         moveLeftRight: "moveLeftRight 2s ease-in-out infinite",
         moveLeftRight2: "moveLeftRight2 2s ease-in-out infinite",
         dancing: "dancing 1s infinite",
+        mobileAppearImage: "mobileAppearImage 2s ease-in-out forwards",
+        mobileAppearFrame: "mobileAppearFrame 2s ease-in-out forwards",
+        mobileAppearBlocker: "mobileAppearBlocker 2s ease-in-out forwards",
+        mobileAppearText: "mobileAppearText 2.3s ease-in-out forwards",
       },
     },
     keyframes: {
@@ -153,6 +157,63 @@ export default {
         },
         "100%": {
           transform: "rotate(5deg)",
+        },
+      },
+      mobileAppearImage: {
+        "0%": {
+          opacity: "0%",
+          transform: "scale(50%)",
+        },
+        "20%": {
+          opacity: "100%",
+          transform: "scale(50%)",
+        },
+        "50%": {
+          transform: "scale(50%)",
+        },
+        "100%": {
+          transform: "scale(100%) translateX(-10%)",
+        },
+      },
+      mobileAppearFrame: {
+        "0%": {
+          opacity: "0%",
+          transform: "scale(50%)",
+        },
+        "20%": {
+          opacity: "100%",
+          transform: "scale(50.5%)",
+        },
+        "50%": {
+          transform: "scale(50.5%)",
+        },
+        "100%": {
+          transform: "rotate(90deg) scale(50.5%) translateY(0%)",
+        },
+      },
+      mobileAppearBlocker: {
+        "0%": {
+          opacity: "0%",
+        },
+        "40%": {
+          opacity: "0%",
+        },
+        "80%": {
+          opacity: "100%",
+        },
+        "100%": {
+          opacity: "100%",
+        },
+      },
+      mobileAppearText: {
+        "0%": {
+          opacity: "0%",
+        },
+        "90%": {
+          opacity: "0%",
+        },
+        "100%": {
+          opacity: "100%",
         },
       },
     },

@@ -28,50 +28,49 @@ function TrialModal() {
       <div className="flex flex-col items-center">
         <h1 className="text-2xl mb-10">Choose a trial video</h1>
         <div className="flex flex-col items-center">
-          <div className="flex mb-10">
+          <div className="flex flex-col items-center md:flex-row mb-5">
             <Button
-              className={`group p-1 mr-5
+              className={`group p-1 mb-5 md:mr-5
                 ${selectedTrialVideo === "cover" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("cover")}
               disabled={showLoading}
             >
-              <div className="w-[400px]">
+              <div className="w-[300px] md:w-[400px]">
                 <img
-                  className="absolute transition ease-in-out group-hover:opacity-0"
-                  width="400px"
+                  className="absolute w-[300px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
                   src="/assets/trial_cover.png"
                 />
-                <img width="400px" src="/assets/trial_cover.gif" />
+                <img src="/assets/trial_cover.gif" />
               </div>
             </Button>
             <Button
-              className={`group p-1 mr-5
+              className={`group p-1 mb-5 md:mr-5
                 ${selectedTrialVideo === "stage" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("stage")}
               disabled={showLoading}
             >
-              <div className="w-[400px]">
+              <div className="w-[300px] md:w-[400px]">
                 <img
-                  className="absolute transition ease-in-out group-hover:opacity-0"
-                  width="400px"
+                  className="absolute w-[300px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
+                  width="auto"
                   src="/assets/trial_stage.png"
                 />
-                <img width="400px" src="/assets/trial_stage.gif" />
+                <img src="/assets/trial_stage.gif" />
               </div>
             </Button>
             <Button
-              className={`group p-1
+              className={`group p-1 mb-5
                 ${selectedTrialVideo === "wedding" && "ring-4 ring-red"}`}
               onClick={() => setSelectedTrialVideo("wedding")}
               disabled={showLoading}
             >
-              <div className="w-[400px]">
+              <div className="w-[300px] md:w-[400px] bg-red">
                 <img
-                  className="absolute transition ease-in-out group-hover:opacity-0"
+                  className="absolute w-[300px] md:w-[400px] transition ease-in-out group-hover:opacity-0"
                   width="400px"
                   src="/assets/trial_wedding.png"
                 />
-                <img width="400px" src="/assets/trial_wedding.gif" />
+                <img src="/assets/trial_wedding.gif" />
               </div>
             </Button>
           </div>
