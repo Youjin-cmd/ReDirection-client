@@ -48,11 +48,21 @@ function SelectArea() {
   }, []);
 
   useEffect(() => {
+    updateDimensions();
+
+    window.addEventListener("resize", updateDimensions);
+
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+
+  function updateDimensions() {
     if (videoRef.current) {
       const videoRect = videoRef.current.getBoundingClientRect();
       setVideoRect(videoRect);
     }
-  }, [videoRef.current]);
+  }
 
   function handleMouseUp() {
     setIsDragging(false);
@@ -112,13 +122,14 @@ function SelectArea() {
           video.
         </video>
       </VideoWrapper>
-      <h2 className="mb-1">
+      <p className="mb-10 hidden md:block">
         Click and drag over the desired segment on the motion heatmap
-      </h2>
-      <h2 className="mb-10">
+        <br />
         This selected segment will be the area where automatic cropping will
-        take place.
-      </h2>
+      </p>
+      <p className="mb-10 block md:hidden">
+        Area selection is currently not supported on the mobile device
+      </p>
       <OptionSlider />
       <div className="relative h-16 w-80">
         {showLoading && (
