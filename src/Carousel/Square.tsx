@@ -9,7 +9,7 @@ interface SquareProps {
 function Square({ children, clickHandleSquare, active }: SquareProps) {
   return (
     <div
-      className={`flex justify-center items-center w-[135px] h-[110px] md:h-[141px] md:w-[300px] border-b-4 border-lightRed
+      className={`flex justify-center items-center w-[125px] h-[110px] md:h-[141px] md:w-[300px] border-b-4 border-lightRed
         ${active && "bg-lightRed"}`}
       draggable={false}
     >
