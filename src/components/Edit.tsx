@@ -91,7 +91,7 @@ function Edit() {
       className="flex flex-col items-center h-full p-5"
       onMouseUp={() => setIsDragging("")}
     >
-      <div className="flex justify-center items-center w-[1300px] mb-5">
+      <div className="flex flex-col md:flex-row justify-center items-center w-full md:w-[1300px] mb-5">
         <Carousel
           type="font"
           itemsList={fontArray}

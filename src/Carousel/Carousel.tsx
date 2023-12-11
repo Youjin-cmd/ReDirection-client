@@ -37,7 +37,7 @@ function Carousel({ type, itemsList, setItemsList }: CarouselProps) {
   return (
     <CarouselContainer>
       <Button
-        className="absolute flex justify-center items-center top-[5px] w-10 h-10 z-10 rounded-full bg-red hover:bg-hoverRed hover:cursor-pointer"
+        className="absolute flex justify-center items-center -left-[20px] md:left-auto md:top-[5px] w-10 h-10 z-10 rounded-full -rotate-90 md:rotate-0  bg-red hover:bg-hoverRed hover:cursor-pointer"
         onClick={event => {
           handleClickUp(event);
         }}
@@ -48,7 +48,7 @@ function Carousel({ type, itemsList, setItemsList }: CarouselProps) {
         <Squares type={type} itemsList={itemsList} />
       </SquaresContainer>
       <Button
-        className="absolute flex justify-center items-center bottom-[5px] w-10 h-10 z-10 rounded-full bg-red hover:bg-hoverRed hover:cursor-pointer"
+        className="absolute flex justify-center items-center -right-[20px] md:right-auto md:bottom-[5px] w-10 h-10 z-10 rounded-full -rotate-90 md:rotate-0  bg-red hover:bg-hoverRed hover:cursor-pointer"
         onClick={event => {
           handleClickDown(event);
         }}
