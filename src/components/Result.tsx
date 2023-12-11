@@ -29,7 +29,7 @@ function Result() {
   }
 
   return (
-    <div className="flex justify-center p-10">
+    <div className="flex flex-col md:flex-row items-center justify-center p-10">
       <div className="flex flex-col items-end">
         <video
           preload="metadata"
@@ -45,7 +45,7 @@ function Result() {
           <a ref={downloadLinkRef} href={url} download />
         </video>
       </div>
-      <div className="flex flex-col justify-center items-center w-[700px] min-w-[500px]">
+      <div className="flex flex-col justify-center items-center w-full md:w-[700px] h-[300px] min-w-[500px]">
         <div className="flex flex-col items-center w-[400px]">
           <img
             className="w-20 mb-10"
