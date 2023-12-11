@@ -122,15 +122,16 @@ function Edit() {
             </div>
           </Button>
           <video
+            preload="metadata"
             ref={videoRef}
             autoPlay={true}
             loop={true}
             draggable={false}
             onMouseUp={handleMouseUp}
             muted={isMuted}
-            playsInline
+            playsInline={true}
           >
-            <source src={url} type="video/webm" />
+            <source src={url} type="video/mp4" />
           </video>
         </div>
         <Carousel

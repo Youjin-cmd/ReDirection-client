@@ -32,15 +32,16 @@ function Result() {
     <div className="flex justify-center p-10">
       <div className="flex flex-col items-end">
         <video
+          preload="metadata"
           className="min-w-[406px]"
           controls
           width="406"
           autoPlay={true}
           loop={true}
-          muted
-          playsInline
+          muted={true}
+          playsInline={true}
         >
-          <source src={url} type="video/webm" />
+          <source src={url} type="video/mp4" />
           <a ref={downloadLinkRef} href={url} download />
         </video>
       </div>

@@ -97,15 +97,16 @@ function SelectArea() {
       <VideoWrapper>
         <Selector />
         <video
+          preload="metadata"
           data-testid="video"
           ref={videoRef}
           autoPlay={true}
           loop={true}
           width={ANALYSIS_VIDEO_WIDTH}
           draggable={false}
-          playsInline
+          playsInline={true}
         >
-          <source src={url} type="video/webm" />
+          <source src={url} type="video/mp4" />
           Download the
           <a href={url}>MP4</a>
           video.
