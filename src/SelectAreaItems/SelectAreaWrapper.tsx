@@ -11,7 +11,7 @@ function VideoWrapper({ children }: VideoWrapperProps) {
 
   return (
     <div
-      className="relative flex justify-center items-center min-w-[1000px] mb-10 hover:cursor-ew-resize"
+      className="relative flex justify-center items-center w-[400px] md:min-w-[1000px] mb-10 md:hover:cursor-ew-resize"
       onMouseDown={!showLoading ? () => setIsDragging(true) : undefined}
     >
       {children}

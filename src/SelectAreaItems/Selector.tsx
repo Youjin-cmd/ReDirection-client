@@ -5,7 +5,7 @@ function Selector() {
   return (
     <div
       id="selector"
-      className="absolute ring-8 ring-red bg-red opacity-30"
+      className="absolute ring-8 ring-red bg-red opacity-30 hidden md:flex md:justify-center"
       style={{
         left: `${selectorLeft}px`,
         width: `${selectorWidth}px`,
