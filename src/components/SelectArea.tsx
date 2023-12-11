@@ -54,10 +54,6 @@ function SelectArea() {
     }
   }, [videoRef.current]);
 
-  function handleMouseDown() {
-    setIsDragging(true);
-  }
-
   function handleMouseUp() {
     setIsDragging(false);
   }
@@ -101,14 +97,13 @@ function SelectArea() {
       <VideoWrapper>
         <Selector />
         <video
-          className="hover:cursor-ew-resize"
           data-testid="video"
           ref={videoRef}
           autoPlay={true}
           loop={true}
           width={ANALYSIS_VIDEO_WIDTH}
           draggable={false}
-          onMouseDown={!showLoading ? handleMouseDown : undefined}
+          playsInline
         >
           <source src={url} type="video/webm" />
           Download the

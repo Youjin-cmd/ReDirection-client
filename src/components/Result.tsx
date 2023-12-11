@@ -38,6 +38,7 @@ function Result() {
           autoPlay={true}
           loop={true}
           muted
+          playsInline
         >
           <source src={url} type="video/webm" />
           <a ref={downloadLinkRef} href={url} download />

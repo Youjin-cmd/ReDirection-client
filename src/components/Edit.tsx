@@ -126,6 +126,7 @@ function Edit() {
             draggable={false}
             onMouseUp={handleMouseUp}
             muted={isMuted}
+            playsInline
           >
             <source src={url} type="video/webm" />
           </video>
