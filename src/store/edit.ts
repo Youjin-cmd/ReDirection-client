@@ -146,8 +146,8 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
               : {
                   name,
                   url,
-                  X: 0,
-                  Y: 0,
+                  X: 130,
+                  Y: 160,
                 };
 
             return {
@@ -172,8 +172,8 @@ const useEditStore = create<EditStates & EditSetters>(set => ({
               : {
                   name,
                   url,
-                  X: 0,
-                  Y: 0,
+                  X: 160,
+                  Y: 460,
                   fontColor: "#000000",
                   fontBg: "#FFFFFF",
                   fontWidth: 100,
