@@ -29,7 +29,6 @@ function Edit() {
     setFontArray,
     stickerArray,
     setStickerArray,
-    isDragging,
     setIsDragging,
   } = useEditStore();
   const [isMuted, setIsMuted] = useState(true);
@@ -101,9 +100,6 @@ function Edit() {
   return (
     <div
       className="flex flex-col items-center h-full p-5"
-      style={{
-        touchAction: isDragging ? "none" : "auto",
-      }}
       onMouseUp={handleMouseUp}
       onTouchEnd={handleMouseUp}
     >

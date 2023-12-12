@@ -37,7 +37,7 @@ function Font() {
       <input
         key="selected font"
         id="selected font"
-        className={`peer absolute pt-1 z-10 outline-none text-3xl text-center overflow-hidden resize-none select-none`}
+        className={`peer absolute pt-1 z-10 outline-none text-3xl text-center`}
         style={{
           left: `${selectedDecos.font!.X}px`,
           top: `${selectedDecos.font!.Y}px`,
@@ -46,17 +46,17 @@ function Font() {
           width: `${selectedDecos.font!.fontWidth}px`,
           fontFamily: selectedDecos.font!.name,
         }}
-        draggable={false}
         value={selectedDecos.font!.fontContent}
         onChange={handleChangeText}
         autoComplete="off"
       />
       <span
         ref={spanRef}
-        className="px-3 text-3xl bg-red opacity-0"
+        className="px-3 text-3xl bg-red opacity-0 select-none"
         style={{
           fontFamily: selectedDecos.font!.name,
         }}
+        draggable={false}
       >
         {selectedDecos.font!.fontContent}
       </span>

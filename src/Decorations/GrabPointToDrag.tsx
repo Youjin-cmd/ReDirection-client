@@ -15,10 +15,11 @@ function GrabPointToDrag({
 }: GrabPointToDragProps) {
   return (
     <div
-      className="absolute justify-center items-center w-6 h-6 z-10 rounded-full bg-white hidden select-none hover:flex peer-hover:flex hover:cursor-move"
+      className="absolute justify-center items-center w-8 h-8 z-10 rounded-full bg-white hidden select-none hover:flex peer-hover:flex hover:cursor-move"
       style={{
-        left: `${coordX! - 10}px`,
-        top: `${coordY! - 10}px`,
+        touchAction: "none",
+        left: `${coordX! - 13}px`,
+        top: `${coordY! - 13}px`,
       }}
       onMouseDown={() => {
         setIsDragging(elementType);
