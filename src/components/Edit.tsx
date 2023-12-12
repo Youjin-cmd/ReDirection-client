@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 import usePostEditRequest from "../apis/usePostEditRequest";
 
 import useProgressStore from "../store/progress";
@@ -41,8 +42,18 @@ function Edit() {
   useEffect(() => {
     updateDimensions();
 
-    window.addEventListener("resize", updateDimensions);
-    window.addEventListener("scroll", updateDimensions);
+    window.addEventListener(
+      "resize",
+      debounce(() => {
+        updateDimensions();
+      }, 500),
+    );
+    window.addEventListener(
+      "scroll",
+      debounce(() => {
+        updateDimensions();
+      }, 500),
+    );
 
     return () => {
       window.removeEventListener("resize", updateDimensions);

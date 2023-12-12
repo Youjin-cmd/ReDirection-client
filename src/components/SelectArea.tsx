@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 import usePostCropRequest from "../apis/usePostCropRequest";
 
 import CONSTANT from "../constants/constant";
@@ -50,7 +51,12 @@ function SelectArea() {
   useEffect(() => {
     updateDimensions();
 
-    window.addEventListener("resize", updateDimensions);
+    window.addEventListener(
+      "resize",
+      debounce(() => {
+        updateDimensions();
+      }, 500),
+    );
 
     return () => {
       window.removeEventListener("resize", updateDimensions);
