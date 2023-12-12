@@ -44,8 +44,8 @@ function Decorations({ handleMouseUp, videoRect }: Decorations) {
 
   return (
     <div
-      onMouseUp={handleMouseUp}
-      onTouchEnd={handleMouseUp}
+      onMouseUp={isDragging !== "" ? handleMouseUp : undefined}
+      onTouchEnd={isDragging !== "" ? handleMouseUp : undefined}
       className={`absolute top-${videoRect.top} left-${videoRect.left} w-[406px] h-[720px] z-10`}
       onMouseMove={isDragging !== "" ? e => handleMouseMove(e) : undefined}
       onTouchMove={isDragging !== "" ? e => handleTouchMove(e) : undefined}
