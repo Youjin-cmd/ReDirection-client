@@ -24,6 +24,10 @@ function GrabPointToDrag({
         setIsDragging(elementType);
         setElementScale();
       }}
+      onTouchStart={() => {
+        setIsDragging(elementType);
+        setElementScale();
+      }}
       onMouseUp={() => setIsDragging("")}
       draggable={false}
     >

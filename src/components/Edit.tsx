@@ -29,6 +29,7 @@ function Edit() {
     setFontArray,
     stickerArray,
     setStickerArray,
+    isDragging,
     setIsDragging,
   } = useEditStore();
   const [isMuted, setIsMuted] = useState(true);
@@ -100,7 +101,11 @@ function Edit() {
   return (
     <div
       className="flex flex-col items-center h-full p-5"
-      onMouseUp={() => setIsDragging("")}
+      style={{
+        touchAction: isDragging ? "none" : "auto",
+      }}
+      onMouseUp={handleMouseUp}
+      onTouchEnd={handleMouseUp}
     >
       <div className="flex flex-col md:flex-row justify-center items-center w-full md:w-[1300px] mb-5">
         <Carousel
@@ -139,6 +144,7 @@ function Edit() {
             loop={true}
             draggable={false}
             onMouseUp={handleMouseUp}
+            onTouchEnd={handleMouseUp}
             muted={isMuted}
             playsInline={true}
           >
