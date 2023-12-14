@@ -24,7 +24,7 @@ function OptionSlider() {
           max={20}
           step={5}
           defaultValue={15}
-          onChange={e => setSensitivity(e.target.value)}
+          onChange={e => setSensitivity(Number(e.target.value))}
         />
         <span className="ml-5">modest</span>
       </div>
