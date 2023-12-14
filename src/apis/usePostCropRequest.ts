@@ -10,7 +10,9 @@ import useSelectAreaStore from "../store/selectArea";
 
 interface CustomError extends Error {
   response?: {
-    data: any;
+    data: {
+      customMessage: string;
+    };
     status: number;
   };
 }

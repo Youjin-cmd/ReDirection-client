@@ -10,7 +10,9 @@ import useModalStore from "../store/modal";
 
 interface CustomError extends Error {
   response?: {
-    data: any;
+    data: {
+      customMessage: string;
+    };
     status: number;
   };
 }
