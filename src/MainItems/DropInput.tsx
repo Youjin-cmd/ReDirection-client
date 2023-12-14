@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDropzone } from "react-dropzone";
+import { AxiosProgressEvent, AxiosRequestConfig } from "axios";
 import usePostVideoRequest from "../apis/usePostVideoRequest";
 
 import useProgressStore from "../store/progress";
@@ -10,16 +11,20 @@ function DropInput() {
   const { showLoading, setUploadStatus } = useProgressStore();
   const postVideoRequest = usePostVideoRequest();
 
-  async function onDrop(acceptedFiles: any[]) {
+  async function onDrop(acceptedFiles: File[]) {
     const formData = new FormData();
-    const config = {
+    const config: AxiosRequestConfig = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      onUploadProgress: (progressEvent: any) => {
-        const progress = (progressEvent.loaded / progressEvent.total) * 100;
+      onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+        if (progressEvent.total) {
+          const percentage = Math.floor(
+            (progressEvent.loaded * 100) / progressEvent.total,
+          );
 
-        setUploadStatus(progress);
+          setUploadStatus(percentage);
+        }
       },
     };
 

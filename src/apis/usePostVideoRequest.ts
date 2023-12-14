@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 import CONSTANT from "../constants/constant";
@@ -19,7 +19,10 @@ function usePostVideoRequest() {
   const { setShowLoading, setAnalysisStatus, resetAllStatus } =
     useProgressStore();
 
-  async function postVideoRequest(formData: any, config: any) {
+  async function postVideoRequest(
+    formData: FormData,
+    config: AxiosRequestConfig,
+  ) {
     try {
       setShowLoading(true);
       setAnalysisStatus("in progress");
