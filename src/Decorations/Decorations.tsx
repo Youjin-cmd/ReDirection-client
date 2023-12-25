@@ -4,12 +4,12 @@ import Font from "./Font";
 import Sticker from "./Sticker";
 import moveDecoElement from "../util/moveDecoElement";
 
-interface Decorations {
+interface DecorationsProp {
   handleMouseUp: () => void;
   videoRect: DOMRect;
 }
 
-function Decorations({ handleMouseUp, videoRect }: Decorations) {
+function Decorations({ handleMouseUp, videoRect }: DecorationsProp) {
   const { selectedDecos, isDragging, setCoord, targetElementScale } =
     useEditStore();
 

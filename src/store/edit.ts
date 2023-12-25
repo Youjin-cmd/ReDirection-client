@@ -1,46 +1,23 @@
 import { create } from "zustand";
-
-interface DecoElement {
-  name: string | null;
-  url: string | null;
-}
-
-interface DefaultDecotypes {
-  name?: string;
-  url?: string;
-  X?: number;
-  Y?: number;
-}
-
-interface FontTypes extends DefaultDecotypes {
-  fontColor?: string;
-  fontBg?: string;
-  fontWidth?: number;
-  fontContent?: string;
-}
+import { IDefaultDecotypes, IFontTypes, IDecoElement } from "../types/deco";
 
 interface SelectedDecos {
-  font?: FontTypes;
-  sticker?: DefaultDecotypes;
-  [key: string]: DefaultDecotypes | FontTypes | undefined;
-}
-
-interface TargetElementScale {
-  width: number;
-  height: number;
+  font?: IFontTypes;
+  sticker?: IDefaultDecotypes;
+  [key: string]: IDefaultDecotypes | IFontTypes | undefined;
 }
 
 interface EditStates {
-  fontArray: DecoElement[];
-  stickerArray: DecoElement[];
+  fontArray: IDecoElement[];
+  stickerArray: IDecoElement[];
   selectedDecos: SelectedDecos;
   isDragging: string;
-  targetElementScale: TargetElementScale;
+  targetElementScale: { width: number; height: number };
 }
 
 interface EditSetters {
-  setFontArray: (newArray: DecoElement[]) => void;
-  setStickerArray: (newArray: DecoElement[]) => void;
+  setFontArray: (newArray: IDecoElement[]) => void;
+  setStickerArray: (newArray: IDecoElement[]) => void;
   setSelectedDecos: (
     type: string,
     name: string | null,

@@ -1,15 +1,10 @@
 import CONSTANT from "../constants/constant";
 const { EDIT_VID_WIDTH, EDIT_VID_HEIGHT } = CONSTANT;
 
-type NewCoord = {
-  X: number;
-  Y: number;
-};
-
 function moveDecoElement(
   type: string,
   videoRect: DOMRect,
-  newCoord: NewCoord,
+  newCoord: { X: number; Y: number },
   setCoord: (argument1: string, argument2: number, argument3: number) => void,
   targetElementScale: { width: number; height: number },
 ) {

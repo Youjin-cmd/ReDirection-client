@@ -1,20 +1,17 @@
 import useEditStore from "../store/edit";
-import Square from "./Square";
+import { IDecoElement } from "../types/deco";
 
-interface DecoElement {
-  name: string | null;
-  url: string | null;
-}
+import Square from "./Square";
 
 interface SquaresProps {
   type: string;
-  itemsList: DecoElement[];
+  itemsList: IDecoElement[];
 }
 
 function Squares({ type, itemsList }: SquaresProps) {
   const { selectedDecos, setSelectedDecos } = useEditStore();
 
-  function clickHandleSquare(item: DecoElement) {
+  function clickHandleSquare(item: IDecoElement) {
     setSelectedDecos(type, item.name, item.url);
   }
 

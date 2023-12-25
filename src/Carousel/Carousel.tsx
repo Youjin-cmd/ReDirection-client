@@ -4,16 +4,12 @@ import Squares from "./Squares";
 import Button from "../shared/Button";
 import CarouselContainer from "./CarouselContainer";
 import SquaresContainer from "./SquaresContainer";
-
-interface DecoElement {
-  name: string | null;
-  url: string | null;
-}
+import { IDecoElement } from "../types/deco";
 
 interface CarouselProps {
   type: string;
-  itemsList: DecoElement[];
-  setItemsList: (updatedArray: DecoElement[]) => void;
+  itemsList: IDecoElement[];
+  setItemsList: (updatedArray: IDecoElement[]) => void;
 }
 
 const Carousel = React.memo(

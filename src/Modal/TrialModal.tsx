@@ -1,11 +1,11 @@
 import useModalStore from "../store/modal";
 import useProgressStore from "../store/progress";
 import useGetTrialRequest from "../apis/useGetTrialRequest";
+import useTrialStore from "../store/trial";
 
 import Modal from "./Modal";
 import Button from "../shared/Button";
 import LoadingArea from "../Loading/LoadingArea";
-import useTrialStore from "../store/trial";
 
 function TrialModal() {
   const { setShowTrialModal } = useModalStore();
