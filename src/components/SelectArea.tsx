@@ -129,9 +129,9 @@ function SelectArea() {
         </video>
       </VideoWrapper>
       <p className="mb-10 hidden md:block">
-        Click and drag over the desired segment on the motion heatmap
+        Click and drag over the desired segment on the motion heatmap.
         <br />
-        This selected segment will be the area where automatic cropping will
+        This selected segment will be the area where automatic cropping will take place.
       </p>
       <p className="mb-10 block md:hidden">
         Area selection is currently not supported on the mobile device
